@@ -1,4 +1,26 @@
-<p>
-  msr works!
-  <app-requester-tabcontent [msr]="msrBeingEdited" (saveButtonClicked)="saveMsr($event)"></app-requester-tabcontent>
-</p>
+<ngb-tabset>
+  <ngb-tab>
+    <ng-template ngbTabTitle><i class="fa fa-user"></i> Requester</ng-template>
+    <ng-template ngbTabContent>
+      <app-requester-tabcontent [msr]="msrBeingEdited" (saveButtonClicked)="saveMsr($event)"></app-requester-tabcontent>  
+    </ng-template>
+  </ngb-tab>
+  <ngb-tab>
+    <ng-template ngbTabTitle><i class="fa fa-code-fork"></i> JSOAC/JMOC</ng-template>
+    <ng-template ngbTabContent>
+     
+    </ng-template>
+  </ngb-tab>
+  <ngb-tab>
+    <ng-template ngbTabTitle><i class="fa fa-plane"></i> Support Unit</ng-template>
+    <ng-template ngbTabContent>
+     
+    </ng-template>
+  </ngb-tab>
+  <ngb-tab>
+    <ng-template ngbTabTitle><i class="fa fa-comments-o"></i> Status</ng-template>
+    <ng-template ngbTabContent>
+     
+    </ng-template>
+  </ngb-tab>
+</ngb-tabset>

@@ -11,9 +11,22 @@
 </div>
 <div class="row">
   <div class="form-group col-6">
+    <label>Mission Start</label>
+    <div class="input-group">
+      <input class="form-control" [displayMonths]="2" [(ngModel)]="msr.MissionStart" ngbDatepicker #MissionStart="ngbDatepicker">
+      <div class="input-group-addon" (click)="MissionStart.toggle()">
+        <i class="fa fa-calendar"></i>
+      </div>
+    </div>
   </div>
   <div class="form-group col-6">
-
+    <label>Mission End</label>
+    <div class="input-group">
+      <input class="form-control" [displayMonths]="2" [(ngModel)]="msr.MissionEnd" ngbDatepicker #MissionEnd="ngbDatepicker">
+      <div class="input-group-addon" (click)="MissionEnd.toggle()">
+        <i class="fa fa-calendar"></i>
+      </div>
+    </div>
   </div>
 </div>
 <div class="row">

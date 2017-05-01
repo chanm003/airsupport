@@ -11,6 +11,8 @@ import { ChartsModule } from 'ng2-charts/ng2-charts';
 import { SIDEBAR_TOGGLE_DIRECTIVES } from './shared/sidebar.directive';
 import { AsideToggleDirective } from './shared/aside.directive';
 import { BreadcrumbsComponent } from './shared/breadcrumb.component';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+
 
 // Routing Module
 import { AppRoutingModule } from './app.routing';
@@ -20,6 +22,7 @@ import { FullLayoutComponent } from './layouts/full-layout.component';
 
 @NgModule({
   imports: [
+    NgbModule.forRoot(),
     BrowserModule,
     CoreModule,
     ChartsModule,
@@ -33,10 +36,13 @@ import { FullLayoutComponent } from './layouts/full-layout.component';
     SIDEBAR_TOGGLE_DIRECTIVES,
     AsideToggleDirective
   ],
-  providers: [Location, {
-    provide: LocationStrategy,
-    useClass: HashLocationStrategy
-  }],
+  providers: [
+    Location,
+    {
+      provide: LocationStrategy,
+      useClass: HashLocationStrategy
+    }
+  ],
   bootstrap: [ AppComponent ]
 })
 export class AppModule { }
