@@ -1,7 +1,31 @@
-requester-tabcontent works!
+<div class="row">
+  <div class="form-group col-6">
+    
+  </div>
+  <div class="form-group col-6">
+    <label>Operation Type</label>
+    <select [(ngModel)]="msr.OperationType" class="form-control">
+      <option *ngFor="let item of operationTypes" [value]="item">{{item}}</option>
+    </select>
+  </div>
+</div>
+<div class="row">
+  <div class="form-group col-6">
+  </div>
+  <div class="form-group col-6">
+
+  </div>
+</div>
+<div class="row">
+  <div class="form-group col-12">
+    <label>CONOP</label>
+    <textarea [(ngModel)]="msr.Conop" rows="9" class="form-control" placeholder="Concept of Operation"></textarea>
+  </div>
+</div>
+
+
+<button (click)="onSaveButtonClicked()" class="btn btn-primary" type="button"><i class="fa fa-save"></i>&nbsp; Save</button>
 
 <pre> 
   {{msr | json}}
 </pre>
-
-<button (click)="onSaveButtonClicked()" class="btn btn-primary" type="button"><i class="fa fa-star"></i>&nbsp; Save</button>

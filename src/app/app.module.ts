@@ -3,8 +3,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 
 import { AppComponent } from './app.component';
-import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
-import { TabsModule } from 'ngx-bootstrap/tabs';
 import { NAV_DROPDOWN_DIRECTIVES } from './shared/nav-dropdown.directive';
 
 import { CoreModule } from './core/core.module';
@@ -24,8 +22,6 @@ import { FullLayoutComponent } from './layouts/full-layout.component';
   imports: [
     BrowserModule,
     CoreModule,
-    BsDropdownModule.forRoot(),
-    TabsModule.forRoot(),
     ChartsModule,
     AppRoutingModule
   ],
@@ -37,7 +33,7 @@ import { FullLayoutComponent } from './layouts/full-layout.component';
     SIDEBAR_TOGGLE_DIRECTIVES,
     AsideToggleDirective
   ],
-  providers: [{
+  providers: [Location, {
     provide: LocationStrategy,
     useClass: HashLocationStrategy
   }],

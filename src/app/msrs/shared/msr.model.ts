@@ -1,6 +1,9 @@
 export class Msr {
-    Conop: string;
-    OperationType: string;
+    Conop?: string;
+    OperationType?: string;
 
-    constructor(){}
+    MissionEnd?: Date;
+    MissionStart?: Date;
+    constructor() {
+    }
 }
