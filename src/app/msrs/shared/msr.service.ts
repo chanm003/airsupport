@@ -27,6 +27,16 @@ export class MsrService {
     private pagecontextService: PagecontextService) {
   }
 
+  create(msr){
+    return this.pagecontextService.getWeb().lists.getByTitle(this.listName).items.add({
+      OperationType: msr.OperationType,
+      Conop: msr.Conop
+    })
+    .then(r => {
+      console.log(r);
+    });
+  }
+
   getAll() {
     return this.pagecontextService.getWeb().lists.getByTitle(this.listName).items
       .select(...this.fieldsToSelect)
