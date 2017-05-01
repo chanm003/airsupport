@@ -37,7 +37,6 @@ import { FullLayoutComponent } from './layouts/full-layout.component';
     AsideToggleDirective
   ],
   providers: [
-    Location,
     {
       provide: LocationStrategy,
       useClass: HashLocationStrategy

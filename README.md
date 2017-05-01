@@ -1,12 +1,12 @@
 # Air Support
 
-Prototype using Material Theme
+Prototype
 
 ## Development server
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
 ## Run the proxy server to forward requests to SP2013
-Run `npm run sprestproxy` for a proxy server.   Enter credentials for SP2013.  Then start making AJAX requests to `http://localhost/**/_api/` which will forward to `http://someSharePointServer/**/_api/`
+Run `npm run sprestproxy` for a proxy server (use second terminal).   Enter credentials for SP2013.  Then start making AJAX requests to `http://localhost/**/_api/` which will forward to `http://someSharePointServer/**/_api/`
 
 ## Build
 
