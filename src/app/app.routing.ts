@@ -17,10 +17,8 @@ export const routes: Routes = [
       title: 'Home'
     },
     children: [
-      {
-        path: 'dashboard',
-        loadChildren: './dashboard/dashboard.module#DashboardModule'
-      },
+      { path: 'dashboard', loadChildren: './dashboard/dashboard.module#DashboardModule' },
+      { path: 'msrs', loadChildren: './msrs/msrs.module#MsrsModule' }
     ]
   }
 ];
