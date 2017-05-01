@@ -4,7 +4,10 @@ import { Msr } from '../../shared/msr.model';
 @Component({
   selector: 'app-requester-tabcontent',
   templateUrl: './requester-tabcontent.component.html',
-  styles: []
+  styles: [
+    'a.list-group-item { cursor: pointer; }',
+    'a.list-group-item.active:not([href]) { color: white; }'
+  ]
 })
 export class RequesterTabcontentComponent implements OnInit {
   @Output() saveButtonClicked = new EventEmitter<string>();
@@ -26,6 +29,8 @@ export class RequesterTabcontentComponent implements OnInit {
     'Request', 'Personnel/Cargo', 'SAM', 'ST/BA'
   ];
 
+  selectedSectionName = 'Request';
+
   constructor() { }
 
   ngOnInit() {
@@ -35,18 +40,17 @@ export class RequesterTabcontentComponent implements OnInit {
     this.saveButtonClicked.emit('request');
   }
 
-  shouldShowSection(sectionName: string){
-    /*
-    if (sectionName === 'Request') {
-      return true;
-    } else if (sectionName === 'Personnel/Cargo'){
+  shouldShowSection(sectionName: string) {
+    if (sectionName === 'Request') { return true; }
+    if (!this.msr.OperationType) { return false; }
+
+    if (sectionName === 'Personnel/Cargo') {
       return this.msr.OperationType === 'Cargo/Personnel Move';
-    } else if (sectionName === 'SAM'){
+    } else if (sectionName === 'SAM') {
       return this.msr.OperationType === 'AIR Mobility (SAM)';
-    } else if (sectionName === 'ST/BA'){
-      return 'Special Tactics/Battlefield Airman (ST/BAO)';
+    } else if (sectionName === 'ST/BA') {
+      return this.msr.OperationType === 'Special Tactics/Battlefield Airman (ST/BAO)';
     }
-    */
     return false;
   }
 }

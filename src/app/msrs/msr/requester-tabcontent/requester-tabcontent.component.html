@@ -1,43 +1,62 @@
 <div class="row">
-  <div class="form-group col-6">
-    
-  </div>
-  <div class="form-group col-6">
-    <label>Operation Type</label>
-    <select [(ngModel)]="msr.OperationType" class="form-control">
-      <option *ngFor="let item of operationTypes" [value]="item">{{item}}</option>
-    </select>
-  </div>
-</div>
-<div class="row">
-  <div class="form-group col-6">
-    <label>Mission Start</label>
-    <div class="input-group">
-      <input class="form-control" [displayMonths]="2" [(ngModel)]="msr.MissionStart" ngbDatepicker #MissionStart="ngbDatepicker">
-      <div class="input-group-addon" (click)="MissionStart.toggle()">
-        <i class="fa fa-calendar"></i>
-      </div>
+  <div class="col-sm-3 col-md-2">
+    <div class="list-group">
+      <a *ngFor="let item of sectionNames" class="list-group-item" 
+         [ngClass]="{'active': selectedSectionName===item, 'list-group-item-action': selectedSectionName!==item}"
+         (click)="selectedSectionName=item"
+         [style.display]="shouldShowSection(item) ? 'block' :'none'">
+         {{item}}
+      </a>
     </div>
   </div>
-  <div class="form-group col-6">
-    <label>Mission End</label>
-    <div class="input-group">
-      <input class="form-control" [displayMonths]="2" [(ngModel)]="msr.MissionEnd" ngbDatepicker #MissionEnd="ngbDatepicker">
-      <div class="input-group-addon" (click)="MissionEnd.toggle()">
-        <i class="fa fa-calendar"></i>
+  <div class="col-sm-9 col-md-10">
+
+    <!--PRIMARY REQUEST BEGIN-->
+    <div>
+      <div class="row">
+        <div class="form-group col-6">
+
+        </div>
+        <div class="form-group col-6">
+          <label>Operation Type</label>
+          <select [(ngModel)]="msr.OperationType" class="form-control">
+            <option *ngFor="let item of operationTypes" [value]="item">{{item}}</option>
+          </select>
+        </div>
       </div>
-    </div>
-  </div>
-</div>
-<div class="row">
-  <div class="form-group col-12">
-    <label>CONOP</label>
-    <textarea [(ngModel)]="msr.Conop" rows="9" class="form-control" placeholder="Concept of Operation"></textarea>
+      <div class="row">
+        <div class="form-group col-6">
+          <label>Mission Start</label>
+          <div class="input-group">
+            <input class="form-control" [displayMonths]="2" [(ngModel)]="msr.MissionStart" ngbDatepicker #MissionStart="ngbDatepicker">
+            <div class="input-group-addon" (click)="MissionStart.toggle()">
+              <i class="fa fa-calendar"></i>
+            </div>
+          </div>
+        </div>
+        <div class="form-group col-6">
+          <label>Mission End</label>
+          <div class="input-group">
+            <input class="form-control" [displayMonths]="2" [(ngModel)]="msr.MissionEnd" ngbDatepicker #MissionEnd="ngbDatepicker">
+            <div class="input-group-addon" (click)="MissionEnd.toggle()">
+              <i class="fa fa-calendar"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-group col-12">
+          <label>CONOP</label>
+          <textarea [(ngModel)]="msr.Conop" rows="9" class="form-control" placeholder="Concept of Operation"></textarea>
+        </div>
+      </div>
+    </div><!--PRIMARY REQUEST END-->
+
+    <button (click)="onSaveButtonClicked()" class="btn btn-primary" type="button"><i class="fa fa-save"></i>&nbsp; Save</button>
   </div>
 </div>
 
 
-<button (click)="onSaveButtonClicked()" class="btn btn-primary" type="button"><i class="fa fa-save"></i>&nbsp; Save</button>
 
 <pre> 
   {{msr | json}}
