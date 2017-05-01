@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MsrService } from '../shared/msr.service';
 
 @Component({
   selector: 'app-msr-list',
@@ -7,7 +8,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MsrListComponent implements OnInit {
 
-  constructor() { }
+  constructor(private msrService: MsrService) { 
+    this.msrService.getAll().then(r => console.log(r))
+  }
 
   ngOnInit() {
   }

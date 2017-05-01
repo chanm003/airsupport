@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+
+import { Msr } from '../shared/msr.model';
 
 @Component({
   selector: 'app-msr',
@@ -7,9 +10,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MsrComponent implements OnInit {
 
-  constructor() { }
+  constructor(private route: ActivatedRoute) { }
 
   ngOnInit() {
+    this.route.data.subscribe((data: { msr: Msr }) => {
+      console.log(data.msr);
+    });
   }
 
 }

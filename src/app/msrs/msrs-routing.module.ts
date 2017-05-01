@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { MsrComponent } from './msr/msr.component';
 import { MsrListComponent } from './msr-list/msr-list.component';
 import { MsrsComponent } from './msrs.component';
+import { MsrResolver } from './shared/msr-resolver.service';
 
 const routes: Routes = [
   {
@@ -15,7 +16,10 @@ const routes: Routes = [
       },
       {
         path: ':id',
-        component: MsrComponent
+        component: MsrComponent,
+        resolve: {
+          msr: MsrResolver
+        }
       }
     ]
   },
@@ -24,6 +28,7 @@ export const routedComponents = [MsrsComponent, MsrListComponent, MsrComponent];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
+  providers: [MsrResolver]
 })
 export class MsrsRoutingModule { }
