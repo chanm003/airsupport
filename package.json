@@ -12,7 +12,8 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "sprestproxy": "node ./proxyserver/server.js"
   },
   "private": true,
   "dependencies": {
@@ -46,10 +47,11 @@
     "karma": "1.6.0",
     "karma-chrome-launcher": "2.0.0",
     "karma-cli": "1.0.1",
+    "karma-coverage-istanbul-reporter": "1.2.0",
     "karma-jasmine": "1.1.0",
     "karma-jasmine-html-reporter": "0.2.2",
-    "karma-coverage-istanbul-reporter": "1.2.0",
     "protractor": "5.1.1",
+    "sp-rest-proxy": "^1.2.1",
     "ts-node": "3.0.2",
     "tslint": "4.5.1",
     "typescript": "2.2.2"
