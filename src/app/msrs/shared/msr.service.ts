@@ -27,11 +27,8 @@ export class MsrService {
     private pagecontextService: PagecontextService) {
   }
 
-  create(msr){
-    return this.pagecontextService.getWeb().lists.getByTitle(this.listName).items.add({
-      OperationType: msr.OperationType,
-      Conop: msr.Conop
-    })
+  create(msr:Msr){
+    return this.pagecontextService.getWeb().lists.getByTitle(this.listName).items.add(msr.createDto())
     .then(r => {
       console.log(r);
     });

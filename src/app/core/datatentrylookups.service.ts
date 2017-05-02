@@ -66,9 +66,9 @@ export class DatatentrylookupsService {
       });
 
       return {
-          'Support Units': supportUnits,
-          'Requesting Units': data[1],
-          'Owning Units': data[0]
+          supportUnits: supportUnits,
+          requestingUnits: data[1],
+          owningUnits: data[0]
       };
     });
   }

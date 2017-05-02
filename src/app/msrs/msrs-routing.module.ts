@@ -19,7 +19,7 @@ const routes: Routes = [
         path: ':id',
         component: MsrComponent,
         resolve: {
-          msr: MsrResolver
+          data: MsrResolver
         }
       }
     ]

@@ -12,6 +12,7 @@ import { Msr } from '../../shared/msr.model';
 export class RequesterTabcontentComponent implements OnInit {
   @Output() saveButtonClicked = new EventEmitter<string>();
   @Input() msr: Msr;
+  @Input() dataEntryLookups: any;
 
   operationTypes: Array<string> = [
     'Combat Support (ACS)',

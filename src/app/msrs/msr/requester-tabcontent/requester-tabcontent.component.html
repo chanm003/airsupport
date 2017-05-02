@@ -1,13 +1,10 @@
 <div class="row">
   <div class="col-sm-3 col-md-2">
-    <div class="list-group">
-      <a *ngFor="let item of sectionNames" class="list-group-item" 
-         [ngClass]="{'active': selectedSectionName===item, 'list-group-item-action': selectedSectionName!==item}"
-         (click)="selectedSectionName=item"
-         [style.display]="shouldShowSection(item) ? 'block' :'none'">
+      <div *ngFor="let item of sectionNames" [style.display]="shouldShowSection(item) ? 'block' :'none'">
+      <a (click)="selectedSectionName=item">
          {{item}}
       </a>
-    </div>
+      </div>
   </div>
   <div class="col-sm-9 col-md-10">
 
@@ -15,7 +12,10 @@
     <div>
       <div class="row">
         <div class="form-group col-6">
-
+          <label>Requesting Unit</label>
+          <select [(ngModel)]="msr.RequestingUnitId" class="form-control">
+            <option *ngFor="let item of dataEntryLookups.requestingUnits" [ngValue]="item.Id">{{item.Name}}</option>
+          </select>
         </div>
         <div class="form-group col-6">
           <label>Operation Type</label>
@@ -28,7 +28,8 @@
         <div class="form-group col-6">
           <label>Mission Start</label>
           <div class="input-group">
-            <input class="form-control" [displayMonths]="2" [(ngModel)]="msr.MissionStart" ngbDatepicker #MissionStart="ngbDatepicker">
+            <input class="form-control" [displayMonths]="2" [(ngModel)]="msr.MissionStart" ngbDatepicker 
+                #MissionStart="ngbDatepicker">
             <div class="input-group-addon" (click)="MissionStart.toggle()">
               <i class="fa fa-calendar"></i>
             </div>
@@ -37,7 +38,8 @@
         <div class="form-group col-6">
           <label>Mission End</label>
           <div class="input-group">
-            <input class="form-control" [displayMonths]="2" [(ngModel)]="msr.MissionEnd" ngbDatepicker #MissionEnd="ngbDatepicker">
+            <input class="form-control" [displayMonths]="2" [(ngModel)]="msr.MissionEnd" ngbDatepicker 
+                #MissionEnd="ngbDatepicker">
             <div class="input-group-addon" (click)="MissionEnd.toggle()">
               <i class="fa fa-calendar"></i>
             </div>
@@ -55,8 +57,6 @@
     <button (click)="onSaveButtonClicked()" class="btn btn-primary" type="button"><i class="fa fa-save"></i>&nbsp; Save</button>
   </div>
 </div>
-
-
 
 <pre> 
   {{msr | json}}
