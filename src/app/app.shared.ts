@@ -18,7 +18,9 @@ import {NgbDateMomentParserFormatter} from './core/datepickerparser';
   providers: [
     {
       provide: NgbDateParserFormatter,
-      useFactory: () => { return new NgbDateMomentParserFormatter('L'); }
+      useFactory: function(){
+        return new NgbDateMomentParserFormatter('L');
+      }
     }
   ]
 })
