@@ -10,7 +10,7 @@ Run `npm run sprestproxy` for a proxy server (use second terminal).   Enter cred
 
 ## Build
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build.
+Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build.  Run `gulp aspx` to generate a `dist/index.aspx` from `dist/index.html` 
 
 ## Running unit tests
 
