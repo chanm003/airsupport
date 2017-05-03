@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {NgbDateParserFormatter} from '@ng-bootstrap/ng-bootstrap';
-import {NgbDateMomentParserFormatter} from './core/datepickerparser';
+import {NgbDateParserFormatterFactory} from './core/datepickerparser';
 // imports: imports the module's exports. which are usually
 // declarables(components / directives / pipes) and providers.
 // in our case the FilterTextModule has a provider.
@@ -18,9 +18,7 @@ import {NgbDateMomentParserFormatter} from './core/datepickerparser';
   providers: [
     {
       provide: NgbDateParserFormatter,
-      useFactory: function(){
-        return new NgbDateMomentParserFormatter('L');
-      }
+      useFactory: NgbDateParserFormatterFactory
     }
   ]
 })

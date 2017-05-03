@@ -1,7 +1,7 @@
 import {NgbDateParserFormatter, NgbDateStruct} from '@ng-bootstrap/ng-bootstrap';
 import * as moment from 'moment';
 
-export class NgbDateMomentParserFormatter extends NgbDateParserFormatter {
+class NgbDateMomentParserFormatter extends NgbDateParserFormatter {
     constructor(private momentFormat: string) {
         super();
     };
@@ -24,4 +24,8 @@ export class NgbDateMomentParserFormatter extends NgbDateParserFormatter {
                                month: d.month() + 1,
                                day: d.date() } : null;
     }
+}
+
+export function NgbDateParserFormatterFactory() {
+    return new NgbDateMomentParserFormatter('L');
 }
