@@ -1,14 +1,20 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
-import { Web } from 'sp-pnp-js';
+import * as spns from 'sp-pnp-js';
 
 @Injectable()
 export class PagecontextService {
 
-  constructor() { }
+  constructor() {
+    spns.setup({
+        headers: {
+            'Accept': 'application/json; odata=verbose'
+        }
+    });
+  }
 
   getInfo(): SpPageContext {
-    if(environment.production){
+    if (environment.production){
       const spPage = (<any>window);
       return {
         currentWebAbsoluteUrl: spPage._spPageContextInfo.webAbsoluteUrl,
@@ -22,8 +28,8 @@ export class PagecontextService {
     }
   }
 
-  getWeb(): Web{
-    return new Web(this.getInfo().currentWebAbsoluteUrl);
+  getWeb(): spns.Web{
+    return new spns.Web(this.getInfo().currentWebAbsoluteUrl);
   }
 }
 
