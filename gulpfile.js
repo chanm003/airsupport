@@ -18,6 +18,7 @@ var formDigestTag = `
 gulp.task('aspx', function() {
     return gulp.src("./dist/index.html")
         .pipe(replace(new RegExp("<!DOCTYPE.*?>", 'i'), aspxHeader))
+        .pipe(replace(new RegExp("<base.*?>", 'i'), '<base href="./index.aspx">'))
         .pipe(replace(new RegExp(`<body class="app">`, 'i'), `<body class="app">`+formDigestTag))
         .pipe(rename("index.aspx"))
         .pipe(gulp.dest("./dist"));
