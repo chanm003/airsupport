@@ -27,18 +27,22 @@
       <div class="row">
         <div class="form-group col-6">
           <label>Requester</label>
-            <tag-input [(ngModel)]="selectedPeople"
-                       [maxItems]="3"
+            <tag-input [(ngModel)]="msr.SelectedRequesters" 
+                       [maxItems]="1"
                        [ripple]="false"
                        [theme]="'bootstrap'"
-                       [onlyFromAutocomplete]="true"
-                       placeholder="Insert a a person">
-                        <tag-input-dropdown [autocompleteItems]="selectablePeople" [displayBy]="'Title'"
-                                    [identifyBy]="'Id'">
-                        </tag-input-dropdown>
+                       [secondaryPlaceholder]="'Search in Directory'" 
+                       [onlyFromAutocomplete]="true">
+              <tag-input-dropdown [autocompleteObservable]="getMatchingPeople">
+                <ng-template let-item="item" let-index="index">
+                  {{ item.display }}
+                </ng-template>
+              </tag-input-dropdown>
             </tag-input>
         </div>
-        <div class="form-group col-6"></div>
+        <div class="form-group col-6">
+            
+        </div>
       </div>
       <div class="row">
         <div class="form-group col-6">
@@ -73,9 +77,6 @@
     <button (click)="onSaveButtonClicked()" class="btn btn-primary" type="button"><i class="fa fa-save"></i>&nbsp; Save</button>
   </div>
 </div>
-<pre>
-  {{selectedPeople | json}}
-</pre>
 <pre> 
   {{msr | json}}
 </pre>

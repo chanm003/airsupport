@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Msr } from '../../shared/msr.model';
 import * as _ from 'lodash';
+import { PeopleService } from '../../../core/people.service';
 
 @Component({
   selector: 'app-requester-tabcontent',
@@ -33,18 +34,9 @@ export class RequesterTabcontentComponent implements OnInit {
 
   selectedSectionName = 'Request';
 
-  selectablePeople = [
-    { Id: 10, Title: 'Mike Chan' },
-    { Id: 16, Title: 'Deepa Rao' },
-    { Id: 110, Title: 'Chantal Malmstrom' }
-  ];
-  selectedPeople = _.map([{ Id: 10, Title: 'Mike Chan' }], (person) => {
-    (<any>person).display = person.Title;
-    (<any>person).value = person.Id;
-    return person;
-  });
+  getMatchingPeople = this.peopleService.searchUsers;
 
-  constructor() { }
+  constructor(private peopleService: PeopleService) { }
 
   ngOnInit() {
   }
