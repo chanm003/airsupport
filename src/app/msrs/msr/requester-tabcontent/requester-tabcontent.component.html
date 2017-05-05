@@ -26,6 +26,22 @@
       </div>
       <div class="row">
         <div class="form-group col-6">
+          <label>Requester</label>
+            <tag-input [(ngModel)]="selectedPeople"
+                       [maxItems]="3"
+                       [ripple]="false"
+                       [theme]="'bootstrap'"
+                       [onlyFromAutocomplete]="true"
+                       placeholder="Insert a a person">
+                        <tag-input-dropdown [autocompleteItems]="selectablePeople" [displayBy]="'Title'"
+                                    [identifyBy]="'Id'">
+                        </tag-input-dropdown>
+            </tag-input>
+        </div>
+        <div class="form-group col-6"></div>
+      </div>
+      <div class="row">
+        <div class="form-group col-6">
           <label>Mission Start</label>
           <div class="input-group">
             <input class="form-control" [displayMonths]="2" [(ngModel)]="msr.MissionStart" ngbDatepicker 
@@ -57,7 +73,9 @@
     <button (click)="onSaveButtonClicked()" class="btn btn-primary" type="button"><i class="fa fa-save"></i>&nbsp; Save</button>
   </div>
 </div>
-
+<pre>
+  {{selectedPeople | json}}
+</pre>
 <pre> 
   {{msr | json}}
 </pre>
