@@ -6,6 +6,7 @@ export class Msr {
     MissionEnd?: NgbDateStruct;
     MissionStart?: NgbDateStruct;
     OperationType?: string;
+    RequesterEmail?: string;
     RequestingUnit?: any;
     RequestingUnitId?: number;
     SelectedRequesters?: Array<any>;
@@ -40,7 +41,7 @@ export class Msr {
         dto.RequestingUnitId = this.RequestingUnitId;
 
         /*PERSON OR GROUP*/
-        if (this.SelectedRequesters.length === 1) {
+        if (this.SelectedRequesters && this.SelectedRequesters.length === 1) {
             dto.RequesterId = this.SelectedRequesters[0].Id;
         } else {
             dto.RequesterId = null;
@@ -49,6 +50,7 @@ export class Msr {
         /*STRING*/
         dto.Conop = this.Conop;
         dto.OperationType = this.OperationType;
+        dto.RequesterEmail = this.RequesterEmail;
 
         return dto;
     }
@@ -61,8 +63,20 @@ export class Msr {
         /*LOOKUP*/
         this.RequestingUnitId = json.RequestingUnit.Id;
 
+        /*PERSON OR GROUP*/
+        this.SelectedRequesters = [];
+        if (json.Requester && json.Requester.Id) {
+            this.SelectedRequesters.push({
+                Id: json.Requester.Id,
+                Title: json.Requester.Title,
+                value: json.Requester.Id,
+                display: json.Requester.Title
+                });
+        }
+
         /*STRING*/
         this.Conop = json.Conop;
         this.OperationType = json.OperationType;
+        this.RequesterEmail = json.RequesterEmail;
     }
 }

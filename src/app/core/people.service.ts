@@ -9,7 +9,7 @@ export class PeopleService {
 
     searchUsers = (text: string): any => {
       return Observable.fromPromise(this.pagecontextService.getWeb().siteUsers
-        .select('Id', 'Title', 'EMail')
+        .select('Id', 'Title', 'Email')
         .filter(`substringof('${text}',Title)`)
         .orderBy('Title')
         .get())

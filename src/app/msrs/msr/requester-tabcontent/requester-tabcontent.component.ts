@@ -41,6 +41,13 @@ export class RequesterTabcontentComponent implements OnInit {
   ngOnInit() {
   }
 
+  onRequesterAdded() {
+    const selectedPerson = _.last(this.msr.SelectedRequesters);
+    this.msr.RequesterEmail = selectedPerson.Email;
+  }
+  onRequesterRemoved() {
+    this.msr.RequesterEmail = '';
+  }
   onSaveButtonClicked():void{
     this.saveButtonClicked.emit('request');
   }
