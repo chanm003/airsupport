@@ -34,6 +34,13 @@ export class MsrService {
     });
   }
 
+  update(msr:Msr){
+    return this.pagecontextService.getWeb().lists.getByTitle(this.listName).items.getById(msr.Id).update(msr.createDto())
+    .then(r => {
+      console.log(r);
+    });
+  }
+
   getAll() {
     return this.pagecontextService.getWeb().lists.getByTitle(this.listName).items
       .select(...this.fieldsToSelect)

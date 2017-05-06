@@ -42,8 +42,9 @@
               </tag-input-dropdown>
             </tag-input>
         </div>
-        <div class="form-group col-6">
-            
+        <div class="form-group col-6"> 
+          <label for="city">Alt POC</label>
+          <input [(ngModel)]="msr.AltPOC" type="text" class="form-control">
         </div>
       </div>
       <div class="row">
@@ -54,8 +55,28 @@
               <span class="input-group-addon"><i class="fa fa-envelope-o"></i></span>
             </div>
         </div>
+        <div class="form-group col-6"> 
+          <label for="city">Alt Email</label>
+          <div class="input-group">
+            <input [(ngModel)]="msr.AltEmail" type="email" class="form-control">
+            <span class="input-group-addon"><i class="fa fa-envelope-o"></i></span>
+          </div>
+        </div>
+      </div>
+      <div class="row">
         <div class="form-group col-6">
-            
+            <label for="city">Requester Phone</label>
+            <div class="input-group">
+              <input [(ngModel)]="msr.RequesterPhone" type="text" class="form-control">
+              <span class="input-group-addon"><i class="fa fa-phone"></i></span>
+            </div>
+        </div>
+        <div class="form-group col-6">
+            <label for="city">Alt Phone</label>
+            <div class="input-group">
+              <input [(ngModel)]="msr.AltPhone" type="text" class="form-control">
+              <span class="input-group-addon"><i class="fa fa-phone"></i></span>
+            </div>
         </div>
       </div>
       <div class="row">
@@ -86,7 +107,40 @@
           <textarea [(ngModel)]="msr.Conop" rows="9" class="form-control" placeholder="Concept of Operation"></textarea>
         </div>
       </div>
-    </div><!--PRIMARY REQUEST END-->
+      <div class="row">
+        <div class="form-group col-12">
+          <label>Airfields/Locations</label>
+          <textarea [(ngModel)]="msr.AirfieldLocations" rows="6" class="form-control"></textarea>
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-group col-12">
+          <label>Impact if not supported</label>
+          <textarea [(ngModel)]="msr.NegativeImpact" rows="6" class="form-control"></textarea>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-6">
+          <div class="checkbox">
+            <label>
+              <input [(ngModel)]="msr.MedicalSupportRequired" type="checkbox" name="MedicalSupportRequired">
+              Medical Support Required
+            </label>
+          </div>
+          <textarea *ngIf="msr.MedicalSupportRequired" [(ngModel)]="msr.MedicalSupportReqs" rows="6" class="form-control" placeholder="Please elaborate on your medical requireqments"></textarea>
+        </div>
+        <div class="col-6">
+          <div class="checkbox">
+            <label>
+              <input [(ngModel)]="msr.CommunicationSupportRequired" type="checkbox" name="CommunicationSupportRequired">
+              Communications Support Required
+            </label>
+          </div>
+          <textarea *ngIf="msr.CommunicationSupportRequired" [(ngModel)]="msr.CommunicationSupportReqs" rows="6" class="form-control" placeholder="Please elaborate on your communications requireqments"></textarea>
+        </div>
+      </div>
+    </div>
+    <!--PRIMARY REQUEST END-->
 
     <button (click)="onSaveButtonClicked()" class="btn btn-primary" type="button"><i class="fa fa-save"></i>&nbsp; Save</button>
   </div>

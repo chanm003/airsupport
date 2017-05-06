@@ -25,7 +25,11 @@ export class MsrComponent implements OnInit {
   }
 
   saveMsr() {
-    this.msrService.create(this.msrBeingEdited);
+    if(!this.msrBeingEdited.Id){
+      this.msrService.create(this.msrBeingEdited);
+    } else {
+      this.msrService.update(this.msrBeingEdited);
+    }    
   }
 
   setEditMsr(msr: Msr) {

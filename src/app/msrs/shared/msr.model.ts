@@ -2,11 +2,22 @@ import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import * as moment from 'moment/moment';
 
 export class Msr {
+    AirfieldLocations?: string;
+    AltEmail?: string;
+    AltPhone?: string;
+    AltPOC?: string;
+    CommunicationSupportReqs?: string;    
+    CommunicationSupportRequired?: boolean;
     Conop?: string;
+    Id?:number;
+    MedicalSupportReqs?: string;
+    MedicalSupportRequired?: boolean;
     MissionEnd?: NgbDateStruct;
     MissionStart?: NgbDateStruct;
+    NegativeImpact?: string;
     OperationType?: string;
     RequesterEmail?: string;
+    RequesterPhone?: string;
     RequestingUnit?: any;
     RequestingUnitId?: number;
     SelectedRequesters?: Array<any>;
@@ -27,11 +38,19 @@ export class Msr {
     }
 
     convertToIso(dt: NgbDateStruct) {
-        return `${dt.year}-${dt.month}-${dt.day}`;
+        if( dt ){
+            return `${dt.year}-${dt.month}-${dt.day}`;
+        } else {
+            return moment().format('YYYY-MM-DD'); 
+        }
     }
 
     createDto() {
         const dto: any = {};
+
+        /*BOOLEAN*/
+        dto.CommunicationSupportRequired = this.CommunicationSupportRequired;
+        dto.MedicalSupportRequired = this.MedicalSupportRequired;
 
         /*DATETIME*/
         dto.MissionEnd = this.convertToIso(this.MissionEnd);
@@ -48,20 +67,35 @@ export class Msr {
         }
 
         /*STRING*/
+        dto.AirfieldLocations = this.AirfieldLocations;
+        dto.AltEmail = this.AltEmail;
+        dto.AltPhone = this.AltPhone;
+        dto.AltPOC = this.AltPOC;
+        dto.CommunicationSupportReqs = this.CommunicationSupportReqs;
+        dto.MedicalSupportReqs= this.MedicalSupportReqs;
+        dto.NegativeImpact = this.NegativeImpact;
         dto.Conop = this.Conop;
         dto.OperationType = this.OperationType;
         dto.RequesterEmail = this.RequesterEmail;
+        dto.RequesterPhone = this.RequesterPhone;
 
         return dto;
     }
 
     setProperties(json: any) {
+        /*BOOLEAN*/
+        this.CommunicationSupportRequired = json.CommunicationSupportRequired;
+        this.MedicalSupportRequired = json.MedicalSupportRequired;
+
         /*DATETIME*/
         this.MissionEnd = this.convertToBootstrapDate(json.MissionEnd);
         this.MissionStart = this.convertToBootstrapDate(json.MissionStart);
 
         /*LOOKUP*/
         this.RequestingUnitId = json.RequestingUnit.Id;
+
+        /*NUMBER*/
+        this.Id = json.Id;
 
         /*PERSON OR GROUP*/
         this.SelectedRequesters = [];
@@ -75,8 +109,16 @@ export class Msr {
         }
 
         /*STRING*/
+        this.AirfieldLocations = json.AirfieldLocations;
+        this.AltEmail = json.AltEmail;
+        this.AltPhone = json.AltPhone;
+        this.AltPOC = json.AltPOC;
+        this.CommunicationSupportReqs = json.CommunicationSupportReqs;
         this.Conop = json.Conop;
+        this.MedicalSupportReqs = json.MedicalSupportReqs;
+        this.NegativeImpact = json.NegativeImpact;
         this.OperationType = json.OperationType;
         this.RequesterEmail = json.RequesterEmail;
+        this.RequesterPhone = json.RequesterPhone;
     }
 }
