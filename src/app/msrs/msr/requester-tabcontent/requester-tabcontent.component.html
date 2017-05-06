@@ -13,13 +13,13 @@
       <div class="row">
         <div class="form-group col-6">
           <label>Requesting Unit</label>
-          <select [(ngModel)]="msr.RequestingUnitId" class="form-control">
+          <select [(ngModel)]="msr.RequestingUnitId" class="form-control" name="RequestingUnitId">
             <option *ngFor="let item of dataEntryLookups.requestingUnits" [ngValue]="item.Id">{{item.Name}}</option>
           </select>
         </div>
         <div class="form-group col-6">
           <label>Operation Type</label>
-          <select [(ngModel)]="msr.OperationType" class="form-control">
+          <select [(ngModel)]="msr.OperationType" class="form-control" name="OperationType">
             <option *ngFor="let item of operationTypes" [value]="item">{{item}}</option>
           </select>
         </div>
@@ -43,38 +43,38 @@
             </tag-input>
         </div>
         <div class="form-group col-6"> 
-          <label for="city">Alt POC</label>
-          <input [(ngModel)]="msr.AltPOC" type="text" class="form-control">
+          <label>Alt POC</label>
+          <input [(ngModel)]="msr.AltPOC" type="text" class="form-control" name="AltPOC">
         </div>
       </div>
       <div class="row">
         <div class="form-group col-6">
-            <label for="city">Requester Email</label>
+            <label>Requester Email</label>
             <div class="input-group">
-              <input [(ngModel)]="msr.RequesterEmail" type="email" class="form-control">
+              <input [(ngModel)]="msr.RequesterEmail" type="email" class="form-control" name="RequesterEmail">
               <span class="input-group-addon"><i class="fa fa-envelope-o"></i></span>
             </div>
         </div>
         <div class="form-group col-6"> 
-          <label for="city">Alt Email</label>
+          <label>Alt Email</label>
           <div class="input-group">
-            <input [(ngModel)]="msr.AltEmail" type="email" class="form-control">
+            <input [(ngModel)]="msr.AltEmail" type="email" class="form-control" name="AltEmail">
             <span class="input-group-addon"><i class="fa fa-envelope-o"></i></span>
           </div>
         </div>
       </div>
       <div class="row">
         <div class="form-group col-6">
-            <label for="city">Requester Phone</label>
+            <label>Requester Phone</label>
             <div class="input-group">
-              <input [(ngModel)]="msr.RequesterPhone" type="text" class="form-control">
+              <input [(ngModel)]="msr.RequesterPhone" type="text" class="form-control" name="RequesterPhone">
               <span class="input-group-addon"><i class="fa fa-phone"></i></span>
             </div>
         </div>
         <div class="form-group col-6">
-            <label for="city">Alt Phone</label>
+            <label>Alt Phone</label>
             <div class="input-group">
-              <input [(ngModel)]="msr.AltPhone" type="text" class="form-control">
+              <input [(ngModel)]="msr.AltPhone" type="text" class="form-control" name="AltPhone">
               <span class="input-group-addon"><i class="fa fa-phone"></i></span>
             </div>
         </div>
@@ -84,7 +84,7 @@
           <label>Mission Start</label>
           <div class="input-group">
             <input class="form-control" [displayMonths]="2" [(ngModel)]="msr.MissionStart" ngbDatepicker 
-                #MissionStart="ngbDatepicker">
+                #MissionStart="ngbDatepicker" name="MissionStart">
             <div class="input-group-addon" (click)="MissionStart.toggle()">
               <i class="fa fa-calendar"></i>
             </div>
@@ -94,7 +94,7 @@
           <label>Mission End</label>
           <div class="input-group">
             <input class="form-control" [displayMonths]="2" [(ngModel)]="msr.MissionEnd" ngbDatepicker 
-                #MissionEnd="ngbDatepicker">
+                #MissionEnd="ngbDatepicker" name="MissionEnd">
             <div class="input-group-addon" (click)="MissionEnd.toggle()">
               <i class="fa fa-calendar"></i>
             </div>
@@ -104,39 +104,39 @@
       <div class="row">
         <div class="form-group col-12">
           <label>CONOP</label>
-          <textarea [(ngModel)]="msr.Conop" rows="9" class="form-control" placeholder="Concept of Operation"></textarea>
+          <textarea [(ngModel)]="msr.Conop" name="Conop" rows="6" class="form-control" placeholder="Concept of Operation"></textarea>
         </div>
       </div>
       <div class="row">
         <div class="form-group col-12">
           <label>Airfields/Locations</label>
-          <textarea [(ngModel)]="msr.AirfieldLocations" rows="6" class="form-control"></textarea>
+          <textarea [(ngModel)]="msr.AirfieldLocations" rows="6" class="form-control" name="AirfieldLocations"></textarea>
         </div>
       </div>
       <div class="row">
         <div class="form-group col-12">
           <label>Impact if not supported</label>
-          <textarea [(ngModel)]="msr.NegativeImpact" rows="6" class="form-control"></textarea>
+          <textarea [(ngModel)]="msr.NegativeImpact" rows="6" class="form-control" name="NegativeImpact"></textarea>
         </div>
       </div>
       <div class="row">
-        <div class="col-6">
+        <div class="form-group col-6">
           <div class="checkbox">
             <label>
               <input [(ngModel)]="msr.MedicalSupportRequired" type="checkbox" name="MedicalSupportRequired">
               Medical Support Required
             </label>
           </div>
-          <textarea *ngIf="msr.MedicalSupportRequired" [(ngModel)]="msr.MedicalSupportReqs" rows="6" class="form-control" placeholder="Please elaborate on your medical requireqments"></textarea>
+          <textarea *ngIf="msr.MedicalSupportRequired" [(ngModel)]="msr.MedicalSupportReqs" name="MedicalSupportReqs" rows="6" class="form-control" placeholder="Please elaborate on your medical requireqments"></textarea>
         </div>
-        <div class="col-6">
+        <div class="form-group col-6">
           <div class="checkbox">
             <label>
               <input [(ngModel)]="msr.CommunicationSupportRequired" type="checkbox" name="CommunicationSupportRequired">
               Communications Support Required
             </label>
           </div>
-          <textarea *ngIf="msr.CommunicationSupportRequired" [(ngModel)]="msr.CommunicationSupportReqs" rows="6" class="form-control" placeholder="Please elaborate on your communications requireqments"></textarea>
+          <textarea *ngIf="msr.CommunicationSupportRequired" [(ngModel)]="msr.CommunicationSupportReqs" name="CommunicationSupportReqs" rows="6" class="form-control" placeholder="Please elaborate on your communications requireqments"></textarea>
         </div>
       </div>
     </div>
