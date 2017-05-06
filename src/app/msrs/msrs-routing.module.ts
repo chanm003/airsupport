@@ -5,6 +5,7 @@ import { MsrListComponent } from './msr-list/msr-list.component';
 import { MsrsComponent } from './msrs.component';
 import { MsrResolver } from './shared/msr-resolver.service';
 import { RequesterTabcontentComponent } from './msr/requester-tabcontent/requester-tabcontent.component';
+import { CargoformComponent } from './msr/requester-tabcontent/cargoform/cargoform.component';
 
 const routes: Routes = [
   {
@@ -25,7 +26,13 @@ const routes: Routes = [
     ]
   },
 ];
-export const routedComponents = [MsrsComponent, MsrListComponent, MsrComponent, RequesterTabcontentComponent];
+export const routedComponents = [
+  MsrsComponent, 
+  MsrListComponent, 
+  MsrComponent, 
+  RequesterTabcontentComponent, 
+  CargoformComponent
+];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
