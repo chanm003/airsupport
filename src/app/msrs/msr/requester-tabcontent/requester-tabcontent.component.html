@@ -26,6 +26,40 @@
       </div>
       <div class="row">
         <div class="form-group col-6">
+          <label>Requester</label>
+            <tag-input [(ngModel)]="msr.SelectedRequesters" 
+                       [maxItems]="1"
+                       [ripple]="false"
+                       [theme]="'bootstrap'"
+                       [secondaryPlaceholder]="'Search in Directory'" 
+                       [onlyFromAutocomplete]="true"
+                       (onAdd)="onRequesterAdded($event)"
+                       (onRemove)="onRequesterRemoved($event)">
+              <tag-input-dropdown [autocompleteObservable]="getMatchingPeople">
+                <ng-template let-item="item" let-index="index">
+                  {{ item.display }}
+                </ng-template>
+              </tag-input-dropdown>
+            </tag-input>
+        </div>
+        <div class="form-group col-6">
+            
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-group col-6">
+            <label for="city">Requester Email</label>
+            <div class="input-group">
+              <input [(ngModel)]="msr.RequesterEmail" type="email" class="form-control">
+              <span class="input-group-addon"><i class="fa fa-envelope-o"></i></span>
+            </div>
+        </div>
+        <div class="form-group col-6">
+            
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-group col-6">
           <label>Mission Start</label>
           <div class="input-group">
             <input class="form-control" [displayMonths]="2" [(ngModel)]="msr.MissionStart" ngbDatepicker 
@@ -57,7 +91,6 @@
     <button (click)="onSaveButtonClicked()" class="btn btn-primary" type="button"><i class="fa fa-save"></i>&nbsp; Save</button>
   </div>
 </div>
-
 <pre> 
   {{msr | json}}
 </pre>

@@ -12,7 +12,7 @@ import { SIDEBAR_TOGGLE_DIRECTIVES } from './shared/sidebar.directive';
 import { AsideToggleDirective } from './shared/aside.directive';
 import { BreadcrumbsComponent } from './shared/breadcrumb.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 // Routing Module
 import { AppRoutingModule } from './app.routing';
@@ -25,6 +25,7 @@ import { FullLayoutComponent } from './layouts/full-layout.component';
     NgbModule.forRoot(),
     BrowserModule,
     CoreModule,
+    BrowserAnimationsModule,
     ChartsModule,
     AppRoutingModule
   ],

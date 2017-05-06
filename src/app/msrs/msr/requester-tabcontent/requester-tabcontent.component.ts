@@ -1,5 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Msr } from '../../shared/msr.model';
+import * as _ from 'lodash';
+import { PeopleService } from '../../../core/people.service';
 
 @Component({
   selector: 'app-requester-tabcontent',
@@ -32,11 +34,20 @@ export class RequesterTabcontentComponent implements OnInit {
 
   selectedSectionName = 'Request';
 
-  constructor() { }
+  getMatchingPeople = this.peopleService.searchUsers;
+
+  constructor(private peopleService: PeopleService) { }
 
   ngOnInit() {
   }
 
+  onRequesterAdded() {
+    const selectedPerson = _.last(this.msr.SelectedRequesters);
+    this.msr.RequesterEmail = selectedPerson.Email;
+  }
+  onRequesterRemoved() {
+    this.msr.RequesterEmail = '';
+  }
   onSaveButtonClicked():void{
     this.saveButtonClicked.emit('request');
   }
