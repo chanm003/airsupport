@@ -7,6 +7,7 @@ import { MsrResolver } from './shared/msr-resolver.service';
 import { RequesterTabcontentComponent } from './msr/requester-tabcontent/requester-tabcontent.component';
 import { CargoformComponent } from './msr/requester-tabcontent/cargoform/cargoform.component';
 import { AirmobilityformComponent } from './msr/requester-tabcontent/airmobilityform/airmobilityform.component';
+import { SpecialtacticsformComponent } from './msr/requester-tabcontent/specialtacticsform/specialtacticsform.component';
 
 const routes: Routes = [
   {
@@ -33,7 +34,8 @@ export const routedComponents = [
   MsrComponent, 
   RequesterTabcontentComponent,
   AirmobilityformComponent,
-  CargoformComponent
+  CargoformComponent,
+  SpecialtacticsformComponent
 ];
 
 @NgModule({
