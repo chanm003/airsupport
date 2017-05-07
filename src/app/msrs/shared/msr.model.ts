@@ -40,6 +40,7 @@ export class Msr {
     ParachuteTypeOther?: string;
     Pararescue?: string;
     PaxBaggageWeight?: number;
+    PNForces:Array<PNForce>;
     RappelRequired?: boolean;
     RequesterEmail?: string;
     RequesterPhone?: string;
@@ -54,6 +55,8 @@ export class Msr {
         if (json) {
             this.setProperties(json);
             console.log(json);
+        } else {
+            this.PNForces = [];
         }
     }
 
@@ -90,6 +93,9 @@ export class Msr {
         /*DATETIME*/
         dto.MissionEnd = this.convertToIso(this.MissionEnd);
         dto.MissionStart = this.convertToIso(this.MissionStart);
+
+        /*JSON*/
+        dto.PNForces = JSON.stringify(this.PNForces);
 
         /*LOOKUP*/
         dto.RequestingUnitId = this.RequestingUnitId;
@@ -156,6 +162,9 @@ export class Msr {
         this.MissionEnd = this.convertToBootstrapDate(json.MissionEnd);
         this.MissionStart = this.convertToBootstrapDate(json.MissionStart);
 
+        /*JSON*/
+        this.PNForces = JSON.parse(json.PNForces);
+
         /*LOOKUP*/
         this.RequestingUnitId = json.RequestingUnit.Id;
 
@@ -209,4 +218,10 @@ export class Msr {
         this.Surveys = json.Surveys;
         this.TypeRelease = json.TypeRelease;
     }
+}
+
+export class PNForce {
+    name: string;
+    number: number;
+    parachuteType: string;
 }

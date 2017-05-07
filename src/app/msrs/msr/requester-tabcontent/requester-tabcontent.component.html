@@ -141,9 +141,10 @@
       </div>
     </div>
     <!--PRIMARY REQUEST END-->
-    <app-cargoform *ngIf="msr.OperationType === 'Cargo/Personnel Move'" [msr]="msr"></app-cargoform>
-    <app-airmobilityform *ngIf="msr.OperationType === 'AIR Mobility (SAM)'" [msr]="msr"></app-airmobilityform>
-    <app-specialtacticsform *ngIf="msr.OperationType === 'Special Tactics/Battlefield Airman (ST/BAO)'" [msr]="msr"></app-specialtacticsform>
+    <app-cargoform [msr]="msr"></app-cargoform>
+    <app-airmobilityform [msr]="msr"></app-airmobilityform>
+    <app-specialtacticsform [msr]="msr"></app-specialtacticsform>
+    <app-pnforces [msr]="msr"></app-pnforces>
     <button (click)="onSaveButtonClicked()" class="btn btn-primary" type="button"><i class="fa fa-save"></i>&nbsp; Save</button>
   </div>
 </div>

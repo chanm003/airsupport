@@ -8,6 +8,7 @@ import { RequesterTabcontentComponent } from './msr/requester-tabcontent/request
 import { CargoformComponent } from './msr/requester-tabcontent/cargoform/cargoform.component';
 import { AirmobilityformComponent } from './msr/requester-tabcontent/airmobilityform/airmobilityform.component';
 import { SpecialtacticsformComponent } from './msr/requester-tabcontent/specialtacticsform/specialtacticsform.component';
+import { PnforcesComponent } from './msr/requester-tabcontent/pnforces/pnforces.component';
 
 const routes: Routes = [
   {
@@ -35,7 +36,8 @@ export const routedComponents = [
   RequesterTabcontentComponent,
   AirmobilityformComponent,
   CargoformComponent,
-  SpecialtacticsformComponent
+  SpecialtacticsformComponent,
+  PnforcesComponent
 ];
 
 @NgModule({

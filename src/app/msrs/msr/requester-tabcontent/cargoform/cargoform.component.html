@@ -1,59 +1,61 @@
-<div class="row">
-  <div class="form-group col-6">
-    <label># PAX</label>
-    <input [(ngModel)]="msr.NumberOfPAX" type="number" min="1" class="form-control" name="NumberOfPAX">
-  </div>
-  <div class="form-group col-6">
-    <label>Pax Baggage Weight</label>
-    <div class="input-group">
-      <input [(ngModel)]="msr.PaxBaggageWeight" type="number" min="1" class="form-control" name="PaxBaggageWeight">
-      <span class="input-group-addon">lbs</span>
+<div *ngIf="msr.OperationType === 'Cargo/Personnel Move'">  
+  <div class="row">
+    <div class="form-group col-6">
+      <label># PAX</label>
+      <input [(ngModel)]="msr.NumberOfPAX" type="number" min="1" class="form-control" name="NumberOfPAX">
+    </div>
+    <div class="form-group col-6">
+      <label>Pax Baggage Weight</label>
+      <div class="input-group">
+        <input [(ngModel)]="msr.PaxBaggageWeight" type="number" min="1" class="form-control" name="PaxBaggageWeight">
+        <span class="input-group-addon">lbs</span>
+      </div>
     </div>
   </div>
-</div>
 
-<div class="row">
-  <div class="form-group col-6">
-    <label># Pallets</label>
-    <input [(ngModel)]="msr.NumberOfPallets" type="number" min="1" class="form-control" name="NumberOfPallets">
-  </div>
-  <div class="form-group col-6">
-    <label>#ISU / Type</label>
-    <input [(ngModel)]="msr.IsuType" type="text" class="form-control" name="IsuType">
-  </div>
-</div>
-
-<div class="row">
-  <div class="form-group col-6">
-    <label>Pallet Weight</label>
-    <div class="input-group">
-      <input [(ngModel)]="msr.PalletWeight" type="number" min="1" class="form-control" name="PalletWeight">
-      <span class="input-group-addon">lbs</span>
+  <div class="row">
+    <div class="form-group col-6">
+      <label># Pallets</label>
+      <input [(ngModel)]="msr.NumberOfPallets" type="number" min="1" class="form-control" name="NumberOfPallets">
+    </div>
+    <div class="form-group col-6">
+      <label>#ISU / Type</label>
+      <input [(ngModel)]="msr.IsuType" type="text" class="form-control" name="IsuType">
     </div>
   </div>
-  <div class="form-group col-6">
-    <label>ISU Weight</label>
-    <div class="input-group">
-      <input [(ngModel)]="msr.IsuWeight" type="number" min="1" class="form-control" name="IsuWeight">
-      <span class="input-group-addon">lbs</span>
+
+  <div class="row">
+    <div class="form-group col-6">
+      <label>Pallet Weight</label>
+      <div class="input-group">
+        <input [(ngModel)]="msr.PalletWeight" type="number" min="1" class="form-control" name="PalletWeight">
+        <span class="input-group-addon">lbs</span>
+      </div>
+    </div>
+    <div class="form-group col-6">
+      <label>ISU Weight</label>
+      <div class="input-group">
+        <input [(ngModel)]="msr.IsuWeight" type="number" min="1" class="form-control" name="IsuWeight">
+        <span class="input-group-addon">lbs</span>
+      </div>
     </div>
   </div>
-</div>
 
-<div class="row">
-  <div class="form-group col-6">
-    <div class="checkbox">
-      <label>
-        <input [(ngModel)]="msr.HazmatRequired" type="checkbox" name="HazmatRequired">
-        HAZMAT
-        </label>
+  <div class="row">
+    <div class="form-group col-6">
+      <div class="checkbox">
+        <label>
+          <input [(ngModel)]="msr.HazmatRequired" type="checkbox" name="HazmatRequired">
+          HAZMAT
+          </label>
+      </div>
     </div>
   </div>
-</div>
 
-<div class="row">
-  <div class="form-group col-12">
-    <label>Amplifying Detail</label>
-    <textarea [(ngModel)]="msr.AmplifyingDetail" rows="6" class="form-control" name="AmplifyingDetail"></textarea>
+  <div class="row">
+    <div class="form-group col-12">
+      <label>Amplifying Detail</label>
+      <textarea [(ngModel)]="msr.AmplifyingDetail" rows="6" class="form-control" name="AmplifyingDetail"></textarea>
+    </div>
   </div>
 </div>

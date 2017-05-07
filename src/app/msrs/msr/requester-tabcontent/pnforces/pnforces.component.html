@@ -1,0 +1,41 @@
+<div *ngIf="shouldShow()" class="card card-accent-info">
+  <div class="card-header">
+    PN Forces
+  </div>
+  <div class="card-block">
+    <div *ngIf="msr.PNForces.length === 0" class="alert alert-info" role="alert">
+      	<i class="fa fa-info-circle" aria-hidden="true"></i> Click on the button below to start adding PN forces.
+    </div>
+
+    <table *ngIf="msr.PNForces.length" class="table table-sm">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>PAX</th>
+          <th *ngIf="showParachuteType()">Parachute Type</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of msr.PNForces; let i = index;">
+          <td>
+            <input [(ngModel)]="item.name" type="text" class="form-control" name="PNForce_name">
+          </td>
+          <td>
+            <input [(ngModel)]="item.number" type="number" min="1" class="form-control" name="PNForce_number">
+          </td>
+          <td *ngIf="showParachuteType()">
+            <input [(ngModel)]="item.parachuteType" type="text" class="form-control" name="PNForce_parachuteType">
+          </td>
+          <td>
+            <button (click)="removeItem(i)" type="button" class="btn btn-secondary"><i class="fa fa-trash fa-lg"></i></button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <button type="button" class="btn btn-secondary" (click)="addItem()">
+      <i class="fa fa-plus"></i>&nbsp; {{getButtonText()}}
+    </button>
+  </div>
+</div>
