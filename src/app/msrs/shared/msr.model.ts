@@ -3,6 +3,7 @@ import * as moment from 'moment/moment';
 
 export class Msr {
     AirfieldLocations?: string;
+    AirMobilityType?: string;
     AltEmail?: string;
     AltPhone?: string;
     AltPOC?: string;
@@ -10,8 +11,15 @@ export class Msr {
     CommunicationSupportReqs?: string;    
     CommunicationSupportRequired?: boolean;
     Conop?: string;
+    EstimatedDimensionsHeight?: number;
+    EstimatedDimensionsLength?: number;
+    EstimatedWeight?: number;
+    FastRopeRequired?: string;
+    FFEquipment?: string;
     HazmatRequired?: boolean;
+    HoistRequired?: boolean;
     Id?:number;
+    InfillExfillType?: string;
     IsuType?: string;
     IsuWeight?: number;
     MedicalSupportReqs?: string;
@@ -21,14 +29,23 @@ export class Msr {
     NegativeImpact?: string;
     NumberOfPallets?: number;
     NumberOfPAX?: number;
+    NumberOfPersonnel?: number;
+    NumberOfRefuelPointsRequired?: number;
     OperationType?: string;
+    OtherAIE?: string;
     PalletWeight?: number;
+    ParachuteType?: string;
+    ParachuteTypeOther?: string;
     PaxBaggageWeight?: number;
+    RappelRequired?: boolean;
     RequesterEmail?: string;
     RequesterPhone?: string;
     RequestingUnit?: any;
     RequestingUnitId?: number;
     SelectedRequesters?: Array<any>;
+    SurveysRequired?: boolean;
+    TypeRelease?: string;
+    VehiclesRequired?: boolean;
     constructor(json?: any) {
         if (json) {
             this.setProperties(json);
@@ -58,8 +75,13 @@ export class Msr {
 
         /*BOOLEAN*/
         dto.CommunicationSupportRequired = this.CommunicationSupportRequired;
+        dto.FastRopeRequired = this.FastRopeRequired;
         dto.HazmatRequired = this.HazmatRequired;
+        dto.HoistRequired = this.HoistRequired;
         dto.MedicalSupportRequired = this.MedicalSupportRequired;
+        dto.RappelRequired = this.RappelRequired;
+        dto.SurveysRequired = this.SurveysRequired;
+        dto.VehiclesRequired = this.VehiclesRequired;
 
         /*DATETIME*/
         dto.MissionEnd = this.convertToIso(this.MissionEnd);
@@ -69,9 +91,14 @@ export class Msr {
         dto.RequestingUnitId = this.RequestingUnitId;
 
         /*NUMBER*/
+        dto.EstimatedDimensionsHeight = this.EstimatedDimensionsHeight;
+        dto.EstimatedDimensionsLength = this.EstimatedDimensionsLength;
+        dto.EstimatedWeight = this.EstimatedWeight;
         dto.IsuWeight = this.IsuWeight;
         dto.NumberOfPallets = this.NumberOfPallets;
         dto.NumberOfPAX = this.NumberOfPAX;
+        dto.NumberOfPersonnel = this.NumberOfPersonnel;
+        dto.NumberOfRefuelPointsRequired = this.NumberOfRefuelPointsRequired;
         dto.PalletWeight = this.PalletWeight;
         dto.PaxBaggageWeight = this.PaxBaggageWeight;
 
@@ -84,27 +111,38 @@ export class Msr {
 
         /*STRING*/
         dto.AirfieldLocations = this.AirfieldLocations;
+        dto.AirMobilityType = this.AirMobilityType;
         dto.AltEmail = this.AltEmail;
         dto.AltPhone = this.AltPhone;
         dto.AltPOC = this.AltPOC;
         dto.AmplifyingDetail = this.AmplifyingDetail;
         dto.CommunicationSupportReqs = this.CommunicationSupportReqs;
+        dto.Conop = this.Conop;
+        dto.FFEquipment = this.FFEquipment;
+        dto.InfillExfillType = this.InfillExfillType;
         dto.IsuType = this.IsuType;
         dto.MedicalSupportReqs= this.MedicalSupportReqs;
         dto.NegativeImpact = this.NegativeImpact;
-        dto.Conop = this.Conop;
         dto.OperationType = this.OperationType;
+        dto.OtherAIE = this.OtherAIE;
+        dto.ParachuteType = this.ParachuteType;
+        dto.ParachuteTypeOther = this.ParachuteTypeOther;
         dto.RequesterEmail = this.RequesterEmail;
         dto.RequesterPhone = this.RequesterPhone;
-
+        dto.TypeRelease = this.TypeRelease;
         return dto;
     }
 
     setProperties(json: any) {
         /*BOOLEAN*/
         this.CommunicationSupportRequired = json.CommunicationSupportRequired;
+        this.FastRopeRequired = json.FastRopeRequired;
         this.HazmatRequired = json.HazmatRequired;
+        this.HoistRequired = json.HoistRequired;
         this.MedicalSupportRequired = json.MedicalSupportRequired;
+        this.RappelRequired = json.RappelRequired;
+        this.SurveysRequired = json.SurveysRequired;
+        this.VehiclesRequired = json.VehiclesRequired;
 
         /*DATETIME*/
         this.MissionEnd = this.convertToBootstrapDate(json.MissionEnd);
@@ -114,10 +152,15 @@ export class Msr {
         this.RequestingUnitId = json.RequestingUnit.Id;
 
         /*NUMBER*/
+        this.EstimatedDimensionsHeight = json.EstimatedDimensionsHeight;
+        this.EstimatedDimensionsLength = json.EstimatedDimensionsLength;
+        this.EstimatedWeight = json.EstimatedWeight;
         this.Id = json.Id;
         this.IsuWeight = json.IsuWeight;
         this.NumberOfPallets = json.NumberOfPallets;
         this.NumberOfPAX = json.NumberOfPAX;
+        this.NumberOfPersonnel = json.NumberOfPersonnel;
+        this.NumberOfRefuelPointsRequired = json.NumberOfRefuelPointsRequired;
         this.PalletWeight = json.PalletWeight;
         this.PaxBaggageWeight = json.PaxBaggageWeight;
 
@@ -134,17 +177,24 @@ export class Msr {
 
         /*STRING*/
         this.AirfieldLocations = json.AirfieldLocations;
+        this.AirMobilityType = json.AirMobilityType;
         this.AltEmail = json.AltEmail;
         this.AltPhone = json.AltPhone;
         this.AltPOC = json.AltPOC;
         this.AmplifyingDetail = json.AmplifyingDetail;
         this.CommunicationSupportReqs = json.CommunicationSupportReqs;
         this.Conop = json.Conop;
+        this.FFEquipment = json.FFEquipment;
+        this.InfillExfillType = json.InfillExfillType;
         this.IsuType = json.IsuType;
         this.MedicalSupportReqs = json.MedicalSupportReqs;
         this.NegativeImpact = json.NegativeImpact;
         this.OperationType = json.OperationType;
+        this.OtherAIE = json.OtherAIE;
+        this.ParachuteType = json.ParachuteType;
+        this.ParachuteTypeOther = json.ParachuteTypeOther;
         this.RequesterEmail = json.RequesterEmail;
         this.RequesterPhone = json.RequesterPhone;
+        this.TypeRelease = json.TypeRelease;
     }
 }
