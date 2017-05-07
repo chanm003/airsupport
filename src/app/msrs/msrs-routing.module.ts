@@ -6,6 +6,7 @@ import { MsrsComponent } from './msrs.component';
 import { MsrResolver } from './shared/msr-resolver.service';
 import { RequesterTabcontentComponent } from './msr/requester-tabcontent/requester-tabcontent.component';
 import { CargoformComponent } from './msr/requester-tabcontent/cargoform/cargoform.component';
+import { AirmobilityformComponent } from './msr/requester-tabcontent/airmobilityform/airmobilityform.component';
 
 const routes: Routes = [
   {
@@ -30,7 +31,8 @@ export const routedComponents = [
   MsrsComponent, 
   MsrListComponent, 
   MsrComponent, 
-  RequesterTabcontentComponent, 
+  RequesterTabcontentComponent,
+  AirmobilityformComponent,
   CargoformComponent
 ];
 

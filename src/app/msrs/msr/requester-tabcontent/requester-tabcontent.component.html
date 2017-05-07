@@ -141,7 +141,8 @@
       </div>
     </div>
     <!--PRIMARY REQUEST END-->
-    <app-cargoform [msr]="msr"></app-cargoform>
+    <app-cargoform *ngIf="msr.OperationType === 'Cargo/Personnel Move'" [msr]="msr"></app-cargoform>
+    <app-airmobilityform [msr]="msr"></app-airmobilityform>
     <button (click)="onSaveButtonClicked()" class="btn btn-primary" type="button"><i class="fa fa-save"></i>&nbsp; Save</button>
   </div>
 </div>
