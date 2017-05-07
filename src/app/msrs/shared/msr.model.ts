@@ -22,6 +22,8 @@ export class Msr {
     InfillExfillType?: string;
     IsuType?: string;
     IsuWeight?: number;
+    JtacCasType?: string;
+    JtacFireType?: string;
     MedicalSupportReqs?: string;
     MedicalSupportRequired?: boolean;
     MissionEnd?: NgbDateStruct;
@@ -36,6 +38,7 @@ export class Msr {
     PalletWeight?: number;
     ParachuteType?: string;
     ParachuteTypeOther?: string;
+    Pararescue?: string;
     PaxBaggageWeight?: number;
     RappelRequired?: boolean;
     RequesterEmail?: string;
@@ -43,6 +46,7 @@ export class Msr {
     RequestingUnit?: any;
     RequestingUnitId?: number;
     SelectedRequesters?: Array<any>;
+    Surveys?: string;
     SurveysRequired?: boolean;
     TypeRelease?: string;
     VehiclesRequired?: boolean;
@@ -121,14 +125,18 @@ export class Msr {
         dto.FFEquipment = this.FFEquipment;
         dto.InfillExfillType = this.InfillExfillType;
         dto.IsuType = this.IsuType;
+        dto.JtacCasType = this.JtacCasType;
+        dto.JtacFireType = this.JtacFireType;
         dto.MedicalSupportReqs= this.MedicalSupportReqs;
         dto.NegativeImpact = this.NegativeImpact;
         dto.OperationType = this.OperationType;
         dto.OtherAIE = this.OtherAIE;
         dto.ParachuteType = this.ParachuteType;
         dto.ParachuteTypeOther = this.ParachuteTypeOther;
+        dto.Pararescue = this.Pararescue;
         dto.RequesterEmail = this.RequesterEmail;
         dto.RequesterPhone = this.RequesterPhone;
+        dto.Surveys = this.Surveys;
         dto.TypeRelease = this.TypeRelease;
         return dto;
     }
@@ -187,14 +195,18 @@ export class Msr {
         this.FFEquipment = json.FFEquipment;
         this.InfillExfillType = json.InfillExfillType;
         this.IsuType = json.IsuType;
+        this.JtacCasType = json.JtacCasType;
+        this.JtacFireType = json.JtacFireType;
         this.MedicalSupportReqs = json.MedicalSupportReqs;
         this.NegativeImpact = json.NegativeImpact;
         this.OperationType = json.OperationType;
         this.OtherAIE = json.OtherAIE;
         this.ParachuteType = json.ParachuteType;
         this.ParachuteTypeOther = json.ParachuteTypeOther;
+        this.Pararescue = json.Pararescue;
         this.RequesterEmail = json.RequesterEmail;
         this.RequesterPhone = json.RequesterPhone;
+        this.Surveys = json.Surveys;
         this.TypeRelease = json.TypeRelease;
     }
 }
