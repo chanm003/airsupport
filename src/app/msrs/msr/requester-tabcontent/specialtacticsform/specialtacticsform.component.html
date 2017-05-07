@@ -1,75 +1,77 @@
-<div class="row">
-  <div class="form-group col-12">
-    <label>JTAC/CAS</label>
-    <div>
-      <label class="radio-inline">
-        <input type="radio" name="JtacCasType" [(ngModel)]="msr.JtacCasType" value="RW">
-         RW
-      </label>
-      <label class="radio-inline">
-        <input type="radio" name="JtacCasType" [(ngModel)]="msr.JtacCasType" value="PW">
-        PW
-      </label>
-    </div>
-    <div>
-      <label class="radio-inline">
-        <input type="radio" name="JtacFireType" [(ngModel)]="msr.JtacFireType" value="Dry Fire">
-        Dry Fire
-      </label>
-      <label class="radio-inline">
-        <input type="radio" name="JtacFireType" [(ngModel)]="msr.JtacFireType" value="Live Fire">
-        Live Fire
-      </label>
-    </div>
-  </div>
-</div>
-
-<div class="row">
-  <div class="form-group col-12">
-    <label>Pararescue (PJ):</label>
-    <div>
-      <label class="radio-inline">
-        <input type="radio" name="Pararescue" [(ngModel)]="msr.Pararescue" value="Personnel Recovery">
-        Personnel Recovery
-      </label>
-      <label class="radio-inline">
-        <input type="radio" name="Pararescue" [(ngModel)]="msr.Pararescue" value="CSAR/SAR/Martime Rescue">
-        CSAR/SAR/Martime Rescue
-      </label>
-      <label class="radio-inline">
-        <input type="radio" name="Pararescue" [(ngModel)]="msr.Pararescue" value="High Angle Rescue">
-        High Angle Rescue
-      </label>
-      <label class="radio-inline">
-        <input type="radio" name="Pararescue" [(ngModel)]="msr.Pararescue" value="Collapsed Structure">
-        Collapsed Structure
-      </label>
-
+<div *ngIf="msr.OperationType === 'Special Tactics/Battlefield Airman (ST/BAO)'">
+  <div class="row">
+    <div class="form-group col-12">
+      <label>JTAC/CAS</label>
+      <div>
+        <label class="radio-inline">
+          <input type="radio" name="JtacCasType" [(ngModel)]="msr.JtacCasType" value="RW">
+          RW
+        </label>
+        <label class="radio-inline">
+          <input type="radio" name="JtacCasType" [(ngModel)]="msr.JtacCasType" value="PW">
+          PW
+        </label>
+      </div>
+      <div>
+        <label class="radio-inline">
+          <input type="radio" name="JtacFireType" [(ngModel)]="msr.JtacFireType" value="Dry Fire">
+          Dry Fire
+        </label>
+        <label class="radio-inline">
+          <input type="radio" name="JtacFireType" [(ngModel)]="msr.JtacFireType" value="Live Fire">
+          Live Fire
+        </label>
+      </div>
     </div>
   </div>
-</div>
 
-<div class="row">
-  <div class="form-group col-12">
-    <label>Survey(s):</label>
-    <div>
-      <label class="radio-inline">
-        <input type="radio" name="Surveys" [(ngModel)]="msr.Surveys" value="Airfield">
-        Airfield
-      </label>
-      <label class="radio-inline">
-        <input type="radio" name="Surveys" [(ngModel)]="msr.Surveys" value="LZ">
-        LZ
-      </label>
-      <label class="radio-inline">
-        <input type="radio" name="Surveys" [(ngModel)]="msr.Surveys" value="DZ">
-        DZ
-      </label>
-      <label class="radio-inline">
-        <input type="radio" name="Surveys" [(ngModel)]="msr.Surveys" value="FARP">
-        FARP
-      </label>
+  <div class="row">
+    <div class="form-group col-12">
+      <label>Pararescue (PJ):</label>
+      <div>
+        <label class="radio-inline">
+          <input type="radio" name="Pararescue" [(ngModel)]="msr.Pararescue" value="Personnel Recovery">
+          Personnel Recovery
+        </label>
+        <label class="radio-inline">
+          <input type="radio" name="Pararescue" [(ngModel)]="msr.Pararescue" value="CSAR/SAR/Martime Rescue">
+          CSAR/SAR/Martime Rescue
+        </label>
+        <label class="radio-inline">
+          <input type="radio" name="Pararescue" [(ngModel)]="msr.Pararescue" value="High Angle Rescue">
+          High Angle Rescue
+        </label>
+        <label class="radio-inline">
+          <input type="radio" name="Pararescue" [(ngModel)]="msr.Pararescue" value="Collapsed Structure">
+          Collapsed Structure
+        </label>
 
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="form-group col-12">
+      <label>Survey(s):</label>
+      <div>
+        <label class="radio-inline">
+          <input type="radio" name="Surveys" [(ngModel)]="msr.Surveys" value="Airfield">
+          Airfield
+        </label>
+        <label class="radio-inline">
+          <input type="radio" name="Surveys" [(ngModel)]="msr.Surveys" value="LZ">
+          LZ
+        </label>
+        <label class="radio-inline">
+          <input type="radio" name="Surveys" [(ngModel)]="msr.Surveys" value="DZ">
+          DZ
+        </label>
+        <label class="radio-inline">
+          <input type="radio" name="Surveys" [(ngModel)]="msr.Surveys" value="FARP">
+          FARP
+        </label>
+
+      </div>
     </div>
   </div>
 </div>

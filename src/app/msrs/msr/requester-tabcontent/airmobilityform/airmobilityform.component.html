@@ -1,130 +1,133 @@
-<div class="row">
-  <div class="col-6">
-    <!--LEFT COLUMN-->
-    <div class="form-group">
-      <label>Type</label>
-      <select [(ngModel)]="msr.AirMobilityType" class="form-control" name="AirMobilityType">
-        <option value="Infill/Exfill">Infill/Exfill</option>
-        <option value="HAAR/TAAR">HAAR/TAAR</option>
-        <option value="Equipment Drop">Equipment Drop</option>
-        <option value="FARP">FARP</option>
-      </select>
-    </div>
-    <div class="form-group" *ngIf="showFields['NumberOfPersonnel'](msr)">
-      <label># Personnel</label>
-      <input [(ngModel)]="msr.NumberOfPersonnel" type="number" min="1" class="form-control" name="NumberOfPersonnel">
-    </div>
+<div *ngIf="msr.OperationType === 'AIR Mobility (SAM)'">
 
-    <div class="form-group" *ngIf="showFields['ParachuteType'](msr)">
-      <label>Parachute Type</label>
-      <select [(ngModel)]="msr.ParachuteType" (change)="parachuteTypeSpecified($event)" class="form-control mb-1" name="ParachuteType">
-        <option value="P8">P8</option>
-        <option value="P9">P9</option>
-      </select>
-      <input [(ngModel)]="msr.ParachuteTypeOther" (blur)="parachuteTypeSpecified($event)" type="text" class="form-control" name="ParachuteTypeOther" placeholder="Other Parachute Type">
-    </div>
-
-  </div>
-  <div class="col-6">
-    <!--RIGHT COLUMN-->
-    <div class="form-group" *ngIf="showFields['InfillExfillType'](msr)">
-      <label>Infill/Exfill Type</label>
-      <div>
-        <label class="radio-inline">
-          <input type="radio" name="InfillExfillType" [(ngModel)]="msr.InfillExfillType" value="MFF">
-          MFF
-        </label>
-        <label class="radio-inline">
-          <input type="radio" name="InfillExfillType" [(ngModel)]="msr.InfillExfillType" value="Static Line">
-          Static Line
-        </label>
-        <label class="radio-inline">
-          <input type="radio" name="InfillExfillType" [(ngModel)]="msr.InfillExfillType" value="AIEs">
-          AIEs
-        </label>
-        <label class="radio-inline">
-          <input type="radio" name="InfillExfillType" [(ngModel)]="msr.InfillExfillType" value="RAPIDS">
-          RAPIDS
-        </label>
-      </div>   
-    </div>
-
-    <div class="form-group" *ngIf="showFields['TypeRelease'](msr)">
-      <label>Type Release</label>
-      <select [(ngModel)]="msr.TypeRelease" class="form-control" name="TypeRelease">
-        <option value="Release T1">Release T1</option>
-        <option value="Release T2">Release T2</option>
-      </select>
-    </div>
-
-    <div class="form-group" *ngIf="showFields['FFEquipment'](msr)">
-      <label>FF Equipment</label>
-      <select [(ngModel)]="msr.FFEquipment" class="form-control" name="FFEquipment">
-        <option value="FF Equip 8">FF Equip 8</option>
-        <option value="FF Equip 9">FF Equip 9</option>
-      </select>
-    </div>
-
-    <div class="form-group" *ngIf="showFields['AIE_related_fields'](msr)">
-      <label>AIE Types</label>
-      <div>
-        <label class="checkbox-inline">
-          <input [(ngModel)]="msr.HoistRequired" type="checkbox" name="HoistRequired">
-          Hoist
-        </label>
-        <label class="checkbox-inline">
-          <input [(ngModel)]="msr.FastRopeRequired" type="checkbox" name="FastRopeRequired">
-          Fast Rope/FRIES
-        </label>
-        <label class="checkbox-inline">
-          <input [(ngModel)]="msr.RappelRequired" type="checkbox" name="RappelRequired">
-          Rappel
-        </label>
-      </div>
-      <input [(ngModel)]="msr.OtherAIE" type="text" class="form-control" name="OtherAIE" placeholder="Other AIE Type">
-    </div>
-
-    <div class="form-group" *ngIf="showFields['RAPIDS_related_fields'](msr)">
-      <label class="checkbox-inline">
-        <input [(ngModel)]="msr.VehiclesRequired" type="checkbox" name="VehiclesRequired">
-        Vehicles Used
-      </label>
-      <label class="checkbox-inline">
-        <input [(ngModel)]="msr.SurveysRequired" type="checkbox" name="SurveysRequired">
-        Surveys Required
-      </label>
-    </div>
-
-    <div class="form-group" *ngIf="showFields['NumberOfRefuelPointsRequired'](msr)">
-      <label># of Refuel Points Required</label>
-      <input [(ngModel)]="msr.NumberOfRefuelPointsRequired" type="number" min="1" class="form-control" name="NumberOfRefuelPointsRequired">
-    </div>
-
-  </div>
-</div>
-
-<div *ngIf="showFields['EstimatedDimensionsWeight'](msr)">
-  <label>Estimated Dimensions/Weight</label>
   <div class="row">
-    <div class="form-group col-4">
-      <div class="input-group">
-        <input [(ngModel)]="msr.EstimatedDimensionsHeight" type="number" min="1" class="form-control" name="EstimatedDimensionsHeight" placeholder="Height">
-        <span class="input-group-addon">inches</span>
+    <div class="col-6">
+      <!--LEFT COLUMN-->
+      <div class="form-group">
+        <label>Type</label>
+        <select [(ngModel)]="msr.AirMobilityType" class="form-control" name="AirMobilityType">
+          <option value="Infill/Exfill">Infill/Exfill</option>
+          <option value="HAAR/TAAR">HAAR/TAAR</option>
+          <option value="Equipment Drop">Equipment Drop</option>
+          <option value="FARP">FARP</option>
+        </select>
       </div>
-    </div>
-    <div class="form-group col-4">
-      <div class="input-group">
-        <input [(ngModel)]="msr.EstimatedDimensionsLength" type="number" min="1" class="form-control" name="EstimatedDimensionsLength" placeholder="Length">
-        <span class="input-group-addon">inches</span>
+      <div class="form-group" *ngIf="showFields['NumberOfPersonnel'](msr)">
+        <label># Personnel</label>
+        <input [(ngModel)]="msr.NumberOfPersonnel" type="number" min="1" class="form-control" name="NumberOfPersonnel">
       </div>
+
+      <div class="form-group" *ngIf="showFields['ParachuteType'](msr)">
+        <label>Parachute Type</label>
+        <select [(ngModel)]="msr.ParachuteType" (change)="parachuteTypeSpecified($event)" class="form-control mb-1" name="ParachuteType">
+          <option value="P8">P8</option>
+          <option value="P9">P9</option>
+        </select>
+        <input [(ngModel)]="msr.ParachuteTypeOther" (blur)="parachuteTypeSpecified($event)" type="text" class="form-control" name="ParachuteTypeOther" placeholder="Other Parachute Type">
+      </div>
+
     </div>
-    <div class="form-group col-4">
-      <div class="input-group">
-        <input [(ngModel)]="msr.EstimatedWeight" type="number" min="1" class="form-control" name="EstimatedWeight" placeholder="Weight">
-        <span class="input-group-addon">lbs</span>
+    <div class="col-6">
+      <!--RIGHT COLUMN-->
+      <div class="form-group" *ngIf="showFields['InfillExfillType'](msr)">
+        <label>Infill/Exfill Type</label>
+        <div>
+          <label class="radio-inline">
+            <input type="radio" name="InfillExfillType" [(ngModel)]="msr.InfillExfillType" value="MFF">
+            MFF
+          </label>
+          <label class="radio-inline">
+            <input type="radio" name="InfillExfillType" [(ngModel)]="msr.InfillExfillType" value="Static Line">
+            Static Line
+          </label>
+          <label class="radio-inline">
+            <input type="radio" name="InfillExfillType" [(ngModel)]="msr.InfillExfillType" value="AIEs">
+            AIEs
+          </label>
+          <label class="radio-inline">
+            <input type="radio" name="InfillExfillType" [(ngModel)]="msr.InfillExfillType" value="RAPIDS">
+            RAPIDS
+          </label>
+        </div>   
+      </div>
+
+      <div class="form-group" *ngIf="showFields['TypeRelease'](msr)">
+        <label>Type Release</label>
+        <select [(ngModel)]="msr.TypeRelease" class="form-control" name="TypeRelease">
+          <option value="Release T1">Release T1</option>
+          <option value="Release T2">Release T2</option>
+        </select>
+      </div>
+
+      <div class="form-group" *ngIf="showFields['FFEquipment'](msr)">
+        <label>FF Equipment</label>
+        <select [(ngModel)]="msr.FFEquipment" class="form-control" name="FFEquipment">
+          <option value="FF Equip 8">FF Equip 8</option>
+          <option value="FF Equip 9">FF Equip 9</option>
+        </select>
+      </div>
+
+      <div class="form-group" *ngIf="showFields['AIE_related_fields'](msr)">
+        <label>AIE Types</label>
+        <div>
+          <label class="checkbox-inline">
+            <input [(ngModel)]="msr.HoistRequired" type="checkbox" name="HoistRequired">
+            Hoist
+          </label>
+          <label class="checkbox-inline">
+            <input [(ngModel)]="msr.FastRopeRequired" type="checkbox" name="FastRopeRequired">
+            Fast Rope/FRIES
+          </label>
+          <label class="checkbox-inline">
+            <input [(ngModel)]="msr.RappelRequired" type="checkbox" name="RappelRequired">
+            Rappel
+          </label>
+        </div>
+        <input [(ngModel)]="msr.OtherAIE" type="text" class="form-control" name="OtherAIE" placeholder="Other AIE Type">
+      </div>
+
+      <div class="form-group" *ngIf="showFields['RAPIDS_related_fields'](msr)">
+        <label class="checkbox-inline">
+          <input [(ngModel)]="msr.VehiclesRequired" type="checkbox" name="VehiclesRequired">
+          Vehicles Used
+        </label>
+        <label class="checkbox-inline">
+          <input [(ngModel)]="msr.SurveysRequired" type="checkbox" name="SurveysRequired">
+          Surveys Required
+        </label>
+      </div>
+
+      <div class="form-group" *ngIf="showFields['NumberOfRefuelPointsRequired'](msr)">
+        <label># of Refuel Points Required</label>
+        <input [(ngModel)]="msr.NumberOfRefuelPointsRequired" type="number" min="1" class="form-control" name="NumberOfRefuelPointsRequired">
+      </div>
+
+    </div>
+  </div>
+
+  <div *ngIf="showFields['EstimatedDimensionsWeight'](msr)">
+    <label>Estimated Dimensions/Weight</label>
+    <div class="row">
+      <div class="form-group col-4">
+        <div class="input-group">
+          <input [(ngModel)]="msr.EstimatedDimensionsHeight" type="number" min="1" class="form-control" name="EstimatedDimensionsHeight" placeholder="Height">
+          <span class="input-group-addon">inches</span>
+        </div>
+      </div>
+      <div class="form-group col-4">
+        <div class="input-group">
+          <input [(ngModel)]="msr.EstimatedDimensionsLength" type="number" min="1" class="form-control" name="EstimatedDimensionsLength" placeholder="Length">
+          <span class="input-group-addon">inches</span>
+        </div>
+      </div>
+      <div class="form-group col-4">
+        <div class="input-group">
+          <input [(ngModel)]="msr.EstimatedWeight" type="number" min="1" class="form-control" name="EstimatedWeight" placeholder="Weight">
+          <span class="input-group-addon">lbs</span>
+        </div>
       </div>
     </div>
   </div>
+  
 </div>
-
 
