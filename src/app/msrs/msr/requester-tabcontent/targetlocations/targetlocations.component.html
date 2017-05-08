@@ -1,0 +1,41 @@
+<div *ngIf="shouldShow()" class="card card-accent-info">
+  <div class="card-header">
+    Target Locations
+  </div>
+  <div class="card-block">
+    <div *ngIf="msr.TargetLocations.length === 0" class="alert alert-info" role="alert">
+      	<i class="fa fa-info-circle" aria-hidden="true"></i> Click on the button below to start adding Target Locations.
+    </div>
+
+    <table *ngIf="msr.TargetLocations.length" class="table table-sm">
+      <thead>
+        <tr>
+          <th>Coordinates</th>
+          <th>Name</th>
+          <th>Access POC</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of msr.TargetLocations; let i = index;">
+          <td>
+            <input [(ngModel)]="item.coordinates" type="text" class="form-control" name="TargetLocation_coordinates">
+          </td>
+          <td>
+            <input [(ngModel)]="item.name" type="text" class="form-control" name="TargetLocation_name">
+          </td>
+          <td>
+            <input [(ngModel)]="item.accessPOC" type="text" class="form-control" name="TargetLocation_accessPOC">
+          </td>
+          <td>
+            <button (click)="removeItem(i)" type="button" class="btn btn-secondary"><i class="fa fa-trash fa-lg"></i></button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <button type="button" class="btn btn-secondary" (click)="addItem()">
+      <i class="fa fa-plus"></i>&nbsp; {{getButtonText()}}
+    </button>
+  </div>
+</div>
