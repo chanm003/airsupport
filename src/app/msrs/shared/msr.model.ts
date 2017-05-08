@@ -51,6 +51,7 @@ export class Msr {
     SelectedRequesters?: Array<any>;
     Surveys?: string;
     SurveysRequired?: boolean;
+    TargetLocations?: Array<TargetLocation>;
     TypeRelease?: string;
     Vehicles?: Array<Vehicle>;
     VehiclesRequired?: boolean;
@@ -62,6 +63,7 @@ export class Msr {
             this.DropZones = [];
             this.Platforms = [];
             this.PNForces = [];
+            this.TargetLocations = [];
             this.Vehicles = [];
         }
     }
@@ -104,6 +106,7 @@ export class Msr {
         dto.DropZones = JSON.stringify(this.DropZones);
         dto.Platforms = JSON.stringify(this.Platforms);
         dto.PNForces = JSON.stringify(this.PNForces);
+        dto.TargetLocations = JSON.stringify(this.TargetLocations);
         dto.Vehicles = JSON.stringify(this.Vehicles);
 
         /*LOOKUP*/
@@ -175,6 +178,7 @@ export class Msr {
         this.DropZones = JSON.parse(json.DropZones);
         this.Platforms = JSON.parse(json.Platforms);
         this.PNForces = JSON.parse(json.PNForces);
+        this.TargetLocations = JSON.parse(json.TargetLocations);
         this.Vehicles = JSON.parse(json.Vehicles);
 
         /*LOOKUP*/
@@ -251,4 +255,10 @@ export class Vehicle {
 export class Platform {
     type: string;
     quantity: number;
+}
+
+export class TargetLocation {
+    coordinates: string;
+    name: string;
+    accessPOC: string;
 }
