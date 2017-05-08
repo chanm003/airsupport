@@ -12,7 +12,7 @@
         <tr>
           <th>Coordinates</th>
           <th>Name</th>
-          <th>Access POC</th>
+          <th *ngIf="showAccessPOC()">Access POC</th>
           <th></th>
         </tr>
       </thead>
@@ -24,7 +24,7 @@
           <td>
             <input [(ngModel)]="item.name" type="text" class="form-control" name="TargetLocation_name">
           </td>
-          <td>
+          <td *ngIf="showAccessPOC()">
             <input [(ngModel)]="item.accessPOC" type="text" class="form-control" name="TargetLocation_accessPOC">
           </td>
           <td>
