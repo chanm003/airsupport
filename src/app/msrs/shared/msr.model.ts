@@ -41,7 +41,8 @@ export class Msr {
     ParachuteTypeOther?: string;
     Pararescue?: string;
     PaxBaggageWeight?: number;
-    PNForces:Array<PNForce>;
+    Platforms?: Array<Platform>;
+    PNForces?: Array<PNForce>;
     RappelRequired?: boolean;
     RequesterEmail?: string;
     RequesterPhone?: string;
@@ -59,6 +60,7 @@ export class Msr {
             console.log(json);
         } else {
             this.DropZones = [];
+            this.Platforms = [];
             this.PNForces = [];
             this.Vehicles = [];
         }
@@ -100,6 +102,7 @@ export class Msr {
 
         /*JSON*/
         dto.DropZones = JSON.stringify(this.DropZones);
+        dto.Platforms = JSON.stringify(this.Platforms);
         dto.PNForces = JSON.stringify(this.PNForces);
         dto.Vehicles = JSON.stringify(this.Vehicles);
 
@@ -170,6 +173,7 @@ export class Msr {
 
         /*JSON*/
         this.DropZones = JSON.parse(json.DropZones);
+        this.Platforms = JSON.parse(json.Platforms);
         this.PNForces = JSON.parse(json.PNForces);
         this.Vehicles = JSON.parse(json.Vehicles);
 
@@ -240,6 +244,11 @@ export class DropZone {
 }
 
 export class Vehicle {
+    type: string;
+    quantity: number;
+}
+
+export class Platform {
     type: string;
     quantity: number;
 }

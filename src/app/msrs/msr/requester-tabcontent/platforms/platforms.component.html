@@ -1,0 +1,37 @@
+<div *ngIf="shouldShow()" class="card card-accent-info">
+  <div class="card-header">
+    Platforms
+  </div>
+  <div class="card-block">
+    <div *ngIf="msr.Platforms.length === 0" class="alert alert-info" role="alert">
+      	<i class="fa fa-info-circle" aria-hidden="true"></i> Click on the button below to start adding Platforms.
+    </div>
+
+    <table *ngIf="msr.Platforms.length" class="table table-sm">
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Quantity</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of msr.Platforms; let i = index;">
+          <td>
+            <input [(ngModel)]="item.type" type="text" class="form-control" name="Platform_type">
+          </td>
+          <td>
+            <input [(ngModel)]="item.quantity" type="number" min="1" class="form-control" name="Platform_quantity">
+          </td>
+          <td>
+            <button (click)="removeItem(i)" type="button" class="btn btn-secondary"><i class="fa fa-trash fa-lg"></i></button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <button type="button" class="btn btn-secondary" (click)="addItem()">
+      <i class="fa fa-plus"></i>&nbsp; {{getButtonText()}}
+    </button>
+  </div>
+</div>
