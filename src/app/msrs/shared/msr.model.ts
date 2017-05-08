@@ -25,6 +25,7 @@ export class Msr {
     IsuWeight?: number;
     JtacCasType?: string;
     JtacFireType?: string;
+    LandingZones?: Array<LandingZone>;
     MedicalSupportReqs?: string;
     MedicalSupportRequired?: boolean;
     MissionEnd?: NgbDateStruct;
@@ -61,6 +62,7 @@ export class Msr {
             console.log(json);
         } else {
             this.DropZones = [];
+            this.LandingZones = [];
             this.Platforms = [];
             this.PNForces = [];
             this.TargetLocations = [];
@@ -104,6 +106,7 @@ export class Msr {
 
         /*JSON*/
         dto.DropZones = JSON.stringify(this.DropZones);
+        dto.LandingZones = JSON.stringify(this.LandingZones);
         dto.Platforms = JSON.stringify(this.Platforms);
         dto.PNForces = JSON.stringify(this.PNForces);
         dto.TargetLocations = JSON.stringify(this.TargetLocations);
@@ -176,6 +179,7 @@ export class Msr {
 
         /*JSON*/
         this.DropZones = JSON.parse(json.DropZones);
+        this.LandingZones = JSON.parse(json.LandingZones);
         this.Platforms = JSON.parse(json.Platforms);
         this.PNForces = JSON.parse(json.PNForces);
         this.TargetLocations = JSON.parse(json.TargetLocations);
@@ -261,4 +265,9 @@ export class TargetLocation {
     coordinates: string;
     name: string;
     accessPOC: string;
+}
+
+export class LandingZone {
+    name: string;
+    surveyRequired: boolean;
 }

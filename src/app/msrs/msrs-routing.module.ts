@@ -13,6 +13,7 @@ import { DropzonesComponent } from './msr/requester-tabcontent/dropzones/dropzon
 import { VehiclesComponent } from './msr/requester-tabcontent/vehicles/vehicles.component';
 import { PlatformsComponent } from './msr/requester-tabcontent/platforms/platforms.component';
 import { TargetlocationsComponent } from './msr/requester-tabcontent/targetlocations/targetlocations.component';
+import { LandingzonesComponent } from './msr/requester-tabcontent/landingzones/landingzones.component';
 
 const routes: Routes = [
   {
@@ -42,6 +43,7 @@ export const routedComponents = [
   VehiclesComponent,
   PlatformsComponent,
   TargetlocationsComponent,
+  LandingzonesComponent,
   CargoformComponent,
   SpecialtacticsformComponent,
   PnforcesComponent,
