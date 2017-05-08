@@ -1,0 +1,41 @@
+<div *ngIf="shouldShow()" class="card card-accent-info">
+  <div class="card-header">
+    Drop Zones
+  </div>
+  <div class="card-block">
+    <div *ngIf="msr.DropZones.length === 0" class="alert alert-info" role="alert">
+      	<i class="fa fa-info-circle" aria-hidden="true"></i> Click on the button below to start adding Drop Zones.
+    </div>
+
+    <table *ngIf="msr.DropZones.length" class="table table-sm">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Survey Required</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of msr.DropZones; let i = index;">
+          <td>
+            <input [(ngModel)]="item.name" type="text" class="form-control" name="DropZone_name">
+          </td>
+          <td>
+            <div class="checkbox">
+              <label>
+                <input [(ngModel)]="item.surveyRequired" type="checkbox" name="DropZone_surveyRequired">
+              </label>
+            </div>
+          </td>
+          <td>
+            <button (click)="removeItem(i)" type="button" class="btn btn-secondary"><i class="fa fa-trash fa-lg"></i></button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <button type="button" class="btn btn-secondary" (click)="addItem()">
+      <i class="fa fa-plus"></i>&nbsp; {{getButtonText()}}
+    </button>
+  </div>
+</div>
