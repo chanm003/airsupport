@@ -11,6 +11,7 @@ export class Msr {
     CommunicationSupportReqs?: string;    
     CommunicationSupportRequired?: boolean;
     Conop?: string;
+    DropZones:Array<DropZone>;
     EstimatedDimensionsHeight?: number;
     EstimatedDimensionsLength?: number;
     EstimatedWeight?: number;
@@ -56,6 +57,7 @@ export class Msr {
             this.setProperties(json);
             console.log(json);
         } else {
+            this.DropZones = [];
             this.PNForces = [];
         }
     }
@@ -95,6 +97,7 @@ export class Msr {
         dto.MissionStart = this.convertToIso(this.MissionStart);
 
         /*JSON*/
+        dto.DropZones = JSON.stringify(this.DropZones);
         dto.PNForces = JSON.stringify(this.PNForces);
 
         /*LOOKUP*/
@@ -163,6 +166,7 @@ export class Msr {
         this.MissionStart = this.convertToBootstrapDate(json.MissionStart);
 
         /*JSON*/
+        this.DropZones = JSON.parse(json.DropZones);
         this.PNForces = JSON.parse(json.PNForces);
 
         /*LOOKUP*/
@@ -224,4 +228,9 @@ export class PNForce {
     name: string;
     number: number;
     parachuteType: string;
+}
+
+export class DropZone {
+    name: string;
+    surveyRequired: boolean;
 }

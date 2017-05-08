@@ -9,6 +9,7 @@ import { CargoformComponent } from './msr/requester-tabcontent/cargoform/cargofo
 import { AirmobilityformComponent } from './msr/requester-tabcontent/airmobilityform/airmobilityform.component';
 import { SpecialtacticsformComponent } from './msr/requester-tabcontent/specialtacticsform/specialtacticsform.component';
 import { PnforcesComponent } from './msr/requester-tabcontent/pnforces/pnforces.component';
+import { DropzonesComponent } from './msr/requester-tabcontent/dropzones/dropzones.component';
 
 const routes: Routes = [
   {
@@ -37,7 +38,8 @@ export const routedComponents = [
   AirmobilityformComponent,
   CargoformComponent,
   SpecialtacticsformComponent,
-  PnforcesComponent
+  PnforcesComponent,
+  DropzonesComponent
 ];
 
 @NgModule({
