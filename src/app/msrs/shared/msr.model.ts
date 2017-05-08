@@ -31,12 +31,14 @@ export class Msr {
     MissionEnd?: NgbDateStruct;
     MissionStart?: NgbDateStruct;
     NegativeImpact?: string;
+    Notes?: string;
     NumberOfPallets?: number;
     NumberOfPAX?: number;
     NumberOfPersonnel?: number;
     NumberOfRefuelPointsRequired?: number;
     OperationType?: string;
     OtherAIE?: string;
+    OwningUnitsId?: Array<number>;
     PalletWeight?: number;
     ParachuteType?: string;
     ParachuteTypeOther?: string;
@@ -50,6 +52,8 @@ export class Msr {
     RequestingUnit?: any;
     RequestingUnitId?: number;
     SelectedRequesters?: Array<any>;
+    SupportUnit?: any;
+    SupportUnitId?: number;
     Surveys?: string;
     SurveysRequired?: boolean;
     TargetLocations?: Array<TargetLocation>;
@@ -63,6 +67,7 @@ export class Msr {
         } else {
             this.DropZones = [];
             this.LandingZones = [];
+            this.OwningUnitsId = [];
             this.Platforms = [];
             this.PNForces = [];
             this.TargetLocations = [];
@@ -114,6 +119,10 @@ export class Msr {
 
         /*LOOKUP*/
         dto.RequestingUnitId = this.RequestingUnitId;
+        dto.SupportUnitId = this.SupportUnitId;
+
+        /*LOOKUPMULTI*/
+        dto.OwningUnitsId = { results: this.OwningUnitsId };
 
         /*NUMBER*/
         dto.EstimatedDimensionsHeight = this.EstimatedDimensionsHeight;
@@ -150,6 +159,7 @@ export class Msr {
         dto.JtacFireType = this.JtacFireType;
         dto.MedicalSupportReqs= this.MedicalSupportReqs;
         dto.NegativeImpact = this.NegativeImpact;
+        dto.Notes = this.Notes;
         dto.OperationType = this.OperationType;
         dto.OtherAIE = this.OtherAIE;
         dto.ParachuteType = this.ParachuteType;
@@ -187,6 +197,10 @@ export class Msr {
 
         /*LOOKUP*/
         this.RequestingUnitId = json.RequestingUnit.Id;
+        this.SupportUnitId = json.SupportUnit.Id;
+
+        /*LOOKUPMULTI*/
+        this.OwningUnitsId = json.OwningUnitsId.results;
 
         /*NUMBER*/
         this.EstimatedDimensionsHeight = json.EstimatedDimensionsHeight;
@@ -228,6 +242,7 @@ export class Msr {
         this.JtacFireType = json.JtacFireType;
         this.MedicalSupportReqs = json.MedicalSupportReqs;
         this.NegativeImpact = json.NegativeImpact;
+        this.Notes = json.Notes;
         this.OperationType = json.OperationType;
         this.OtherAIE = json.OtherAIE;
         this.ParachuteType = json.ParachuteType;

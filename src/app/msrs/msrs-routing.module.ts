@@ -14,6 +14,7 @@ import { VehiclesComponent } from './msr/requester-tabcontent/vehicles/vehicles.
 import { PlatformsComponent } from './msr/requester-tabcontent/platforms/platforms.component';
 import { TargetlocationsComponent } from './msr/requester-tabcontent/targetlocations/targetlocations.component';
 import { LandingzonesComponent } from './msr/requester-tabcontent/landingzones/landingzones.component';
+import { OwnerTabcontentComponent } from './msr/owner-tabcontent/owner-tabcontent.component';
 
 const routes: Routes = [
   {
@@ -47,7 +48,8 @@ export const routedComponents = [
   CargoformComponent,
   SpecialtacticsformComponent,
   PnforcesComponent,
-  DropzonesComponent
+  DropzonesComponent,
+  OwnerTabcontentComponent
 ];
 
 @NgModule({

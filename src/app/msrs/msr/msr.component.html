@@ -8,7 +8,7 @@
   <ngb-tab>
     <ng-template ngbTabTitle><i class="fa fa-code-fork"></i> JSOAC/JMOC</ng-template>
     <ng-template ngbTabContent>
-     
+      <app-owner-tabcontent [msr]="msrBeingEdited" [dataEntryLookups]="dataEntryLookups" (saveButtonClicked)="saveMsr($event)"></app-owner-tabcontent>
     </ng-template>
   </ngb-tab>
   <ngb-tab>
