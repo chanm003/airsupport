@@ -10,6 +10,7 @@ import { AirmobilityformComponent } from './msr/requester-tabcontent/airmobility
 import { SpecialtacticsformComponent } from './msr/requester-tabcontent/specialtacticsform/specialtacticsform.component';
 import { PnforcesComponent } from './msr/requester-tabcontent/pnforces/pnforces.component';
 import { DropzonesComponent } from './msr/requester-tabcontent/dropzones/dropzones.component';
+import { VehiclesComponent } from './msr/requester-tabcontent/vehicles/vehicles.component';
 
 const routes: Routes = [
   {
@@ -31,11 +32,12 @@ const routes: Routes = [
   },
 ];
 export const routedComponents = [
-  MsrsComponent, 
-  MsrListComponent, 
-  MsrComponent, 
+  MsrsComponent,
+  MsrListComponent,
+  MsrComponent,
   RequesterTabcontentComponent,
   AirmobilityformComponent,
+  VehiclesComponent,
   CargoformComponent,
   SpecialtacticsformComponent,
   PnforcesComponent,

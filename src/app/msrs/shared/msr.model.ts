@@ -8,10 +8,10 @@ export class Msr {
     AltPhone?: string;
     AltPOC?: string;
     AmplifyingDetail?: string;
-    CommunicationSupportReqs?: string;    
+    CommunicationSupportReqs?: string;
     CommunicationSupportRequired?: boolean;
     Conop?: string;
-    DropZones:Array<DropZone>;
+    DropZones: Array<DropZone>;
     EstimatedDimensionsHeight?: number;
     EstimatedDimensionsLength?: number;
     EstimatedWeight?: number;
@@ -51,6 +51,7 @@ export class Msr {
     Surveys?: string;
     SurveysRequired?: boolean;
     TypeRelease?: string;
+    Vehicles?: Array<Vehicle>;
     VehiclesRequired?: boolean;
     constructor(json?: any) {
         if (json) {
@@ -59,6 +60,7 @@ export class Msr {
         } else {
             this.DropZones = [];
             this.PNForces = [];
+            this.Vehicles = [];
         }
     }
 
@@ -99,6 +101,7 @@ export class Msr {
         /*JSON*/
         dto.DropZones = JSON.stringify(this.DropZones);
         dto.PNForces = JSON.stringify(this.PNForces);
+        dto.Vehicles = JSON.stringify(this.Vehicles);
 
         /*LOOKUP*/
         dto.RequestingUnitId = this.RequestingUnitId;
@@ -168,6 +171,7 @@ export class Msr {
         /*JSON*/
         this.DropZones = JSON.parse(json.DropZones);
         this.PNForces = JSON.parse(json.PNForces);
+        this.Vehicles = JSON.parse(json.Vehicles);
 
         /*LOOKUP*/
         this.RequestingUnitId = json.RequestingUnit.Id;
@@ -233,4 +237,9 @@ export class PNForce {
 export class DropZone {
     name: string;
     surveyRequired: boolean;
+}
+
+export class Vehicle {
+    type: string;
+    quantity: number;
 }
