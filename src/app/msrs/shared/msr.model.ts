@@ -9,7 +9,8 @@ export class Msr {
     AltPhone?: string;
     AltPOC?: string;
     AmplifyingDetail?: string;
-    AssignedOutsideUnits?: Array<OutsideUnit>;
+    AssignedOutsideUnits?: Array<AssignedOutsideUnit>;
+    AssignedSubunits?: Array<AssignedSubunit>;
     CommunicationSupportReqs?: string;
     CommunicationSupportRequired?: boolean;
     Conop?: string;
@@ -72,6 +73,7 @@ export class Msr {
             console.log(json);
         } else {
             this.AssignedOutsideUnits = [];
+            this.AssignedSubunits = [];
             this.DropZones = [];
             this.LandingZones = [];
             this.OwningUnitsId = [];
@@ -121,6 +123,7 @@ export class Msr {
 
         /*JSON*/
         dto.AssignedOutsideUnits = JSON.stringify(this.AssignedOutsideUnits);
+        dto.AssignedSubunits = JSON.stringify(this.AssignedSubunits);
         dto.DropZones = JSON.stringify(this.DropZones);
         dto.LandingZones = JSON.stringify(this.LandingZones);
         dto.Platforms = JSON.stringify(this.Platforms);
@@ -205,6 +208,7 @@ export class Msr {
 
         /*JSON*/
         this.AssignedOutsideUnits = JSON.parse(json.AssignedOutsideUnits);
+        this.AssignedSubunits = JSON.parse(json.AssignedSubunits);
         this.DropZones = JSON.parse(json.DropZones);
         this.LandingZones = JSON.parse(json.LandingZones);
         this.Platforms = JSON.parse(json.Platforms);
@@ -306,10 +310,15 @@ export class LandingZone {
     surveyRequired: boolean;
 }
 
-export class OutsideUnit {
+export class AssignedOutsideUnit {
     name: string;
     pocName: string;
     pocPhone: string;
     pocEmail: string;
+    platforms: Array<Platform>;
+}
+
+export class AssignedSubunit {
+    subunitId?: number;
     platforms: Array<Platform>;
 }

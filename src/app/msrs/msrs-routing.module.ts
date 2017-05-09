@@ -17,6 +17,7 @@ import { LandingzonesComponent } from './msr/requester-tabcontent/landingzones/l
 import { OwnerTabcontentComponent } from './msr/owner-tabcontent/owner-tabcontent.component';
 import { SupportTabcontentComponent } from './msr/support-tabcontent/support-tabcontent.component';
 import { OutsideunitsComponent } from './msr/support-tabcontent/outsideunits/outsideunits.component';
+import { SubunitsComponent } from './msr/support-tabcontent/subunits/subunits.component';
 
 const routes: Routes = [
   {
@@ -53,6 +54,7 @@ export const routedComponents = [
   DropzonesComponent,
   OwnerTabcontentComponent,
   SupportTabcontentComponent,
+  SubunitsComponent,
   OutsideunitsComponent
 ];
 
