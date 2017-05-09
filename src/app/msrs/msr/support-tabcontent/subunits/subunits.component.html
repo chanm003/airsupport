@@ -1,0 +1,62 @@
+<div *ngIf="!!assignedSupportUnit" class="card card-accent-info">
+  <div class="card-header">
+    Subunits Assigned
+  </div>
+  <div class="card-block">
+    <div *ngIf="msr.AssignedSubunits.length === 0" class="alert alert-info" role="alert">
+      	<i class="fa fa-info-circle" aria-hidden="true"></i> Click on the button below to start adding subunits.
+    </div>
+
+    <table *ngIf="msr.AssignedSubunits.length" class="table table-sm">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Platforms</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of msr.AssignedSubunits; let i = index;">
+          <td>
+            <!--<input [(ngModel)]="item.name" type="text" class="form-control" name="AssignedOutsideUnit_name">-->
+            <select [(ngModel)]="item.subunitId" class="form-control" name="AssignedSubunit_subunitId">
+              <option *ngFor="let item of assignedSupportUnit.Subunits" [ngValue]="item.Id">{{item.Name}}</option>
+            </select>
+          </td>
+          <td class="nested-content">
+            <div *ngIf="item.platforms.length === 0" class="alert alert-info" role="alert">
+                <i class="fa fa-info-circle" aria-hidden="true"></i> Click on the button below to start adding platforms to this subunit.
+            </div>
+
+            <table *ngIf="item.platforms.length !== 0" class="nested-table">
+              <tbody>
+                <tr *ngFor="let subitem of item.platforms; let i = index;">
+                  <td>
+                    <input [(ngModel)]="subitem.type" type="text" class="form-control" name="AssignedSubunit_platform_type">
+                  </td>
+                  <td>
+                    <input [(ngModel)]="subitem.quantity" type="number" min="1" class="form-control" name="AssignedSubunit_platform_quantity">
+                  </td>
+                  <td>
+                    <button (click)="removeSubitem(item.platforms, i)" type="button" class="btn btn-secondary"><i class="fa fa-trash fa-lg"></i></button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+
+            <button type="button" class="btn btn-secondary" (click)="addSubitem(item.platforms)">
+              <i class="fa fa-plus"></i>&nbsp; {{(item.platforms.length === 0) ? 'Add a Platform' : 'Add another Platform'}}
+            </button>  
+          </td>
+          <td>
+            <button (click)="removeItem(i)" type="button" class="btn btn-secondary"><i class="fa fa-trash fa-lg"></i></button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <button type="button" class="btn btn-secondary" (click)="addItem()">
+      <i class="fa fa-plus"></i>&nbsp; {{getButtonText()}}
+    </button>
+  </div>
+</div>
