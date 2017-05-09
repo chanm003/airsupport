@@ -11,11 +11,19 @@ export class SupportTabcontentComponent implements OnInit {
   @Input() msr: Msr;
   @Input() dataEntryLookups: any;
   @Output() saveButtonClicked = new EventEmitter<string>();
-
+  assignedSupportUnit: any;
   constructor() {
   }
 
   ngOnInit() {
+    this.setSubunitsDataSource();
+  }
+
+  setSubunitsDataSource() {
+    const match = _.find(this.dataEntryLookups.supportUnits, {Id: this.msr.SupportUnitId});
+    if (match) {
+      this.assignedSupportUnit = match;
+    }
   }
 
   onSaveButtonClicked(): void {

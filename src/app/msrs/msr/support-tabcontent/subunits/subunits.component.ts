@@ -10,18 +10,10 @@ import * as _ from 'lodash';
 export class SubunitsComponent implements OnInit {
   @Input() msr: Msr;
   @Input() dataEntryLookups: any;
-  assignedSupportUnit: any;
+  @Input() assignedSupportUnit: any;
   constructor() { }
 
   ngOnInit() {
-    this.setSubunitsDataSource();
-  }
-
-  setSubunitsDataSource() {
-    const match = _.find(this.dataEntryLookups.supportUnits, {Id: this.msr.SupportUnitId});
-    if (match) {
-      this.assignedSupportUnit = match;
-    }
   }
 
   getButtonText() {

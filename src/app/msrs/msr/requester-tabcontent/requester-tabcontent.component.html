@@ -1,15 +1,7 @@
-<div class="row">
-  <div class="col-sm-3 col-md-2">
-      <div *ngFor="let item of sectionNames" [style.display]="shouldShowSection(item) ? 'block' :'none'">
-      <a (click)="selectedSectionName=item">
-         {{item}}
-      </a>
-      </div>
-  </div>
-  <div class="col-sm-9 col-md-10">
-
+<fieldset>
+  <legend class="pl-2 pb-2">Mission Support Request</legend>
     <!--PRIMARY REQUEST BEGIN-->
-    <div>
+    <div class="pl-5 pr-3">
       <div class="row">
         <div class="form-group col-6">
           <label>Requesting Unit</label>
@@ -104,19 +96,19 @@
       <div class="row">
         <div class="form-group col-12">
           <label>CONOP</label>
-          <textarea [(ngModel)]="msr.Conop" name="Conop" rows="6" class="form-control" placeholder="Concept of Operation"></textarea>
+          <textarea [(ngModel)]="msr.Conop" name="Conop" rows="4" class="form-control" placeholder="Concept of Operation"></textarea>
         </div>
       </div>
       <div class="row">
         <div class="form-group col-12">
           <label>Airfields/Locations</label>
-          <textarea [(ngModel)]="msr.AirfieldLocations" rows="6" class="form-control" name="AirfieldLocations"></textarea>
+          <textarea [(ngModel)]="msr.AirfieldLocations" rows="2" class="form-control" name="AirfieldLocations"></textarea>
         </div>
       </div>
       <div class="row">
         <div class="form-group col-12">
           <label>Impact if not supported</label>
-          <textarea [(ngModel)]="msr.NegativeImpact" rows="6" class="form-control" name="NegativeImpact"></textarea>
+          <textarea [(ngModel)]="msr.NegativeImpact" rows="2" class="form-control" name="NegativeImpact"></textarea>
         </div>
       </div>
       <div class="row">
@@ -127,7 +119,7 @@
               Medical Support Required
             </label>
           </div>
-          <textarea *ngIf="msr.MedicalSupportRequired" [(ngModel)]="msr.MedicalSupportReqs" name="MedicalSupportReqs" rows="6" class="form-control" placeholder="Please elaborate on your medical requireqments"></textarea>
+          <textarea *ngIf="msr.MedicalSupportRequired" [(ngModel)]="msr.MedicalSupportReqs" name="MedicalSupportReqs" rows="2" class="form-control" placeholder="Please elaborate on your medical requirements"></textarea>
         </div>
         <div class="form-group col-6">
           <div class="checkbox">
@@ -136,23 +128,29 @@
               Communications Support Required
             </label>
           </div>
-          <textarea *ngIf="msr.CommunicationSupportRequired" [(ngModel)]="msr.CommunicationSupportReqs" name="CommunicationSupportReqs" rows="6" class="form-control" placeholder="Please elaborate on your communications requireqments"></textarea>
+          <textarea *ngIf="msr.CommunicationSupportRequired" [(ngModel)]="msr.CommunicationSupportReqs" name="CommunicationSupportReqs" rows="2" class="form-control" placeholder="Please elaborate on your communications requirements"></textarea>
         </div>
       </div>
     </div>
     <!--PRIMARY REQUEST END-->
-    <app-cargoform [msr]="msr"></app-cargoform>
-    <app-airmobilityform [msr]="msr"></app-airmobilityform>
-    <app-specialtacticsform [msr]="msr"></app-specialtacticsform>
-    <app-pnforces [msr]="msr"></app-pnforces>
-    <app-dropzones [msr]="msr"></app-dropzones>
-    <app-vehicles [msr]="msr"></app-vehicles>
-    <app-platforms [msr]="msr"></app-platforms>
-    <app-targetlocations [msr]="msr"></app-targetlocations>
-    <app-landingzones [msr]="msr"></app-landingzones>
-    <button (click)="onSaveButtonClicked()" class="btn btn-primary" type="button"><i class="fa fa-save"></i>&nbsp; Save</button>
+</fieldset>
+    
+<fieldset>
+  <legend class="pl-2 pb-2" *ngIf="!!getAdditionalFormSection()">{{getAdditionalFormSection()}}</legend>
+  <div class="pl-5 pr-3">
+      <app-cargoform [msr]="msr"></app-cargoform>
+      <app-airmobilityform [msr]="msr"></app-airmobilityform>
+      <app-specialtacticsform [msr]="msr"></app-specialtacticsform>
+
+      <app-pnforces [msr]="msr"></app-pnforces>
+      <app-dropzones [msr]="msr"></app-dropzones>
+      <app-vehicles [msr]="msr"></app-vehicles>
+      <app-platforms [msr]="msr"></app-platforms>
+      <app-targetlocations [msr]="msr"></app-targetlocations>
+      <app-landingzones [msr]="msr"></app-landingzones>
+
+      <button (click)="onSaveButtonClicked()" class="btn btn-primary" type="button"><i class="fa fa-save"></i>&nbsp; Save</button>
   </div>
-</div>
-<pre> 
-  {{msr | json}}
-</pre>
+</fieldset>
+    
+  

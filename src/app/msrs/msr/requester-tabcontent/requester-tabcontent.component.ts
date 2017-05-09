@@ -29,10 +29,8 @@ export class RequesterTabcontentComponent implements OnInit {
   ];
 
   sectionNames: Array<string> = [
-    'Request', 'Personnel/Cargo', 'SAM', 'ST/BA'
+    'Personnel/Cargo', 'SAM', 'ST/BA'
   ];
-
-  selectedSectionName = 'Request';
 
   getMatchingPeople = this.peopleService.searchUsers;
 
@@ -48,21 +46,19 @@ export class RequesterTabcontentComponent implements OnInit {
   onRequesterRemoved(event) {
     this.msr.RequesterEmail = '';
   }
-  onSaveButtonClicked():void{
+  onSaveButtonClicked(): void{
     this.saveButtonClicked.emit('request');
   }
 
-  shouldShowSection(sectionName: string) {
-    if (sectionName === 'Request') { return true; }
-    if (!this.msr.OperationType) { return false; }
-
-    if (sectionName === 'Personnel/Cargo') {
-      return this.msr.OperationType === 'Cargo/Personnel Move';
-    } else if (sectionName === 'SAM') {
-      return this.msr.OperationType === 'AIR Mobility (SAM)';
-    } else if (sectionName === 'ST/BA') {
-      return this.msr.OperationType === 'Special Tactics/Battlefield Airman (ST/BAO)';
+  getAdditionalFormSection() {
+    if (this.msr.OperationType === 'Cargo/Personnel Move') {
+      return 'Cargo/Personnel Move';
+    } else if (this.msr.OperationType === 'AIR Mobility (SAM)') {
+      return 'AIR Mobility';
+    } else if (this.msr.OperationType === 'Special Tactics/Battlefield Airman (ST/BAO)') {
+      return 'Special Tactics/Battlefield Airman';
+    } else {
+      return '';
     }
-    return false;
   }
 }

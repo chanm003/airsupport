@@ -1,31 +1,35 @@
-<div class="row">
-  <div class="form-group col-6">
-    <label>Unit Assigned</label>
-    <select [(ngModel)]="msr.SupportUnitId" class="form-control" name="SupportUnitId">
-      <option *ngFor="let item of dataEntryLookups.supportUnits" [ngValue]="item.Id">{{item.Name}}</option>
-    </select>
-  </div>
-</div>
-
-<div class="row">
-  <div class="form-group col-6">
-    <label>Notes</label>
-    <textarea [(ngModel)]="msr.Notes" name="Notes" rows="9" class="form-control"></textarea>
-  </div>
-</div>
-
-<div class="row">
-  <div class="form-group col-6">
-    <label>Owner</label>
-    <div>
-      <label *ngFor="let item of checkboxDataSource" class="checkbox-inline">
-        <input type="checkbox" [(ngModel)]="item['isChecked']" (change)="onCheckboxClicked()"> {{item.display}}
-      </label>
+<fieldset>
+  <legend class="pl-2 pb-2" style="display:none;"></legend>
+  <div class="pl-5 pr-3">
+    <div class="row">
+      <div class="form-group col-6">
+        <label>Unit Assigned</label>
+        <select [(ngModel)]="msr.SupportUnitId" class="form-control" name="SupportUnitId">
+          <option *ngFor="let item of dataEntryLookups.supportUnits" [ngValue]="item.Id">{{item.Name}}</option>
+        </select>
+      </div>
     </div>
-  </div>
-</div>
 
-<button (click)="onSaveButtonClicked()" class="btn btn-primary" type="button"><i class="fa fa-save"></i>&nbsp; Save</button>
-<pre>
-  {{msr | json }}
-</pre>
+    <div class="row">
+      <div class="form-group col-6">
+        <label>Notes</label>
+        <textarea [(ngModel)]="msr.Notes" name="Notes" rows="9" class="form-control"></textarea>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="form-group col-6">
+        <label>Owner</label>
+        <div>
+          <label *ngFor="let item of checkboxDataSource" class="checkbox-inline">
+            <input type="checkbox" [(ngModel)]="item['isChecked']" (change)="onCheckboxClicked()"> {{item.display}}
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <button (click)="onSaveButtonClicked()" class="btn btn-primary" type="button"><i class="fa fa-save"></i>&nbsp; Save</button>
+  </div>
+</fieldset>
+
+

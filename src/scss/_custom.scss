@@ -8,7 +8,11 @@ td > div.checkbox {
     text-align: center;
 }
 
-.nested-content .alert{
+legend {
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.nested-content .alert, .nested-content .table.table-sm {
     margin-bottom: 0.3em;
 }
 
@@ -16,5 +20,6 @@ td > div.checkbox {
     padding-top: 0;
     padding-left: 0;
     border:none;
+    width:100%;
 }
 

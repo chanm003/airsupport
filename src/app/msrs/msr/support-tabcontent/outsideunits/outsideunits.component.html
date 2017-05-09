@@ -37,7 +37,7 @@
                 <i class="fa fa-info-circle" aria-hidden="true"></i> Click on the button below to start adding platforms to this outside unit.
             </div>
 
-            <table *ngIf="item.platforms.length !== 0" class="nested-table">
+            <table *ngIf="item.platforms.length !== 0" class="table table-sm">
               <tbody>
                 <tr *ngFor="let subitem of item.platforms; let i = index;">
                   <td>
@@ -46,7 +46,7 @@
                   <td>
                     <input [(ngModel)]="subitem.quantity" type="number" min="1" class="form-control" name="AssignedOutsideUnit_platform_quantity">
                   </td>
-                  <td>
+                  <td style="width:1px;">
                     <button (click)="removeSubitem(item.platforms, i)" type="button" class="btn btn-secondary"><i class="fa fa-trash fa-lg"></i></button>
                   </td>
                 </tr>
@@ -57,7 +57,7 @@
               <i class="fa fa-plus"></i>&nbsp; {{(item.platforms.length === 0) ? 'Add a Platform' : 'Add another Platform'}}
             </button>  
           </td>
-          <td>
+          <td style="width:1px;">
             <button (click)="removeItem(i)" type="button" class="btn btn-secondary"><i class="fa fa-trash fa-lg"></i></button>
           </td>
         </tr>
