@@ -1,0 +1,71 @@
+<div class="card card-accent-info">
+  <div class="card-header">
+    Outside Units Assigned
+  </div>
+  <div class="card-block">
+    <div *ngIf="msr.AssignedOutsideUnits.length === 0" class="alert alert-info" role="alert">
+      	<i class="fa fa-info-circle" aria-hidden="true"></i> Click on the button below to start adding outside units.
+    </div>
+
+    <table *ngIf="msr.AssignedOutsideUnits.length" class="table table-sm">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>POC</th>
+          <th>Phone</th>
+          <th>Email</th>
+          <th>Platforms</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of msr.AssignedOutsideUnits; let i = index;">
+          <td>
+            <input [(ngModel)]="item.name" type="text" class="form-control" name="AssignedOutsideUnit_name">
+          </td>
+          <td>
+            <input [(ngModel)]="item.pocName" type="text" class="form-control" name="AssignedOutsideUnit_pocName">
+          </td>
+          <td>
+            <input [(ngModel)]="item.pocPhone" type="text" class="form-control" name="AssignedOutsideUnit_pocPhone">
+          </td>
+          <td>
+            <input [(ngModel)]="item.pocEmail" type="text" class="form-control" name="AssignedOutsideUnit_pocEmail">
+          </td>
+          <td class="nested-content">
+            <div *ngIf="item.platforms.length === 0" class="alert alert-info" role="alert">
+                <i class="fa fa-info-circle" aria-hidden="true"></i> Click on the button below to start adding platforms to this outside unit.
+            </div>
+
+            <table *ngIf="item.platforms.length !== 0" class="nested-table">
+              <tbody>
+                <tr *ngFor="let subitem of item.platforms; let i = index;">
+                  <td>
+                    <input [(ngModel)]="subitem.type" type="text" class="form-control" name="AssignedOutsideUnit_platform_type">
+                  </td>
+                  <td>
+                    <input [(ngModel)]="subitem.quantity" type="number" min="1" class="form-control" name="AssignedOutsideUnit_platform_quantity">
+                  </td>
+                  <td>
+                    <button (click)="removeSubitem(item.platforms, i)" type="button" class="btn btn-secondary"><i class="fa fa-trash fa-lg"></i></button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+
+            <button type="button" class="btn btn-secondary" (click)="addSubitem(item.platforms)">
+              <i class="fa fa-plus"></i>&nbsp; {{(item.platforms.length === 0) ? 'Add a Platform' : 'Add another Platform'}}
+            </button>  
+          </td>
+          <td>
+            <button (click)="removeItem(i)" type="button" class="btn btn-secondary"><i class="fa fa-trash fa-lg"></i></button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <button type="button" class="btn btn-secondary" (click)="addItem()">
+      <i class="fa fa-plus"></i>&nbsp; {{getButtonText()}}
+    </button>
+  </div>
+</div>

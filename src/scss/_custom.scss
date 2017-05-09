@@ -7,3 +7,14 @@
 td > div.checkbox {
     text-align: center;
 }
+
+.nested-content .alert{
+    margin-bottom: 0.3em;
+}
+
+.nested-table > tbody > tr > td {
+    padding-top: 0;
+    padding-left: 0;
+    border:none;
+}
+
