@@ -15,6 +15,7 @@ import { PlatformsComponent } from './msr/requester-tabcontent/platforms/platfor
 import { TargetlocationsComponent } from './msr/requester-tabcontent/targetlocations/targetlocations.component';
 import { LandingzonesComponent } from './msr/requester-tabcontent/landingzones/landingzones.component';
 import { OwnerTabcontentComponent } from './msr/owner-tabcontent/owner-tabcontent.component';
+import { SupportTabcontentComponent } from './msr/support-tabcontent/support-tabcontent.component';
 
 const routes: Routes = [
   {
@@ -49,7 +50,8 @@ export const routedComponents = [
   SpecialtacticsformComponent,
   PnforcesComponent,
   DropzonesComponent,
-  OwnerTabcontentComponent
+  OwnerTabcontentComponent,
+  SupportTabcontentComponent
 ];
 
 @NgModule({

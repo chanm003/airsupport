@@ -1,0 +1,52 @@
+<div class="row">
+  <div class="form-group col-6">
+    <label>Mission Start</label>
+    <div class="input-group">
+      <input class="form-control" [displayMonths]="2" [(ngModel)]="msr.MissionSupportStart" ngbDatepicker 
+          #MissionSupportStart="ngbDatepicker" name="MissionSupportStart">
+      <div class="input-group-addon" (click)="MissionSupportStart.toggle()">
+        <i class="fa fa-calendar"></i>
+      </div>
+    </div>
+  </div>
+  <div class="form-group col-6">
+    <label>Mission End</label>
+    <div class="input-group">
+      <input class="form-control" [displayMonths]="2" [(ngModel)]="msr.MissionSupportEnd" ngbDatepicker 
+          #MissionSupportEnd="ngbDatepicker" name="MissionSupportEnd">
+      <div class="input-group-addon" (click)="MissionSupportEnd.toggle()">
+        <i class="fa fa-calendar"></i>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="form-group col-6">
+    <label>Location</label>
+    <input [(ngModel)]="msr.SupportLocation" type="text" class="form-control" name="SupportLocation">
+  </div>
+</div>
+
+<div class="row">
+  <div class="form-group col-6">
+    <div class="checkbox">
+      <label>
+        <input [(ngModel)]="msr.AircraftSecurityRequired" type="checkbox" name="AircraftSecurityRequired">
+        Aircraft Security Needed
+        </label>
+    </div>  
+  </div>
+</div>
+
+<div *ngIf="msr.AircraftSecurityRequired" class="row">
+  <div class="form-group col-6">
+    <label>Staging Location</label>
+    <input [(ngModel)]="msr.StagingLocation" type="text" class="form-control" name="StagingLocation">
+  </div>
+</div>
+
+<button (click)="onSaveButtonClicked()" class="btn btn-primary" type="button"><i class="fa fa-save"></i>&nbsp; Save</button>
+<pre>
+  {{msr | json }}
+</pre>

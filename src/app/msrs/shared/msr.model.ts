@@ -2,6 +2,7 @@ import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import * as moment from 'moment/moment';
 
 export class Msr {
+    AircraftSecurityRequired?: boolean;
     AirfieldLocations?: string;
     AirMobilityType?: string;
     AltEmail?: string;
@@ -30,6 +31,8 @@ export class Msr {
     MedicalSupportRequired?: boolean;
     MissionEnd?: NgbDateStruct;
     MissionStart?: NgbDateStruct;
+    MissionSupportEnd?: NgbDateStruct;
+    MissionSupportStart?: NgbDateStruct;
     NegativeImpact?: string;
     Notes?: string;
     NumberOfPallets?: number;
@@ -52,6 +55,8 @@ export class Msr {
     RequestingUnit?: any;
     RequestingUnitId?: number;
     SelectedRequesters?: Array<any>;
+    StagingLocation?: string;
+    SupportLocation?: string;
     SupportUnit?: any;
     SupportUnitId?: number;
     Surveys?: string;
@@ -96,6 +101,7 @@ export class Msr {
         const dto: any = {};
 
         /*BOOLEAN*/
+        dto.AircraftSecurityRequired = this.AircraftSecurityRequired;
         dto.CommunicationSupportRequired = this.CommunicationSupportRequired;
         dto.FastRopeRequired = this.FastRopeRequired;
         dto.HazmatRequired = this.HazmatRequired;
@@ -108,6 +114,8 @@ export class Msr {
         /*DATETIME*/
         dto.MissionEnd = this.convertToIso(this.MissionEnd);
         dto.MissionStart = this.convertToIso(this.MissionStart);
+        dto.MissionSupportEnd = this.convertToIso(this.MissionSupportEnd);
+        dto.MissionSupportStart = this.convertToIso(this.MissionSupportStart);
 
         /*JSON*/
         dto.DropZones = JSON.stringify(this.DropZones);
@@ -167,6 +175,8 @@ export class Msr {
         dto.Pararescue = this.Pararescue;
         dto.RequesterEmail = this.RequesterEmail;
         dto.RequesterPhone = this.RequesterPhone;
+        dto.StagingLocation = this.StagingLocation;
+        dto.SupportLocation = this.SupportLocation;
         dto.Surveys = this.Surveys;
         dto.TypeRelease = this.TypeRelease;
         return dto;
@@ -174,6 +184,7 @@ export class Msr {
 
     setProperties(json: any) {
         /*BOOLEAN*/
+        this.AircraftSecurityRequired = json.AircraftSecurityRequired;
         this.CommunicationSupportRequired = json.CommunicationSupportRequired;
         this.FastRopeRequired = json.FastRopeRequired;
         this.HazmatRequired = json.HazmatRequired;
@@ -186,6 +197,8 @@ export class Msr {
         /*DATETIME*/
         this.MissionEnd = this.convertToBootstrapDate(json.MissionEnd);
         this.MissionStart = this.convertToBootstrapDate(json.MissionStart);
+        this.MissionSupportEnd = this.convertToBootstrapDate(json.MissionSupportEnd);
+        this.MissionSupportStart = this.convertToBootstrapDate(json.MissionSupportStart);
 
         /*JSON*/
         this.DropZones = JSON.parse(json.DropZones);
@@ -250,6 +263,8 @@ export class Msr {
         this.Pararescue = json.Pararescue;
         this.RequesterEmail = json.RequesterEmail;
         this.RequesterPhone = json.RequesterPhone;
+        this.StagingLocation = json.StagingLocation;
+        this.SupportLocation = json.SupportLocation;
         this.Surveys = json.Surveys;
         this.TypeRelease = json.TypeRelease;
     }

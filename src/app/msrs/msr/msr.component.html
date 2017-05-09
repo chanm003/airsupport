@@ -14,7 +14,7 @@
   <ngb-tab>
     <ng-template ngbTabTitle><i class="fa fa-plane"></i> Support Unit</ng-template>
     <ng-template ngbTabContent>
-     
+      <app-support-tabcontent [msr]="msrBeingEdited" [dataEntryLookups]="dataEntryLookups" (saveButtonClicked)="saveMsr($event)"></app-support-tabcontent>
     </ng-template>
   </ngb-tab>
   <ngb-tab>
