@@ -58,6 +58,7 @@ export class Msr {
     RequestingUnitId?: number;
     SelectedRequesters?: Array<any>;
     StagingLocation?: string;
+    Status?: string;
     SupportLocation?: string;
     SupportUnit?: any;
     SupportUnitId?: number;
@@ -70,8 +71,8 @@ export class Msr {
     constructor(json?: any) {
         if (json) {
             this.setProperties(json);
-            console.log(json);
         } else {
+            this.Status = 'Draft';
             this.AssignedOutsideUnits = [];
             this.AssignedSubunits = [];
             this.DropZones = [];

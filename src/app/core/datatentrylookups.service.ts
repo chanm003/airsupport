@@ -50,25 +50,59 @@ export class DatatentrylookupsService {
       .get();
   }
 
+  private getInfoForCurrentUser() {
+    /*this.pagecontextService.getWeb().siteGroups.filter('CanCurrentUserViewMembership eq true').get()*/
+    return Promise.all([
+      this.pagecontextService.getWeb().currentUser.expand('Groups').get()
+    ])
+    .then(data => {
+      const currentUser = data[0];
+      return {
+        Id: currentUser.Id,
+        Email: currentUser.Email,
+        Title: currentUser.Title,
+        Groups: _.map(currentUser.Groups.results, (g: any) => { return {Id: g.Id, Title: g.Title}; })
+      };
+    });
+  }
+
+  checkUnits(units, currentUser) {
+    return _.chain(units)
+        .filter((unit: any) => {
+          if (unit.Users && unit.Users.results) {
+            return _.includes(_.map(unit.Users.results, 'Id'), currentUser.Id);
+          }
+          return false;
+        })
+        .map('Name')
+        .value();
+  }
+
   getAll() {
     return Promise.all([
       this.getOwningUnits(),
       this.getRequestingUnits(),
       this.getSubunits(),
-      this.getSupportUnits()
+      this.getSupportUnits(),
+      this.getInfoForCurrentUser()
     ])
     .then(data => {
+      const owningUnits = data[0];
       const supportUnits = data[3];
       const subunits = data[2];
+      const currentUser = data[4];
 
       _.each(supportUnits, function (item) {
         item.Subunits = _.filter(subunits, { ParentUnitId: item.Id });
       });
 
+      currentUser.memberOfTheFollowingUnits = this.checkUnits(owningUnits, currentUser).concat(this.checkUnits(supportUnits, currentUser));
+
       return {
           supportUnits: supportUnits,
           requestingUnits: data[1],
-          owningUnits: data[0]
+          owningUnits: owningUnits,
+          currentUser: currentUser
       };
     });
   }
