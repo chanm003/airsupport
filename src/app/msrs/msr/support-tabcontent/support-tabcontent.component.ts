@@ -27,7 +27,7 @@ export class SupportTabcontentComponent implements OnInit {
   }
 
   onSaveButtonClicked(): void {
-    this.saveButtonClicked.emit('owner');
+    this.saveButtonClicked.emit();
   }
 }
 

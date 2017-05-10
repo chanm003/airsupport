@@ -46,8 +46,9 @@ export class RequesterTabcontentComponent implements OnInit {
   onRequesterRemoved(event) {
     this.msr.RequesterEmail = '';
   }
-  onSaveButtonClicked(): void{
-    this.saveButtonClicked.emit('request');
+  onSaveButtonClicked(): void {
+    this.msr.Status = 'Draft';
+    this.saveButtonClicked.emit();
   }
 
   getAdditionalFormSection() {

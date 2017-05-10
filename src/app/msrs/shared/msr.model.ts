@@ -95,18 +95,17 @@ export class Msr {
     }
 
     convertToIso(dt: NgbDateStruct) {
-        if( dt ){
+        if (dt) {
             return `${dt.year}-${dt.month}-${dt.day}`;
         } else {
-            return moment().format('YYYY-MM-DD'); 
+            return moment().format('YYYY-MM-DD');
         }
     }
 
-    createDto() {
+    createDto(permissions) {
         const dto: any = {};
 
         /*BOOLEAN*/
-        dto.AircraftSecurityRequired = this.AircraftSecurityRequired;
         dto.CommunicationSupportRequired = this.CommunicationSupportRequired;
         dto.FastRopeRequired = this.FastRopeRequired;
         dto.HazmatRequired = this.HazmatRequired;
@@ -119,12 +118,8 @@ export class Msr {
         /*DATETIME*/
         dto.MissionEnd = this.convertToIso(this.MissionEnd);
         dto.MissionStart = this.convertToIso(this.MissionStart);
-        dto.MissionSupportEnd = this.convertToIso(this.MissionSupportEnd);
-        dto.MissionSupportStart = this.convertToIso(this.MissionSupportStart);
 
         /*JSON*/
-        dto.AssignedOutsideUnits = JSON.stringify(this.AssignedOutsideUnits);
-        dto.AssignedSubunits = JSON.stringify(this.AssignedSubunits);
         dto.DropZones = JSON.stringify(this.DropZones);
         dto.LandingZones = JSON.stringify(this.LandingZones);
         dto.Platforms = JSON.stringify(this.Platforms);
@@ -134,10 +129,22 @@ export class Msr {
 
         /*LOOKUP*/
         dto.RequestingUnitId = this.RequestingUnitId;
-        dto.SupportUnitId = this.SupportUnitId;
 
-        /*LOOKUPMULTI*/
-        dto.OwningUnitsId = { results: this.OwningUnitsId };
+        if (permissions['JSOAC/JMOC']) {
+            dto.SupportUnitId = this.SupportUnitId;
+            dto.OwningUnitsId = { results: this.OwningUnitsId };
+            dto.Notes = this.Notes;
+        }
+
+        if (permissions['Support Unit']) {
+            dto.AircraftSecurityRequired = this.AircraftSecurityRequired;
+            dto.MissionSupportEnd = this.convertToIso(this.MissionSupportEnd);
+            dto.MissionSupportStart = this.convertToIso(this.MissionSupportStart);
+            dto.AssignedOutsideUnits = JSON.stringify(this.AssignedOutsideUnits);
+            dto.AssignedSubunits = JSON.stringify(this.AssignedSubunits);
+            dto.StagingLocation = this.StagingLocation;
+            dto.SupportLocation = this.SupportLocation;
+        }
 
         /*NUMBER*/
         dto.EstimatedDimensionsHeight = this.EstimatedDimensionsHeight;
@@ -172,9 +179,8 @@ export class Msr {
         dto.IsuType = this.IsuType;
         dto.JtacCasType = this.JtacCasType;
         dto.JtacFireType = this.JtacFireType;
-        dto.MedicalSupportReqs= this.MedicalSupportReqs;
+        dto.MedicalSupportReqs = this.MedicalSupportReqs;
         dto.NegativeImpact = this.NegativeImpact;
-        dto.Notes = this.Notes;
         dto.OperationType = this.OperationType;
         dto.OtherAIE = this.OtherAIE;
         dto.ParachuteType = this.ParachuteType;
@@ -182,8 +188,7 @@ export class Msr {
         dto.Pararescue = this.Pararescue;
         dto.RequesterEmail = this.RequesterEmail;
         dto.RequesterPhone = this.RequesterPhone;
-        dto.StagingLocation = this.StagingLocation;
-        dto.SupportLocation = this.SupportLocation;
+        dto.Status = this.Status;
         dto.Surveys = this.Surveys;
         dto.TypeRelease = this.TypeRelease;
         return dto;

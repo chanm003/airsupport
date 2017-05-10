@@ -27,11 +27,11 @@ export class MsrComponent implements OnInit {
     });
   }
 
-  saveMsr(tab) {
-    if (!this.msrBeingEdited.Id){
-      this.msrService.create(this.msrBeingEdited);
+  saveMsr() {
+    if (!this.msrBeingEdited.Id) {
+      this.msrService.create(this.msrBeingEdited, this.tabsLogic);
     } else {
-      this.msrService.update(this.msrBeingEdited);
+      this.msrService.update(this.msrBeingEdited, this.tabsLogic);
     }
   }
 

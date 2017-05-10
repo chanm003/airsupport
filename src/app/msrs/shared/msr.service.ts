@@ -27,15 +27,15 @@ export class MsrService {
     private pagecontextService: PagecontextService) {
   }
 
-  create(msr:Msr){
-    return this.pagecontextService.getWeb().lists.getByTitle(this.listName).items.add(msr.createDto())
+  create(msr: Msr, permissions) {
+    return this.pagecontextService.getWeb().lists.getByTitle(this.listName).items.add(msr.createDto(permissions))
     .then(r => {
       console.log(r);
     });
   }
 
-  update(msr:Msr){
-    return this.pagecontextService.getWeb().lists.getByTitle(this.listName).items.getById(msr.Id).update(msr.createDto())
+  update(msr: Msr, permissions) {
+    return this.pagecontextService.getWeb().lists.getByTitle(this.listName).items.getById(msr.Id).update(msr.createDto(permissions))
     .then(r => {
       console.log(r);
     });
