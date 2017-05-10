@@ -14,8 +14,9 @@ import { PeopleService } from '../../../core/people.service';
 export class RequesterTabcontentComponent implements OnInit {
   @Output() saveButtonClicked = new EventEmitter<string>();
   @Input() msr: Msr;
+  @Input() msrStatusOnLoad: string;
   @Input() dataEntryLookups: any;
-
+  buttonsManager: any;
   operationTypes: Array<string> = [
     'Combat Support (ACS)',
     'Aviation Foreign Internal Defense (AvFID)',
@@ -37,6 +38,7 @@ export class RequesterTabcontentComponent implements OnInit {
   constructor(private peopleService: PeopleService) { }
 
   ngOnInit() {
+    this.setButtonsLogic();
   }
 
   onRequesterAdded(event) {
@@ -45,10 +47,6 @@ export class RequesterTabcontentComponent implements OnInit {
   }
   onRequesterRemoved(event) {
     this.msr.RequesterEmail = '';
-  }
-  onSaveButtonClicked(): void {
-    this.msr.Status = 'Draft';
-    this.saveButtonClicked.emit();
   }
 
   getAdditionalFormSection() {
@@ -61,5 +59,48 @@ export class RequesterTabcontentComponent implements OnInit {
     } else {
       return '';
     }
+  }
+
+  setClasses() {
+    const classes = {
+      'badge-primary': _.includes(['Submitted', 'Vetting', 'Assigned', 'Planning'], this.msrStatusOnLoad),
+      'badge-success': this.msrStatusOnLoad === 'Approved',
+      'badge-warning': this.msrStatusOnLoad === 'Draft',
+      'badge-danger': _.includes(['Canceled by User', 'Rejected'], this.msrStatusOnLoad)
+    };
+    return classes;
+  }
+
+  setButtonsLogic() {
+    this.buttonsManager = {
+      'Save': {
+        shouldShow: () => this.msrStatusOnLoad === 'Draft',
+        onClicked: () => {
+          this.msr.Status = 'Draft';
+          this.saveButtonClicked.emit();
+        }
+      },
+      'Submit': {
+        shouldShow: () => !!this.msr.Id && this.msrStatusOnLoad === 'Draft',
+        onClicked: () => {
+          this.msr.Status = 'Submitted';
+          this.saveButtonClicked.emit();
+        }
+      },
+      'Cancel': {
+        shouldShow: () => !!this.msr.Id && _.includes(['Submitted', 'Vetting', 'Assigned', 'Planning', 'Approved'], this.msrStatusOnLoad),
+        onClicked: () => {
+          this.msr.Status = 'Canceled by User';
+          this.saveButtonClicked.emit();
+        }
+      },
+      'Reopen': {
+        shouldShow: () => !!this.msr.Id && this.msrStatusOnLoad !== 'Draft',
+        onClicked: () => {
+          this.msr.Status = 'Draft';
+          this.saveButtonClicked.emit();
+        }
+      }
+    };
   }
 }

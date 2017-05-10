@@ -1,5 +1,5 @@
 <fieldset>
-  <legend class="pl-2 pb-2">Mission Support Request</legend>
+  <legend class="pl-2 pb-2">Mission Support Request <span *ngIf="!!msr.Id" class="badge" [ngClass]="setClasses()">{{msrStatusOnLoad}}</span></legend>
     <!--PRIMARY REQUEST BEGIN-->
     <div class="pl-5 pr-3">
       <div class="row">
@@ -149,7 +149,10 @@
       <app-targetlocations [msr]="msr"></app-targetlocations>
       <app-landingzones [msr]="msr"></app-landingzones>
 
-      <button (click)="onSaveButtonClicked()" class="btn btn-primary" type="button"><i class="fa fa-save"></i>&nbsp; Save</button>
+      <button *ngIf="buttonsManager['Save'].shouldShow()" (click)="buttonsManager['Save'].onClicked()" class="btn btn-primary" type="button"><i class="fa fa-save"></i>&nbsp; Save</button>
+      <button *ngIf="buttonsManager['Submit'].shouldShow()" (click)="buttonsManager['Submit'].onClicked()" class="btn btn-success" type="button"><i class="fa fa-send"></i>&nbsp; Submit</button>
+      <button *ngIf="buttonsManager['Reopen'].shouldShow()" (click)="buttonsManager['Reopen'].onClicked()" class="btn btn-success" type="button"><i class="fa fa-refresh"></i>&nbsp; Reopen Request</button>
+      <button *ngIf="buttonsManager['Cancel'].shouldShow()" (click)="buttonsManager['Cancel'].onClicked()" class="btn btn-danger" type="button"><i class="fa fa-remove"></i>&nbsp; Cancel Request</button>
   </div>
 </fieldset>
     

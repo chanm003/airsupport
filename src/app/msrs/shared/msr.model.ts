@@ -213,14 +213,14 @@ export class Msr {
         this.MissionSupportStart = this.convertToBootstrapDate(json.MissionSupportStart);
 
         /*JSON*/
-        this.AssignedOutsideUnits = JSON.parse(json.AssignedOutsideUnits);
-        this.AssignedSubunits = JSON.parse(json.AssignedSubunits);
-        this.DropZones = JSON.parse(json.DropZones);
-        this.LandingZones = JSON.parse(json.LandingZones);
-        this.Platforms = JSON.parse(json.Platforms);
-        this.PNForces = JSON.parse(json.PNForces);
-        this.TargetLocations = JSON.parse(json.TargetLocations);
-        this.Vehicles = JSON.parse(json.Vehicles);
+        this.AssignedOutsideUnits = JSON.parse(json.AssignedOutsideUnits || '[]');
+        this.AssignedSubunits = JSON.parse(json.AssignedSubunits || '[]');
+        this.DropZones = JSON.parse(json.DropZones || '[]');
+        this.LandingZones = JSON.parse(json.LandingZones || '[]');
+        this.Platforms = JSON.parse(json.Platforms || '[]');
+        this.PNForces = JSON.parse(json.PNForces || '[]');
+        this.TargetLocations = JSON.parse(json.TargetLocations || '[]');
+        this.Vehicles = JSON.parse(json.Vehicles || '[]');
 
         /*LOOKUP*/
         this.RequestingUnitId = json.RequestingUnit.Id;
@@ -278,6 +278,7 @@ export class Msr {
         this.RequesterEmail = json.RequesterEmail;
         this.RequesterPhone = json.RequesterPhone;
         this.StagingLocation = json.StagingLocation;
+        this.Status = json.Status;
         this.SupportLocation = json.SupportLocation;
         this.Surveys = json.Surveys;
         this.TypeRelease = json.TypeRelease;

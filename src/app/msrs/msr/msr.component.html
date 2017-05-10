@@ -2,7 +2,7 @@
   <ngb-tab>
     <ng-template ngbTabTitle><i class="fa fa-user"></i> Requester</ng-template>
     <ng-template ngbTabContent>
-      <app-requester-tabcontent [msr]="msrBeingEdited" [dataEntryLookups]="dataEntryLookups" (saveButtonClicked)="saveMsr()"></app-requester-tabcontent>  
+      <app-requester-tabcontent [msr]="msrBeingEdited" [msrStatusOnLoad]="msrOnLoad.Status" [dataEntryLookups]="dataEntryLookups" (saveButtonClicked)="saveMsr()"></app-requester-tabcontent>  
     </ng-template>
   </ngb-tab>
   <ngb-tab *ngIf="tabsLogic['JSOAC/JMOC']">
