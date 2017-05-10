@@ -74,7 +74,7 @@ export class DatatentrylookupsService {
           }
           return false;
         })
-        .map('Name')
+        .map('Id')
         .value();
   }
 
@@ -96,7 +96,8 @@ export class DatatentrylookupsService {
         item.Subunits = _.filter(subunits, { ParentUnitId: item.Id });
       });
 
-      currentUser.memberOfTheFollowingUnits = this.checkUnits(owningUnits, currentUser).concat(this.checkUnits(supportUnits, currentUser));
+      currentUser.owningUnits = this.checkUnits(owningUnits, currentUser);
+      currentUser.supportUnits = this.checkUnits(supportUnits, currentUser);
 
       return {
           supportUnits: supportUnits,

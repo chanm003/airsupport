@@ -6,7 +6,7 @@ import { MsrService } from './msr.service';
 import { DatatentrylookupsService } from '../../core/datatentrylookups.service';
 
 export class MsrRouteData{
-  constructor(public msr:Msr, public lookups:any){
+  constructor(public msr: Msr, public lookups: any) {
   }
 }
 
@@ -19,7 +19,7 @@ export class MsrResolver implements Resolve<MsrRouteData> {
   ) { }
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-    let id = +route.params['id'];
+    const id = +route.params['id'];
     return Promise.all([
       this.msrService.get(id),
       this.datatentrylookupsService.getAll()
