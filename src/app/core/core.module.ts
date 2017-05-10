@@ -6,13 +6,14 @@ import { PagecontextService } from './pagecontext.service';
 import { DatatentrylookupsService } from './datatentrylookups.service';
 import { EntityService } from './entity.service';
 import { PeopleService } from './people.service';
+import { SimpleNotificationsModule } from 'angular2-notifications';
 
 @NgModule({
   imports: [
-    CommonModule, FormsModule
+    CommonModule, FormsModule, SimpleNotificationsModule
   ],
   exports: [
-    CommonModule, FormsModule
+    CommonModule, FormsModule, SimpleNotificationsModule
   ],
   declarations: [],
   providers: [

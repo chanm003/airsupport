@@ -14,12 +14,12 @@ export class PagecontextService {
   }
 
   getInfo(): SpPageContext {
-    if (environment.production){
+    if (environment.production) {
       const spPage = (<any>window);
       return {
         currentWebAbsoluteUrl: spPage._spPageContextInfo.webAbsoluteUrl,
         currentUserId: spPage._spPageContextInfo.userId
-      }
+      };
     } else {
       return {
         currentWebAbsoluteUrl: 'http://localhost/msrdev',
@@ -28,12 +28,12 @@ export class PagecontextService {
     }
   }
 
-  getWeb(): spns.Web{
+  getWeb(): spns.Web {
     return new spns.Web(this.getInfo().currentWebAbsoluteUrl);
   }
 }
 
-class SpPageContext{
+class SpPageContext {
   currentWebAbsoluteUrl: string;
   currentUserId: number;
 }

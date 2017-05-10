@@ -13,6 +13,7 @@ import { AsideToggleDirective } from './shared/aside.directive';
 import { BreadcrumbsComponent } from './shared/breadcrumb.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { SimpleNotificationsModule } from 'angular2-notifications';
 
 // Routing Module
 import { AppRoutingModule } from './app.routing';
@@ -26,6 +27,7 @@ import { FullLayoutComponent } from './layouts/full-layout.component';
     BrowserModule,
     CoreModule,
     BrowserAnimationsModule,
+    SimpleNotificationsModule.forRoot(),
     ChartsModule,
     AppRoutingModule
   ],
