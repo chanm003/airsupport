@@ -20,7 +20,7 @@
   <ngb-tab *ngIf="tabsLogic['Status']">
     <ng-template ngbTabTitle><i class="fa fa-comments-o"></i> Status</ng-template>
     <ng-template ngbTabContent>
-     
+      <app-status-tabcontent [msr]="msrBeingEdited"></app-status-tabcontent>
     </ng-template>
   </ngb-tab>
 </ngb-tabset>

@@ -66,7 +66,7 @@ export class RequesterTabcontentComponent implements OnInit {
       'badge-primary': _.includes(['Submitted', 'Vetting', 'Assigned', 'Planning'], this.msrStatusOnLoad),
       'badge-success': this.msrStatusOnLoad === 'Approved',
       'badge-warning': this.msrStatusOnLoad === 'Draft',
-      'badge-danger': _.includes(['Canceled by User', 'Rejected'], this.msrStatusOnLoad)
+      'badge-danger': _.includes(['Canceled', 'Rejected'], this.msrStatusOnLoad)
     };
     return classes;
   }
@@ -90,7 +90,7 @@ export class RequesterTabcontentComponent implements OnInit {
       'Cancel': {
         shouldShow: () => !!this.msr.Id && _.includes(['Submitted', 'Vetting', 'Assigned', 'Planning', 'Approved'], this.msrStatusOnLoad),
         onClicked: () => {
-          this.msr.Status = 'Canceled by User';
+          this.msr.Status = 'Canceled';
           this.saveButtonClicked.emit();
         }
       },

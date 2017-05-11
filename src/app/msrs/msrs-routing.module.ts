@@ -18,6 +18,7 @@ import { OwnerTabcontentComponent } from './msr/owner-tabcontent/owner-tabconten
 import { SupportTabcontentComponent } from './msr/support-tabcontent/support-tabcontent.component';
 import { OutsideunitsComponent } from './msr/support-tabcontent/outsideunits/outsideunits.component';
 import { SubunitsComponent } from './msr/support-tabcontent/subunits/subunits.component';
+import { StatusTabcontentComponent } from './msr/status-tabcontent/status-tabcontent.component';
 
 const routes: Routes = [
   {
@@ -55,7 +56,8 @@ export const routedComponents = [
   OwnerTabcontentComponent,
   SupportTabcontentComponent,
   SubunitsComponent,
-  OutsideunitsComponent
+  OutsideunitsComponent,
+  StatusTabcontentComponent
 ];
 
 @NgModule({
