@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Msr } from '../shared/msr.model';
+import { NewsfeedItem } from '../shared/newsfeed.model';
 import * as _ from 'lodash';
 
 @Component({
@@ -8,7 +8,8 @@ import * as _ from 'lodash';
   styles: []
 })
 export class NewsfeedComponent implements OnInit {
-  @Input() msr: Msr;
+  @Input() newsfeeditems: Array<NewsfeedItem>;
+
   constructor() { }
 
   ngOnInit() {

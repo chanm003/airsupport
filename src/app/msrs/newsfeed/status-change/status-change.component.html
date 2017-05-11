@@ -1,0 +1,25 @@
+<span *ngIf="newsfeeditem.JSON.prevStatus === ''">
+  Created this MSR
+</span>
+
+<span *ngIf="newsfeeditem.JSON.prevStatus !== '' && newsfeeditem.JSON.newStatus === 'Draft'">
+  Reopened this MSR
+</span>
+
+<span *ngIf="newsfeeditem.JSON.prevStatus === 'Draft' && newsfeeditem.JSON.newStatus === 'Submitted'">
+  Submitted this MSR
+</span>
+
+<span *ngIf="newsfeeditem.JSON.newStatus === 'Canceled'">
+  Canceled this MSR
+</span>
+
+<span *ngIf="newsfeeditem.JSON.newStatus === 'Rejected'">
+  Rejected this MSR
+</span>
+
+<span *ngIf="newsfeeditem.JSON.newStatus === 'Approved'">
+  Approved this MSR
+</span>
+ 
+<span class="badge" [ngClass]="setClasses(newsfeeditem.JSON.newStatus)">{{newsfeeditem.JSON.newStatus}}</span>

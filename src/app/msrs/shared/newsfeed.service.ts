@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { ExceptionService } from '../../core/exception.service';
 import { PagecontextService } from '../../core/pagecontext.service';
 import { NewsfeedItem } from '../../msrs/shared/newsfeed.model';
+import * as _ from 'lodash';
 
 @Injectable()
 export class NewsfeedService {
@@ -37,13 +38,20 @@ export class NewsfeedService {
     return Promise.all(promises);
   }
 
-  get(id: number) {
+  getByMsr(id: number) {
     if (!id) { return Promise.resolve(null); }
 
     return this.pagecontextService.getWeb().lists.getByTitle(this.listName).items
-      .getById(id)
+      .filter(`RelatedMsrId eq ${id}`)
+      .orderBy('Id', false)
       .select(...this.fieldsToSelect)
       .expand(...this.fieldsToExpand)
-      .get();
+      .get()
+      .then((items) => {
+        return _.map(items, (item: any) => {
+          item.JSON = JSON.parse(item.JSON);
+          return item;
+        });
+      });
   }
 }
