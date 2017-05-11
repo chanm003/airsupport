@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Msr } from '../shared/msr.model';
 import { EntityService } from '../../core/entity.service';
 import { MsrService } from '../shared/msr.service';
+import { NewsfeedService } from '../shared/newsfeed.service';
 import { MsrRouteData } from '../shared/msr-resolver.service';
 import { NotificationsService } from 'angular2-notifications';
 import * as _ from 'lodash';
@@ -22,6 +23,7 @@ export class MsrComponent implements OnInit {
     private router: Router,
     private entityService: EntityService,
     private notificationService: NotificationsService,
+    private newsfeedService: NewsfeedService,
     private msrService: MsrService) { }
 
   ngOnInit() {
@@ -34,14 +36,24 @@ export class MsrComponent implements OnInit {
   saveMsr() {
     if (!this.msrBeingEdited.Id) {
       this.msrService.create(this.msrBeingEdited, this.tabsLogic)
+        .then((createdItem: any) => {
+          this.msrBeingEdited.Id = createdItem.Id;
+          this.createNewsfeedItems();
+        })
         .then(() => this.router.navigate(['/msrs']));
     } else {
       this.msrService.update(this.msrBeingEdited, this.tabsLogic)
+        .then(() => this.createNewsfeedItems())
         .then(() => {
           this.setEditMsr(this.msrBeingEdited);
           this.notificationService.success('Confirmation', 'Your changes were saved');
         });
     }
+  }
+
+  createNewsfeedItems() {
+    const changes = this.msrBeingEdited.getChanges(this.msrOnLoad);
+    return this.newsfeedService.create(changes);
   }
 
   setEditMsr(msr: Msr) {

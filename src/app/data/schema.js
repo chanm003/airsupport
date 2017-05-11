@@ -697,21 +697,21 @@ msrSchema.lists['Subunits'] = {
     ]
 };
 
-msrSchema.lists['Log History'] = {
+msrSchema.lists['Newsfeed'] = {
     BaseTemplate: 'genericList',
     shouldHideTitleField: true,
     fieldsToCreate: [
         {
             //EXAMPLE: SINGLE LINE OF TEXT
-            Name: "Status",
-            DisplayName: "Status",
+            Name: "Type",
+            DisplayName: "Type",
             Type: "Text",
             Required: "TRUE"
         },
         {
             //EXAMPLE: MULTIPLE LINE OF TEXT
-            Name: "Comments",
-            DisplayName: "Comments",
+            Name: "JSON",
+            DisplayName: "JSON",
             Type: "Note",
             Required: "FALSE",
             NumLines: 6,

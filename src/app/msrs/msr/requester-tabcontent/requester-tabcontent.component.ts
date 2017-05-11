@@ -74,7 +74,7 @@ export class RequesterTabcontentComponent implements OnInit {
   setButtonsLogic() {
     this.buttonsManager = {
       'Save': {
-        shouldShow: () => this.msrStatusOnLoad === 'Draft',
+        shouldShow: () => this.msrStatusOnLoad === '' || this.msrStatusOnLoad === 'Draft',
         onClicked: () => {
           this.msr.Status = 'Draft';
           this.saveButtonClicked.emit();

@@ -29,16 +29,12 @@ export class MsrService {
 
   create(msr: Msr, permissions) {
     return this.pagecontextService.getWeb().lists.getByTitle(this.listName).items.add(msr.createDto(permissions))
-    .then(r => {
-      console.log(r);
-    });
+    .then(resp => resp.data);
   }
 
   update(msr: Msr, permissions) {
     return this.pagecontextService.getWeb().lists.getByTitle(this.listName).items.getById(msr.Id).update(msr.createDto(permissions))
-    .then(r => {
-      console.log(r);
-    });
+    .then(resp => resp.data);
   }
 
   getAll() {
@@ -48,8 +44,8 @@ export class MsrService {
       .get();
   }
 
-  get(id:number){
-    if(!id){
+  get(id: number) {
+    if (!id) {
       return Promise.resolve(null);
     }
 

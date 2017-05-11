@@ -1,5 +1,6 @@
 import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import * as moment from 'moment/moment';
+import { StatusChange } from './newsfeed.model';
 
 export class Msr {
     AircraftSecurityRequired?: boolean;
@@ -22,7 +23,7 @@ export class Msr {
     FFEquipment?: string;
     HazmatRequired?: boolean;
     HoistRequired?: boolean;
-    Id?:number;
+    Id?: number;
     InfillExfillType?: string;
     IsuType?: string;
     IsuWeight?: number;
@@ -72,7 +73,7 @@ export class Msr {
         if (json) {
             this.setProperties(json);
         } else {
-            this.Status = 'Draft';
+            this.Status = '';
             this.AssignedOutsideUnits = [];
             this.AssignedSubunits = [];
             this.DropZones = [];
@@ -85,16 +86,16 @@ export class Msr {
         }
     }
 
-    convertToBootstrapDate(iso: string): NgbDateStruct{
+    private convertToBootstrapDate(iso: string): NgbDateStruct {
         const m = moment(iso);
         return {
             month: m.month() + 1,
             day: m.date(),
             year: m.year()
-        }
+        };
     }
 
-    convertToIso(dt: NgbDateStruct) {
+    private convertToIso(dt: NgbDateStruct) {
         if (dt) {
             return `${dt.year}-${dt.month}-${dt.day}`;
         } else {
@@ -194,7 +195,7 @@ export class Msr {
         return dto;
     }
 
-    setProperties(json: any) {
+    private setProperties(json: any) {
         /*BOOLEAN*/
         this.AircraftSecurityRequired = json.AircraftSecurityRequired;
         this.CommunicationSupportRequired = json.CommunicationSupportRequired;
@@ -282,6 +283,21 @@ export class Msr {
         this.SupportLocation = json.SupportLocation;
         this.Surveys = json.Surveys;
         this.TypeRelease = json.TypeRelease;
+    }
+
+    getChanges(prevMsr: Msr) {
+        const changes = [];
+        if (this.Status !== prevMsr.Status) {
+            const notification = new StatusChange();
+            notification.RelatedMsrId = this.Id;
+            notification.Type = StatusChange.name;
+            notification.JSON = {
+                prevStatus: prevMsr.Status,
+                newStatus: this.Status
+            };
+            changes.push(notification);
+        }
+        return changes;
     }
 }
 
