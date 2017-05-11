@@ -13,7 +13,7 @@ export class StatusTabcontentComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    console.log(this.msr.Id);
+
   }
 
 }

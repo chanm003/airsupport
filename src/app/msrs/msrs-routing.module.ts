@@ -19,6 +19,7 @@ import { SupportTabcontentComponent } from './msr/support-tabcontent/support-tab
 import { OutsideunitsComponent } from './msr/support-tabcontent/outsideunits/outsideunits.component';
 import { SubunitsComponent } from './msr/support-tabcontent/subunits/subunits.component';
 import { StatusTabcontentComponent } from './msr/status-tabcontent/status-tabcontent.component';
+import { NewsfeedComponent } from './newsfeed/newsfeed.component';
 
 const routes: Routes = [
   {
@@ -50,6 +51,7 @@ export const routedComponents = [
   TargetlocationsComponent,
   LandingzonesComponent,
   CargoformComponent,
+  NewsfeedComponent,
   SpecialtacticsformComponent,
   PnforcesComponent,
   DropzonesComponent,
