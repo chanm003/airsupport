@@ -1,9 +1,9 @@
 <span *ngIf="newsfeeditem.JSON.prevStatus === ''">
-  Created this MSR
+  Created this MSR. The system set the status of this MSR to 'Draft'.
 </span>
 
 <span *ngIf="newsfeeditem.JSON.prevStatus !== '' && newsfeeditem.JSON.newStatus === 'Draft'">
-  Reopened this MSR
+  Reopened this MSR.  The system set the status of this MSR to 'Draft'.
 </span>
 
 <span *ngIf="newsfeeditem.JSON.prevStatus === 'Draft' && newsfeeditem.JSON.newStatus === 'Submitted'">
@@ -22,4 +22,9 @@
   Approved this MSR
 </span>
  
-<span class="badge" [ngClass]="setClasses(newsfeeditem.JSON.newStatus)">{{newsfeeditem.JSON.newStatus}}</span>
+ <!--
+ <div>
+   <a class="bnt-more">Some action</a>
+ </div>
+ -->
+ 

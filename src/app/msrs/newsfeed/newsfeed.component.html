@@ -1,14 +1,18 @@
-<div *ngIf="newsfeeditems?.length" class="timeline">
-  <div *ngFor="let item of newsfeeditems" class="entry">
-    <div class="title">
-      <h3>{{item.Created | date:'dd MMM yyyy HHmm' | uppercase }}</h3>
-      <p>{{item.Author.Title}}</p>
-    </div>
-    <div class="body">
-      <app-status-change *ngIf="item.Type === 'StatusChange'" [newsfeeditem]="item"></app-status-change>
-    </div>
+<section *ngIf="newsfeeditems?.length" class="timeline">
+  <div class="container">
+    <div *ngFor="let item of newsfeeditems" class="timeline-item">
+      <div class="timeline-img"></div>
+      <div class="timeline-content js--fadeInLeft">
+        <h2>{{item.Author.Title}}</h2>
+        <div class="date">{{item.Created | date:'dd MMM yyyy HHmm' | uppercase }}</div>
+        <p>
+          <app-status-change *ngIf="item.Type === 'StatusChange'" [newsfeeditem]="item"></app-status-change>
+        </p>
+      </div>
+    </div> 
   </div>
-</div>
+</section>
+
 
 
 
