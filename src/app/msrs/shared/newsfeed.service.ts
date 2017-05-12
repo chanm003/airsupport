@@ -69,7 +69,7 @@ export class NewsfeedService {
      if (current.Status !== prev.Status) {
         const notification = new StatusChange();
         notification.RelatedMsrId = current.Id;
-        notification.Type = StatusChange.name;
+        notification.Type = 'StatusChange';
         notification.JSON = {
             prevStatus: prev.Status,
             newStatus: current.Status

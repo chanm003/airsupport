@@ -39,7 +39,7 @@ export class StatusTabcontentComponent implements OnInit {
 
   changeStatus(){
     const change = new StatusChange();
-    change.Type = StatusChange.name;
+    change.Type = 'StatusChange';
     change.RelatedMsrId = this.msr.Id;
     change.JSON = {
       prevStatus: this.msr.Status,
