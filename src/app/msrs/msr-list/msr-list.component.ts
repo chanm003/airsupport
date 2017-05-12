@@ -7,12 +7,13 @@ import { MsrService } from '../shared/msr.service';
   styles: []
 })
 export class MsrListComponent implements OnInit {
+  msrList: Array<any>;
 
-  constructor(private msrService: MsrService) { 
-    this.msrService.getAll().then(r => console.log(r))
+  constructor(private msrService: MsrService) {
   }
 
   ngOnInit() {
+    this.msrService.getAll().then(data => this.msrList = data);
   }
 
 }
