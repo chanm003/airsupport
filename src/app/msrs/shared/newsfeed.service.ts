@@ -42,7 +42,7 @@ export class NewsfeedService {
     if (!id) { return Promise.resolve(null); }
 
     return this.pagecontextService.getWeb().lists.getByTitle(this.listName).items
-      .filter(`RelatedMsrId eq ${id}`)
+      .filter(`RelatedMsr/Id eq ${id}`)
       .orderBy('Id', false)
       .select(...this.fieldsToSelect)
       .expand(...this.fieldsToExpand)

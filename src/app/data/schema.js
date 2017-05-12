@@ -719,13 +719,13 @@ msrSchema.lists['Newsfeed'] = {
             AppendOnly: "FALSE"					//VERSIONING MUST BE TURNED ON, otherwise specifie "FALSE"
         },
         {
-            //EXAMPLE: SINGLE LINE OF TEXT
-            Name: "RelatedMsrId",
+            //EXAMPLE: Lookup field
+            Name: "RelatedMsr",
             DisplayName: "Related MSR",
-            Type: "Number",
+            Type: "Lookup",
             Required: "TRUE",
-            Description: "Using single line of text because SP2013 on-premise REST does not allow queries by lookup",
-            Decimals: 0
+            List: "Mission Support Request",
+            ShowField: 'ID'
         }
     ]
 };
