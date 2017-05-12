@@ -1,6 +1,6 @@
 import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import * as moment from 'moment/moment';
-import { StatusChange } from './newsfeed.model';
+import { NewsfeedItem, StatusChange } from './newsfeed.model';
 
 export class Msr {
     AircraftSecurityRequired?: boolean;
@@ -37,6 +37,7 @@ export class Msr {
     MissionSupportEnd?: NgbDateStruct;
     MissionSupportStart?: NgbDateStruct;
     NegativeImpact?: string;
+    NewsfeedItems?: Array<NewsfeedItem>;
     Notes?: string;
     NumberOfPallets?: number;
     NumberOfPAX?: number;

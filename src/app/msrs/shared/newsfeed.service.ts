@@ -39,7 +39,7 @@ export class NewsfeedService {
   }
 
   getByMsr(id: number) {
-    if (!id) { return Promise.resolve(null); }
+    if (!id) { return Promise.resolve([]); }
 
     return this.pagecontextService.getWeb().lists.getByTitle(this.listName).items
       .filter(`RelatedMsr/Id eq ${id}`)

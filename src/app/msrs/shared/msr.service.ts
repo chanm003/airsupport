@@ -53,6 +53,9 @@ export class MsrService {
       .getById(id)
       .select(...this.fieldsToSelect)
       .expand(...this.fieldsToExpand)
-      .get();
+      .get()
+      .then(function(res){
+        return new Msr(res);
+      });
   }
 }
