@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve, Router, RouterStateSnapshot } from '@angular/router';
 
 import { Msr } from './msr.model';
+import { NewsfeedItem } from './newsfeed.model';
 import { MsrService } from './msr.service';
 import { NewsfeedService } from './newsfeed.service';
 import { DatatentrylookupsService } from '../../core/datatentrylookups.service';
@@ -33,7 +34,7 @@ export class MsrResolver implements Resolve<MsrRouteData> {
       const relatedNewsfeedItems = data[2];
 
       if (msr) {
-        msr.NewsfeedItems = relatedNewsfeedItems;
+        msr.NewsfeedItems = <Array<NewsfeedItem>>relatedNewsfeedItems;
         return new MsrRouteData(msr, lookups);
       }
       // Return a new object, because we're going to create a new one

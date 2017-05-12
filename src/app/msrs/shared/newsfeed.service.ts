@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { ExceptionService } from '../../core/exception.service';
 import { PagecontextService } from '../../core/pagecontext.service';
-import { NewsfeedItem } from '../../msrs/shared/newsfeed.model';
+import { NewsfeedItem, StatusChange } from '../../msrs/shared/newsfeed.model';
+import { Msr } from '../../msrs/shared/msr.model';
 import * as _ from 'lodash';
 
 @Injectable()
@@ -16,26 +17,18 @@ export class NewsfeedService {
     private pagecontextService: PagecontextService) {
   }
 
-  create(changes: Array<NewsfeedItem>) {
-    if (!changes.length) {
-      return Promise.resolve(null);
-    }
-
-    const promises = [];
-
-    changes.forEach((item) => {
-      const promise = this.pagecontextService.getWeb().lists.getByTitle(this.listName).items.add({
-        Type: item.Type,
-        JSON: JSON.stringify(item.JSON),
-        RelatedMsrId: item.RelatedMsrId
-      })
-      .then(r => {
-          console.log(r);
-      });
-      promises.push(promise);
+  create(item: NewsfeedItem) {
+    return this.pagecontextService.getWeb().lists.getByTitle(this.listName).items.add({
+      Type: item.Type,
+      JSON: JSON.stringify(item.JSON),
+      RelatedMsrId: item.RelatedMsrId
+    })
+    .then((resp) => {
+      const newItem = resp.data;
+      newItem.JSON = JSON.parse(newItem.JSON);
+      newItem.Author = { Title: 'You' };
+      return newItem;
     });
-
-    return Promise.all(promises);
   }
 
   getByMsr(id: number) {
@@ -53,5 +46,37 @@ export class NewsfeedService {
           return item;
         });
       });
+  }
+
+  createNotifications(prev: Msr, current: Msr) {
+    return Promise.all([
+      this.createStatusChangedNotification(current, prev)
+    ])
+    .then((data) => {
+      const changes = Array<NewsfeedItem>();
+
+      data.forEach((resp) => {
+        if (resp) {
+          changes.push(resp);
+        }
+      });
+
+      return changes;
+    });
+  }
+
+  private createStatusChangedNotification(current, prev) {
+     if (current.Status !== prev.Status) {
+        const notification = new StatusChange();
+        notification.RelatedMsrId = current.Id;
+        notification.Type = StatusChange.name;
+        notification.JSON = {
+            prevStatus: prev.Status,
+            newStatus: current.Status
+        };
+        return this.create(notification);
+      } else {
+        return Promise.resolve(null);
+      }
   }
 }

@@ -4,6 +4,7 @@ export interface NewsfeedItem {
     RelatedMsrId: number;
     Type: string;
     JSON: any;
+    Author?: { Title: string };
 }
 
 export class StatusChange implements NewsfeedItem {

@@ -44,16 +44,16 @@ export class MsrComponent implements OnInit {
     } else {
       this.msrService.update(this.msrBeingEdited, this.tabsLogic)
         .then(() => this.createNewsfeedItems())
-        .then(() => {
+        .then((changes) => {
           this.setEditMsr(this.msrBeingEdited);
+          this.msrBeingEdited.NewsfeedItems.push(...changes);
           this.notificationService.success('Confirmation', 'Your changes were saved');
         });
     }
   }
 
   createNewsfeedItems() {
-    const changes = this.msrBeingEdited.getChanges(this.msrOnLoad);
-    return this.newsfeedService.create(changes);
+    return this.newsfeedService.createNotifications(this.msrOnLoad, this.msrBeingEdited);
   }
 
   setEditMsr(msr: Msr) {

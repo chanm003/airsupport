@@ -5,6 +5,7 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {NgbDateParserFormatter} from '@ng-bootstrap/ng-bootstrap';
 import {NgbDateParserFormatterFactory} from './core/datepickerparser';
 import { TagInputModule } from 'ng2-tag-input';
+import {NgPipesModule} from 'ngx-pipes';
 // imports: imports the module's exports. which are usually
 // declarables(components / directives / pipes) and providers.
 // in our case the FilterTextModule has a provider.
@@ -13,8 +14,8 @@ import { TagInputModule } from 'ng2-tag-input';
 // SharedModule does not use CommonModule, but does use FormsModule.
 // Even so, we import/export both of these because most other modules will import SharedModule and will need them.
 @NgModule({
-  imports: [CommonModule, FormsModule, NgbModule, TagInputModule],
-  exports: [CommonModule, FormsModule, NgbModule, TagInputModule],
+  imports: [CommonModule, FormsModule, NgbModule, TagInputModule, NgPipesModule],
+  exports: [CommonModule, FormsModule, NgbModule, TagInputModule, NgPipesModule],
   declarations: [],
   providers: [
     {

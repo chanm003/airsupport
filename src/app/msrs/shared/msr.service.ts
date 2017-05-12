@@ -44,12 +44,12 @@ export class MsrService {
       .get();
   }
 
-  get(id: number) {
+  get(id: number):Promise<Msr> {
     if (!id) {
       return Promise.resolve(null);
     }
 
-    return this.pagecontextService.getWeb().lists.getByTitle(this.listName).items
+    return <Promise<Msr>>this.pagecontextService.getWeb().lists.getByTitle(this.listName).items
       .getById(id)
       .select(...this.fieldsToSelect)
       .expand(...this.fieldsToExpand)

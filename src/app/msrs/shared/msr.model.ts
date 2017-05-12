@@ -285,21 +285,6 @@ export class Msr {
         this.Surveys = json.Surveys;
         this.TypeRelease = json.TypeRelease;
     }
-
-    getChanges(prevMsr: Msr) {
-        const changes = [];
-        if (this.Status !== prevMsr.Status) {
-            const notification = new StatusChange();
-            notification.RelatedMsrId = this.Id;
-            notification.Type = StatusChange.name;
-            notification.JSON = {
-                prevStatus: prevMsr.Status,
-                newStatus: this.Status
-            };
-            changes.push(notification);
-        }
-        return changes;
-    }
 }
 
 export class PNForce {
