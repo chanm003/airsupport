@@ -21,7 +21,7 @@ export class DatatentrylookupsService {
       .get();
   }
 
-  private getRequestingUnits(){
+  private getRequestingUnits() {
     const listName = 'Requesting Units';
     const fieldsToSelect = ['Id', 'Name', 'Email', 'VerificationDate', 'PhoneNumber'];
 
@@ -30,7 +30,7 @@ export class DatatentrylookupsService {
       .get();
   }
 
-  private getSubunits(){
+  private getSubunits() {
     const listName = 'Subunits';
     const fieldsToSelect = ['Id', 'Name', 'PocName', 'PocPhone', 'PocEmail', 'ParentUnitId'];
 
@@ -39,7 +39,7 @@ export class DatatentrylookupsService {
       .get();
   }
 
-  private getSupportUnits(){
+  private getSupportUnits() {
     const listName = 'Support Units';
     const fieldsToSelect = ['Id', 'Name', 'Email', 'VerificationDate', 'PhoneNumber', 'Users/Id', 'Users/Title'];
     const fieldsToExpand = ['Users'];

@@ -1,26 +1,36 @@
+<span><strong>{{newsfeeditem.Author.Title}}</strong></span>
+
 <span *ngIf="newsfeeditem.JSON.prevStatus === ''">
-  Created this MSR. The system set the status of this MSR to 'Draft'.
+  created this MSR. The system set the status of this MSR to 'Draft'.
 </span>
 
 <span *ngIf="newsfeeditem.JSON.prevStatus !== '' && newsfeeditem.JSON.newStatus === 'Draft'">
-  Reopened this MSR.  The system set the status of this MSR to 'Draft'.
+  reopened this MSR.  The system set the status of this MSR to 'Draft'.
 </span>
 
 <span *ngIf="newsfeeditem.JSON.prevStatus === 'Draft' && newsfeeditem.JSON.newStatus === 'Submitted'">
-  Submitted this MSR
+  submitted this MSR
 </span>
 
 <span *ngIf="newsfeeditem.JSON.newStatus === 'Canceled'">
-  Canceled this MSR
+  canceled this MSR
 </span>
 
 <span *ngIf="newsfeeditem.JSON.newStatus === 'Rejected'">
-  Rejected this MSR
+  rejected this MSR
 </span>
 
 <span *ngIf="newsfeeditem.JSON.newStatus === 'Approved'">
-  Approved this MSR
+  approved this MSR
 </span>
+
+<span *ngIf="newsfeeditem.JSON.newStatus === 'Vetting' || newsfeeditem.JSON.newStatus === 'Assigned' || newsfeeditem.JSON.newStatus === 'Planning'">
+  changed the status of this MSR to '{{newsfeeditem.JSON.newStatus}}'.
+</span>
+
+<p *ngIf="newsfeeditem.JSON.comments">
+  {{newsfeeditem.JSON.comments}}
+</p>
  
  <!--
  <div>

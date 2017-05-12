@@ -3,7 +3,6 @@
     <div *ngFor="let item of newsfeeditems" class="timeline-item">
       <div class="timeline-img"></div>
       <div class="timeline-content js--fadeInLeft">
-        <h2>{{item.Author.Title}}</h2>
         <div class="date">{{item.Created | date:'dd MMM yyyy HHmm' | uppercase }}</div>
         <p>
           <app-status-change *ngIf="item.Type === 'StatusChange'" [newsfeeditem]="item"></app-status-change>
