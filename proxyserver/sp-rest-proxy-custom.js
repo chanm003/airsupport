@@ -286,6 +286,53 @@ const RestProxy = function (settings) {
         }
     });
 
+    _self.routers.apiSoapRouter.get('/*', (req, res) => {
+        let endpointUrl = buildEndpointUrl(req.originalUrl);
+        _self.spr = getCachedRequest(_self.spr);
+
+        console.log('\nGET: ' + endpointUrl); // _self.ctx.siteUrl + req.originalUrl);
+
+        let requestHeadersPass = {
+            'accept': 'application/json; odata=verbose',
+            'content-type': 'application/json; odata=verbose'
+        };
+
+        let ignoreHeaders = [ 'host', 'referer', 'if-none-match', 'connection',
+            'cache-control', 'cache-control', 'user-agent', 'origin',
+            'accept-encoding', 'x-requested-with', 'accept-language' ];
+
+        // `origin` header causes 403 error in CORS requests
+
+        Object.keys(req.headers).forEach((prop) => {
+            if (ignoreHeaders.indexOf(prop.toLowerCase()) === -1) {
+                requestHeadersPass[prop.toLowerCase()] = req.headers[prop];
+                if (prop.toLowerCase() === 'accept' && requestHeadersPass[prop.toLowerCase()] === '*/*') {
+                    requestHeadersPass[prop.toLowerCase()] = 'application/json; odata=verbose';
+                }
+            }
+        });
+
+        if (settings.debugOutput) {
+            console.log('\nHeaders:');
+            console.log(JSON.stringify(req.headers, null, 2));
+        }
+
+        _self.spr.get(endpointUrl, {
+            headers: requestHeadersPass
+        })
+            .then((response) => {
+                if (settings.debugOutput) {
+                    console.log(response.statusCode, response.body);
+                }
+                res.status(response.statusCode);
+                res.json(response.body);
+            })
+            .catch((err) => {
+                res.status(err.statusCode >= 100 && err.statusCode < 600 ? err.statusCode : 500);
+                res.send(err.message);
+            });
+    });
+
     _self.routers.apiSoapRouter.post('/*', (req, res, next) => {
         let endpointUrl = buildEndpointUrl(req.originalUrl);
         _self.spr = getCachedRequest(_self.spr);
