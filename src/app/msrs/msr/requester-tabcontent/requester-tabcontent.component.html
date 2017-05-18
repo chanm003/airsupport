@@ -25,9 +25,10 @@
                        [theme]="'bootstrap'"
                        [secondaryPlaceholder]="'Search in Directory'" 
                        [onlyFromAutocomplete]="true"
+                       [onTextChangeDebounce]="250"
                        (onAdd)="onRequesterAdded($event)"
                        (onRemove)="onRequesterRemoved($event)">
-              <tag-input-dropdown [autocompleteObservable]="getMatchingPeople">
+              <tag-input-dropdown [autocompleteObservable]="getMatchingPeople" [minimumTextLength]="3">
                 <ng-template let-item="item" let-index="index">
                   {{ item.display }}
                 </ng-template>
