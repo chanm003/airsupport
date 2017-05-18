@@ -8,7 +8,7 @@
   reopened this MSR.  The system set the status of this MSR to 'Draft'.
 </span>
 
-<span *ngIf="newsfeeditem.JSON.prevStatus === 'Draft' && newsfeeditem.JSON.newStatus === 'Submitted'">
+<span *ngIf="newsfeeditem.JSON.newStatus === 'Submitted'">
   submitted this MSR
 </span>
 
@@ -18,19 +18,29 @@
 
 <span *ngIf="newsfeeditem.JSON.newStatus === 'Rejected'">
   rejected this MSR
+
+  <p *ngIf="newsfeeditem.JSON.comments">
+    {{newsfeeditem.JSON.comments}}
+  </p>
 </span>
 
 <span *ngIf="newsfeeditem.JSON.newStatus === 'Approved'">
   approved this MSR
+
+  <p *ngIf="newsfeeditem.JSON.comments">
+    {{newsfeeditem.JSON.comments}}
+  </p>
 </span>
 
-<span *ngIf="newsfeeditem.JSON.newStatus === 'Vetting' || newsfeeditem.JSON.newStatus === 'Assigned' || newsfeeditem.JSON.newStatus === 'Planning'">
+<span *ngIf="newsfeeditem.JSON.newStatus === 'Vetting' || newsfeeditem.JSON.newStatus === 'Planning'">
   changed the status of this MSR to '{{newsfeeditem.JSON.newStatus}}'.
 </span>
 
-<p *ngIf="newsfeeditem.JSON.comments">
-  {{newsfeeditem.JSON.comments}}
-</p>
+<span *ngIf="newsfeeditem.JSON.newStatus === 'Assigned'">
+  {{newsfeeditem.JSON.comments}}.  The system set the status of this MSR to 'Assigned'.
+</span>
+
+
  
  <!--
  <div>

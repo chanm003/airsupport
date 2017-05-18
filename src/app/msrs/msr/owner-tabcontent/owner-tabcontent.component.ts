@@ -9,6 +9,7 @@ import * as _ from 'lodash';
 })
 export class OwnerTabcontentComponent implements OnInit {
   @Input() msr: Msr;
+  @Input() msrOnLoad: Msr;
   @Input() dataEntryLookups: any;
   @Output() saveButtonClicked = new EventEmitter<string>();
 
@@ -34,6 +35,12 @@ export class OwnerTabcontentComponent implements OnInit {
     this.msr.OwningUnitsId = _.map(_.filter(this.checkboxDataSource, {isChecked: true}), 'value');
   }
 
+  onSupportUnitChanged() {
+    if (this.msrOnLoad.SupportUnitId !== this.msr.SupportUnitId) {
+      this.msr.Status = 'Assigned';
+    }
+    this.msr.SupportUnit = _.find(this.dataEntryLookups.supportUnits, {Id: this.msr.SupportUnitId});
+  }
   onSaveButtonClicked(): void {
     this.saveButtonClicked.emit();
   }

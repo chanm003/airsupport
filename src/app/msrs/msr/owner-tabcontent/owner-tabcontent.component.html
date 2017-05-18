@@ -4,7 +4,7 @@
     <div class="row">
       <div class="form-group col-6">
         <label>Unit Assigned</label>
-        <select [(ngModel)]="msr.SupportUnitId" class="form-control" name="SupportUnitId">
+        <select [(ngModel)]="msr.SupportUnitId" class="form-control" name="SupportUnitId" (change)="onSupportUnitChanged()">
           <option *ngFor="let item of dataEntryLookups.supportUnits" [ngValue]="item.Id">{{item.Name}}</option>
         </select>
       </div>

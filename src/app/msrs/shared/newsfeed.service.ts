@@ -66,17 +66,25 @@ export class NewsfeedService {
   }
 
   private createStatusChangedNotification(current, prev) {
-     if (current.Status !== prev.Status) {
-        const notification = new StatusChange();
-        notification.RelatedMsrId = current.Id;
-        notification.Type = 'StatusChange';
-        notification.JSON = {
-            prevStatus: prev.Status,
-            newStatus: current.Status
-        };
-        return this.create(notification);
-      } else {
-        return Promise.resolve(null);
+    const hasAssignedUnitChanged = current.SupportUnitId !== prev.SupportUnitId;
+    const hasStatusChanged = current.Status !== prev.Status;
+
+    if (hasAssignedUnitChanged || hasStatusChanged) {
+      const notification = new StatusChange();
+      notification.RelatedMsrId = current.Id;
+      notification.Type = 'StatusChange';
+      notification.JSON = {
+          prevStatus: prev.Status,
+          newStatus: current.Status
+      };
+
+      if (current.Status === 'Assigned') {
+        notification.JSON.comments = `assigned ${current.SupportUnit.Name} to support this MSR`;
       }
+
+      return this.create(notification);
+    } else {
+      return Promise.resolve(null);
+    }
   }
 }
