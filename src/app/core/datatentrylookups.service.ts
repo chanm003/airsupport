@@ -1,12 +1,14 @@
 import { Injectable } from '@angular/core';
 import { PagecontextService } from './pagecontext.service';
 import { ExceptionService } from './exception.service';
+import { LocalStorageService } from 'angular-2-local-storage';
 import * as _ from 'lodash';
 
 @Injectable()
 export class DatatentrylookupsService {
 
   constructor(private exceptionService: ExceptionService,
+    private localStorageService: LocalStorageService,
     private pagecontextService: PagecontextService) {
   }
 
@@ -79,6 +81,11 @@ export class DatatentrylookupsService {
   }
 
   getAll() {
+    const lookupsFromStorage = this.localStorageService.get('lookups');
+    if (lookupsFromStorage) {
+      return Promise.resolve(lookupsFromStorage);
+    }
+
     return Promise.all([
       this.getOwningUnits(),
       this.getRequestingUnits(),
@@ -99,12 +106,15 @@ export class DatatentrylookupsService {
       currentUser.owningUnits = this.checkUnits(owningUnits, currentUser);
       currentUser.supportUnits = this.checkUnits(supportUnits, currentUser);
 
-      return {
+      const lookups = {
           supportUnits: supportUnits,
           requestingUnits: data[1],
           owningUnits: owningUnits,
           currentUser: currentUser
       };
+
+      this.localStorageService.set('lookups', lookups);
+      return this.localStorageService.get('lookups');
     });
   }
 }
