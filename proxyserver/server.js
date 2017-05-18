@@ -1,4 +1,4 @@
-const RestProxy = require('sp-rest-proxy');
+const RestProxy = require('./sp-rest-proxy-custom');
 const path = require('path');
 const express = require('express');
 const request = require('request');
@@ -39,6 +39,7 @@ var forwardToProxy = function (req, res) {
     SharePointReply.pipe(res);
 }
 
+app.use('*/_vti_bin', forwardToProxy);
 app.use('*/_api', forwardToProxy);
 
 //RUN SUDO on OSX because port 80 being used!!
