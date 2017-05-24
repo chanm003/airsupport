@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {NgbDateParserFormatter} from '@ng-bootstrap/ng-bootstrap';
 import {NgbDateParserFormatterFactory} from './core/datepickerparser';
@@ -14,8 +14,8 @@ import {NgPipesModule} from 'ngx-pipes';
 // SharedModule does not use CommonModule, but does use FormsModule.
 // Even so, we import/export both of these because most other modules will import SharedModule and will need them.
 @NgModule({
-  imports: [CommonModule, FormsModule, NgbModule, TagInputModule, NgPipesModule],
-  exports: [CommonModule, FormsModule, NgbModule, TagInputModule, NgPipesModule],
+  imports: [CommonModule, FormsModule, NgbModule, TagInputModule, NgPipesModule, ReactiveFormsModule ],
+  exports: [CommonModule, FormsModule, NgbModule, TagInputModule, NgPipesModule, ReactiveFormsModule ],
   declarations: [],
   providers: [
     {

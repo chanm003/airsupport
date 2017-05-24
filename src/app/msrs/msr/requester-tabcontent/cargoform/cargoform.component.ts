@@ -1,4 +1,5 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnChanges } from '@angular/core';
+import { FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { Msr } from '../../../shared/msr.model';
 
 @Component({
@@ -6,13 +7,22 @@ import { Msr } from '../../../shared/msr.model';
   templateUrl: './cargoform.component.html',
   styles: []
 })
-export class CargoformComponent implements OnInit {
+export class CargoformComponent implements OnChanges{
   @Input() msr: Msr;
-  
-  constructor() { }
-
-  ngOnInit() {
-    
+  @Output() isValid = new EventEmitter();
+  private cargoForm: FormGroup;
+  constructor(private formBuilder: FormBuilder) {
+    this.cargoForm = this.formBuilder.group({
+     'NumberOfPAX': ['', Validators.required],
+     'PaxBaggageWeight': '',
+     'NumberOfPallets': '',
+     'IsuType': '',
+     'PalletWeight': '',
+     'IsuWeight': '',
+     'HazmatRequired': '',
+     'AmplifyingDetail': ''
+    });
   }
 
+  ngOnChanges() {}
 }
