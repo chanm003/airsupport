@@ -10,8 +10,9 @@
     <table *ngIf="msr.TargetLocations.length" class="table table-sm">
       <thead>
         <tr>
-          <th>Coordinates</th>
           <th>Name</th>
+          <th>LAT</th>
+          <th>LNG</th> 
           <th *ngIf="showAccessPOC()">Access POC</th>
           <th></th>
         </tr>
@@ -19,10 +20,13 @@
       <tbody>
         <tr *ngFor="let item of msr.TargetLocations; let i = index;">
           <td>
-            <input [(ngModel)]="item.coordinates" type="text" class="form-control" name="TargetLocation_coordinates">
+            <input [(ngModel)]="item.name" type="text" class="form-control" name="TargetLocation_name">
           </td>
           <td>
-            <input [(ngModel)]="item.name" type="text" class="form-control" name="TargetLocation_name">
+            <input [(ngModel)]="item.lat" type="text" class="form-control" name="TargetLocation_lat">
+          </td>
+          <td>
+            <input [(ngModel)]="item.long" type="text" class="form-control" name="TargetLocation_long">
           </td>
           <td *ngIf="showAccessPOC()">
             <input [(ngModel)]="item.accessPOC" type="text" class="form-control" name="TargetLocation_accessPOC">
