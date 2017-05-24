@@ -21,6 +21,7 @@ import { SubunitsComponent } from './msr/support-tabcontent/subunits/subunits.co
 import { StatusTabcontentComponent } from './msr/status-tabcontent/status-tabcontent.component';
 import { NewsfeedComponent } from './newsfeed/newsfeed.component';
 import { StatusChangeComponent } from './newsfeed/status-change/status-change.component';
+import { MainformComponent } from './msr/requester-tabcontent/mainform/mainform.component';
 
 const routes: Routes = [
   {
@@ -46,6 +47,7 @@ export const routedComponents = [
   MsrListComponent,
   MsrComponent,
   RequesterTabcontentComponent,
+  MainformComponent,
   AirmobilityformComponent,
   VehiclesComponent,
   PlatformsComponent,

@@ -2,9 +2,6 @@
 <div *ngIf="msr.OperationType === 'Cargo/Personnel Move'">  
   <div class="row">
     <div class="form-group col-6">
-      <pre>
-            {{cargoForm.valid }}
-      </pre>
       <label># PAX</label>
       <input [(ngModel)]="msr.NumberOfPAX" type="number" min="1" class="form-control" formControlName="NumberOfPAX">
     </div>
