@@ -62,9 +62,7 @@ export class AirmobilityformComponent implements OnInit {
     if ($event.target.name === 'ParachuteType') {
       this.msr.ParachuteTypeOther = '';
     } else if ($event.target.name === 'ParachuteTypeOther') {
-      if(this.msr.ParachuteType.length){
-        this.msr.ParachuteType = '';
-      }
+      this.msr.ParachuteType = '';
     }
   }
 }

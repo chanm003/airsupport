@@ -1,6 +1,7 @@
 import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import * as moment from 'moment/moment';
 import { NewsfeedItem, StatusChange } from './newsfeed.model';
+import * as _ from 'lodash';
 
 export class Msr {
     AircraftSecurityRequired?: boolean;
@@ -70,6 +71,210 @@ export class Msr {
     TypeRelease?: string;
     Vehicles?: Array<Vehicle>;
     VehiclesRequired?: boolean;
+
+    getMapFromDtoFunctions() {
+        return {
+            /*MAIN FORM*/
+            'AirfieldLocations': (target, source, propName) => target[propName] = source[propName],
+            'AltEmail': (target, source, propName) => target[propName] = source[propName],
+            'AltPhone': (target, source, propName) => target[propName] = source[propName],
+            'AltPOC': (target, source, propName) => target[propName] = source[propName],
+            'CommunicationSupportReqs': (target, source, propName) => target[propName] = source[propName],
+            'CommunicationSupportRequired': (target, source, propName) => target[propName] = source[propName],
+            'Conop': (target, source, propName) => target[propName] = source[propName],
+            'MedicalSupportReqs': (target, source, propName) => target[propName] = source[propName],
+            'MedicalSupportRequired': (target, source, propName) => target[propName] = source[propName],
+            'MissionEnd': (target, source, propName) => {
+                target[propName] = this.convertToBootstrapDate(source[propName]);
+            },
+            'MissionStart': (target, source, propName) => {
+                target[propName] = this.convertToBootstrapDate(source[propName]);
+            },
+            'NegativeImpact': (target, source, propName) => target[propName] = source[propName],
+            'OperationType': (target, source, propName) => target[propName] = source[propName],
+            'Requester': (target, source, propName) => {
+            target['SelectedRequesters'] = [];
+                const requester = source['Requester'];
+                if (requester && requester.Title) {
+                    target['SelectedRequesters'].push({
+                    Id: requester.Id,
+                    Title: requester.Title,
+                    value: requester.Id,
+                    display: requester.Title
+                    });
+                }
+            },
+            'RequesterEmail': (target, source, propName) => target[propName] = source[propName],
+            'RequesterPhone': (target, source, propName) => target[propName] = source[propName],
+            'RequestingUnit': (target, source, propName) => {
+                target['RequestingUnitId'] = source[propName].Id;
+                target[propName] = source[propName];
+            },
+            'Status': (target, source, propName) => target[propName] = source[propName],
+            /*AIR MOBILITY FORM FIELDS*/
+            'AirMobilityType': (target, source, propName) => target[propName] = source[propName],
+            'EstimatedDimensionsHeight': (target, source, propName) => target[propName] = source[propName],
+            'EstimatedDimensionsLength': (target, source, propName) => target[propName] = source[propName],
+            'EstimatedWeight': (target, source, propName) => target[propName] = source[propName],
+            'FastRopeRequired': (target, source, propName) => target[propName] = source[propName],
+            'FFEquipment': (target, source, propName) => target[propName] = source[propName],
+            'HoistRequired': (target, source, propName) => target[propName] = source[propName],
+            'InfillExfillType': (target, source, propName) => target[propName] = source[propName],
+            'NumberOfPersonnel': (target, source, propName) => target[propName] = source[propName],
+            'NumberOfRefuelPointsRequired': (target, source, propName) => target[propName] = source[propName],
+            'OtherAIE': (target, source, propName) => target[propName] = source[propName],
+            'ParachuteType': (target, source, propName) => target[propName] = source[propName],
+            'ParachuteTypeOther': (target, source, propName) => target[propName] = source[propName],
+            'RappelRequired': (target, source, propName) => target[propName] = source[propName],
+            'SurveysRequired': (target, source, propName) => target[propName] = source[propName],
+            'TypeRelease': (target, source, propName) => target[propName] = source[propName],
+            'VehiclesRequired': (target, source, propName) => target[propName] = source[propName],
+            /*CARGO FORM FIELDS*/
+            'AmplifyingDetail': (target, source, propName) => target[propName] = source[propName],
+            'HazmatRequired': (target, source, propName) => target[propName] = source[propName],
+            'IsuType': (target, source, propName) => target[propName] = source[propName],
+            'IsuWeight': (target, source, propName) => target[propName] = source[propName],
+            'NumberOfPallets': (target, source, propName) => target[propName] = source[propName],
+            'NumberOfPAX': (target, source, propName) => target[propName] = source[propName],
+            'PalletWeight': (target, source, propName) => target[propName] = source[propName],
+            'PaxBaggageWeight': (target, source, propName) => target[propName] = source[propName],
+            /*SPECIAL TACTICS FORM FIELDS*/
+            'JtacCasType': (target, source, propName) => target[propName] = source[propName],
+            'JtacFireType': (target, source, propName) => target[propName] = source[propName],
+            'Pararescue': (target, source, propName) => target[propName] = source[propName],
+            'Surveys': (target, source, propName) => target[propName] = source[propName],
+            /*PANELS - DYNAMIC ADD/REMOVE ITEMS*/
+            'DropZones': (target, source, propName) => target[propName] = JSON.parse(source[propName] || '[]'),
+            'LandingZones': (target, source, propName) => target[propName] = JSON.parse(source[propName] || '[]'),
+            'Platforms': (target, source, propName) => target[propName] = JSON.parse(source[propName] || '[]'),
+            'PNForces': (target, source, propName) => target[propName] = JSON.parse(source[propName]) || '[]',
+            'TargetLocations': (target, source, propName) => target[propName] = JSON.parse(source[propName] || '[]'),
+            'Vehicles': (target, source, propName) => target[propName] = JSON.parse(source[propName] || '[]'),
+            /*JSOAC/JMOC FIELDS*/
+            'Notes': (target, source, propName) => target[propName] = source[propName],
+            'OwningUnits': (target, source, propName) => target[propName] = source[propName],
+            'OwningUnitsId': (target, source, propName) => target[propName] = source[propName].results,
+            'SupportUnit': (target, source, propName) => {
+                target['SupportUnitId'] = source[propName].Id;
+                target[propName] = source[propName];
+            },
+            /*SUPPORT UNIT FIELDS*/
+            'AircraftSecurityRequired': (target, source, propName) => target[propName] = source[propName],
+            'AssignedSubunits': (target, source, propName) => target[propName] = JSON.parse(source[propName] || '[]'),
+            'AssignedOutsideUnits': (target, source, propName) => target[propName] = JSON.parse(source[propName] || '[]'),
+            'MissionSupportEnd': (target, source, propName) => {
+                target[propName] = this.convertToBootstrapDate(source[propName]);
+            },
+            'MissionSupportStart': (target, source, propName) => {
+                target[propName] = this.convertToBootstrapDate(source[propName]);
+            },
+            'StagingLocation': (target, source, propName) => target[propName] = source[propName],
+            'SupportLocation': (target, source, propName) => target[propName] = source[propName],
+            /*SP2013*/
+            '__metadata': (target, source, propName) => target[propName] = source[propName],
+            'AuthorId': (target, source, propName) => target[propName] = source[propName],
+            'Attachments': (target, source, propName) => target[propName] = source[propName],
+            'Created': (target, source, propName) => target[propName] = source[propName],
+            'EditorId': (target, source, propName) => target[propName] = source[propName],
+            'Id': (target, source, propName) => target[propName] = source[propName],
+            'ID': (target, source, propName) => target[propName] = source[propName],
+            'Modified': (target, source, propName) => target[propName] = source[propName],
+            'Title': (target, source, propName) => target[propName] = source[propName],
+            /*SP2013 READONLY EXPANDO*/
+            'Author': (target, source, propName) => target[propName] = source[propName],
+            'Editor': (target, source, propName) => target[propName] = source[propName],
+        };
+    }
+
+    getMapToDtoFunctions() {
+        return {
+            /*MAIN FORM*/
+            'AirfieldLocations': (target, source, propName) => target[propName] = source[propName],
+            'AltEmail': (target, source, propName) => target[propName] = source[propName],
+            'AltPhone': (target, source, propName) => target[propName] = source[propName],
+            'AltPOC': (target, source, propName) => target[propName] = source[propName],
+            'CommunicationSupportReqs': (target, source, propName) => target[propName] = source[propName],
+            'CommunicationSupportRequired': (target, source, propName) => target[propName] = source[propName],
+            'Conop': (target, source, propName) => target[propName] = source[propName],
+            'MedicalSupportReqs': (target, source, propName) => target[propName] = source[propName],
+            'MedicalSupportRequired': (target, source, propName) => target[propName] = source[propName],
+            'MissionEnd': (target, source, propName) => {
+                target[propName] = this.convertToIso(source[propName]);
+            },
+            'MissionStart': (target, source, propName) => {
+                target[propName] = this.convertToIso(source[propName]);
+            },
+            'NegativeImpact': (target, source, propName) => target[propName] = source[propName],
+            'OperationType': (target, source, propName) => target[propName] = source[propName],
+            'SelectedRequesters': (target, source, propName) => {
+                target['RequesterId'] = null;
+                const selected = source['SelectedRequesters'];
+                if(selected && selected.length) {
+                    target['RequesterId'] = selected[0].Id;
+                }
+            },
+            'RequesterEmail': (target, source, propName) => target[propName] = source[propName],
+            'RequesterPhone': (target, source, propName) => target[propName] = source[propName],
+            'RequestingUnitId': (target, source, propName) => target[propName] = source[propName],
+            'Status': (target, source, propName) => target[propName] = source[propName],
+            /*AIR MOBILITY FORM FIELDS*/
+            'AirMobilityType': (target, source, propName) => target[propName] = source[propName],
+            'EstimatedDimensionsHeight': (target, source, propName) => target[propName] = source[propName],
+            'EstimatedDimensionsLength': (target, source, propName) => target[propName] = source[propName],
+            'EstimatedWeight': (target, source, propName) => target[propName] = source[propName],
+            'FastRopeRequired': (target, source, propName) => target[propName] = source[propName],
+            'FFEquipment': (target, source, propName) => target[propName] = source[propName],
+            'HoistRequired': (target, source, propName) => target[propName] = source[propName],
+            'InfillExfillType': (target, source, propName) => target[propName] = source[propName],
+            'NumberOfPersonnel': (target, source, propName) => target[propName] = source[propName],
+            'NumberOfRefuelPointsRequired': (target, source, propName) => target[propName] = source[propName],
+            'OtherAIE': (target, source, propName) => target[propName] = source[propName],
+            'ParachuteType': (target, source, propName) => target[propName] = source[propName],
+            'ParachuteTypeOther': (target, source, propName) => target[propName] = source[propName],
+            'RappelRequired': (target, source, propName) => target[propName] = source[propName],
+            'SurveysRequired': (target, source, propName) => target[propName] = source[propName],
+            'TypeRelease': (target, source, propName) => target[propName] = source[propName],
+            'VehiclesRequired': (target, source, propName) => target[propName] = source[propName],
+            /*CARGO FORM FIELDS*/
+            'AmplifyingDetail': (target, source, propName) => target[propName] = source[propName],
+            'HazmatRequired': (target, source, propName) => target[propName] = source[propName],
+            'IsuType': (target, source, propName) => target[propName] = source[propName],
+            'IsuWeight': (target, source, propName) => target[propName] = source[propName],
+            'NumberOfPallets': (target, source, propName) => target[propName] = source[propName],
+            'NumberOfPAX': (target, source, propName) => target[propName] = source[propName],
+            'PalletWeight': (target, source, propName) => target[propName] = source[propName],
+            'PaxBaggageWeight': (target, source, propName) => target[propName] = source[propName],
+            /*SPECIAL TACTICS FORM FIELDS*/
+            'JtacCasType': (target, source, propName) => target[propName] = source[propName],
+            'JtacFireType': (target, source, propName) => target[propName] = source[propName],
+            'Pararescue': (target, source, propName) => target[propName] = source[propName],
+            'Surveys': (target, source, propName) => target[propName] = source[propName],
+            /*PANELS - DYNAMIC ADD/REMOVE ITEMS*/
+            'DropZones': (target, source, propName) => target[propName] = JSON.stringify(source[propName]),
+            'LandingZones': (target, source, propName) => target[propName] = JSON.stringify(source[propName]),
+            'Platforms': (target, source, propName) => target[propName] = JSON.stringify(source[propName]),
+            'PNForces': (target, source, propName) => target[propName] = JSON.stringify(source[propName]),
+            'TargetLocations': (target, source, propName) => target[propName] = JSON.stringify(source[propName]),
+            'Vehicles': (target, source, propName) => target[propName] = JSON.stringify(source[propName]),
+            /*JSOAC/JMOC FIELDS*/
+            'Notes': (target, source, propName) => target[propName] = source[propName],
+            'OwningUnitsId': (target, source, propName) => target[propName] = {results: source[propName]},
+            'SupportUnitId': (target, source, propName) => target[propName] = source[propName],
+            /*SUPPORT UNIT FIELDS*/
+            'AircraftSecurityRequired': (target, source, propName) => target[propName] = source[propName],
+            'AssignedSubunits': (target, source, propName) => target[propName] = JSON.stringify(source[propName]),
+            'AssignedOutsideUnits': (target, source, propName) => target[propName] = JSON.stringify(source[propName]),
+            'MissionSupportEnd': (target, source, propName) => {
+                target[propName] = this.convertToIso(source[propName]);
+            },
+            'MissionSupportStart': (target, source, propName) => {
+                target[propName] = this.convertToIso(source[propName]);
+            },
+            'StagingLocation': (target, source, propName) => target[propName] = source[propName],
+            'SupportLocation': (target, source, propName) => target[propName] = source[propName],
+        };
+    }
+
     constructor(json?: any) {
         if (json) {
             this.setProperties(json);
@@ -106,184 +311,30 @@ export class Msr {
 
     createDto(permissions) {
         const dto: any = {};
+        _.each(this, (val, propName) => {
+            const mapFunc = this.getMapToDtoFunctions()[propName];
 
-        /*BOOLEAN*/
-        dto.CommunicationSupportRequired = this.CommunicationSupportRequired;
-        dto.FastRopeRequired = this.FastRopeRequired;
-        dto.HazmatRequired = this.HazmatRequired;
-        dto.HoistRequired = this.HoistRequired;
-        dto.MedicalSupportRequired = this.MedicalSupportRequired;
-        dto.RappelRequired = this.RappelRequired;
-        dto.SurveysRequired = this.SurveysRequired;
-        dto.VehiclesRequired = this.VehiclesRequired;
-
-        /*DATETIME*/
-        dto.MissionEnd = this.convertToIso(this.MissionEnd);
-        dto.MissionStart = this.convertToIso(this.MissionStart);
-
-        /*JSON*/
-        dto.DropZones = JSON.stringify(this.DropZones);
-        dto.LandingZones = JSON.stringify(this.LandingZones);
-        dto.Platforms = JSON.stringify(this.Platforms);
-        dto.PNForces = JSON.stringify(this.PNForces);
-        dto.TargetLocations = JSON.stringify(this.TargetLocations);
-        dto.Vehicles = JSON.stringify(this.Vehicles);
-
-        /*LOOKUP*/
-        dto.RequestingUnitId = this.RequestingUnitId;
-
-        if (permissions['JSOAC/JMOC']) {
-            dto.SupportUnitId = this.SupportUnitId;
-            dto.OwningUnitsId = { results: this.OwningUnitsId };
-            dto.Notes = this.Notes;
-        }
-
-        if (permissions['Support Unit']) {
-            dto.AircraftSecurityRequired = this.AircraftSecurityRequired;
-            dto.MissionSupportEnd = this.convertToIso(this.MissionSupportEnd);
-            dto.MissionSupportStart = this.convertToIso(this.MissionSupportStart);
-            dto.AssignedOutsideUnits = JSON.stringify(this.AssignedOutsideUnits);
-            dto.AssignedSubunits = JSON.stringify(this.AssignedSubunits);
-            dto.StagingLocation = this.StagingLocation;
-            dto.SupportLocation = this.SupportLocation;
-        }
-
-        /*NUMBER*/
-        dto.EstimatedDimensionsHeight = this.EstimatedDimensionsHeight;
-        dto.EstimatedDimensionsLength = this.EstimatedDimensionsLength;
-        dto.EstimatedWeight = this.EstimatedWeight;
-        dto.IsuWeight = this.IsuWeight;
-        dto.NumberOfPallets = this.NumberOfPallets;
-        dto.NumberOfPAX = this.NumberOfPAX;
-        dto.NumberOfPersonnel = this.NumberOfPersonnel;
-        dto.NumberOfRefuelPointsRequired = this.NumberOfRefuelPointsRequired;
-        dto.PalletWeight = this.PalletWeight;
-        dto.PaxBaggageWeight = this.PaxBaggageWeight;
-
-        /*PERSON OR GROUP*/
-        if (this.SelectedRequesters && this.SelectedRequesters.length === 1) {
-            dto.RequesterId = this.SelectedRequesters[0].Id;
-        } else {
-            dto.RequesterId = null;
-        }
-
-        /*STRING*/
-        dto.AirfieldLocations = this.AirfieldLocations;
-        dto.AirMobilityType = this.AirMobilityType;
-        dto.AltEmail = this.AltEmail;
-        dto.AltPhone = this.AltPhone;
-        dto.AltPOC = this.AltPOC;
-        dto.AmplifyingDetail = this.AmplifyingDetail;
-        dto.CommunicationSupportReqs = this.CommunicationSupportReqs;
-        dto.Conop = this.Conop;
-        dto.FFEquipment = this.FFEquipment;
-        dto.InfillExfillType = this.InfillExfillType;
-        dto.IsuType = this.IsuType;
-        dto.JtacCasType = this.JtacCasType;
-        dto.JtacFireType = this.JtacFireType;
-        dto.MedicalSupportReqs = this.MedicalSupportReqs;
-        dto.NegativeImpact = this.NegativeImpact;
-        dto.OperationType = this.OperationType;
-        dto.OtherAIE = this.OtherAIE;
-        dto.ParachuteType = this.ParachuteType;
-        dto.ParachuteTypeOther = this.ParachuteTypeOther;
-        dto.Pararescue = this.Pararescue;
-        dto.RequesterEmail = this.RequesterEmail;
-        dto.RequesterPhone = this.RequesterPhone;
-        dto.Status = this.Status;
-        dto.Surveys = this.Surveys;
-        dto.TypeRelease = this.TypeRelease;
+            if (mapFunc) {
+                mapFunc(dto, this, propName);
+            } else {
+                console.log(`${propName} has not been mapped`);
+            }
+        });
+        console.log(dto);
         return dto;
     }
 
     private setProperties(json: any) {
-        /*BOOLEAN*/
-        this.AircraftSecurityRequired = json.AircraftSecurityRequired;
-        this.CommunicationSupportRequired = json.CommunicationSupportRequired;
-        this.FastRopeRequired = json.FastRopeRequired;
-        this.HazmatRequired = json.HazmatRequired;
-        this.HoistRequired = json.HoistRequired;
-        this.MedicalSupportRequired = json.MedicalSupportRequired;
-        this.RappelRequired = json.RappelRequired;
-        this.SurveysRequired = json.SurveysRequired;
-        this.VehiclesRequired = json.VehiclesRequired;
+        _.each(json, (val, propName) => {
+            const mapFunc = this.getMapFromDtoFunctions()[propName];
 
-        /*DATETIME*/
-        this.MissionEnd = this.convertToBootstrapDate(json.MissionEnd);
-        this.MissionStart = this.convertToBootstrapDate(json.MissionStart);
-        this.MissionSupportEnd = this.convertToBootstrapDate(json.MissionSupportEnd);
-        this.MissionSupportStart = this.convertToBootstrapDate(json.MissionSupportStart);
+            if (mapFunc) {
+                mapFunc(this, json, propName);
+            } else {
+                console.log(`${propName} field has not been mapped:`, val);
+            }
+        });
 
-        /*JSON*/
-        this.AssignedOutsideUnits = JSON.parse(json.AssignedOutsideUnits || '[]');
-        this.AssignedSubunits = JSON.parse(json.AssignedSubunits || '[]');
-        this.DropZones = JSON.parse(json.DropZones || '[]');
-        this.LandingZones = JSON.parse(json.LandingZones || '[]');
-        this.Platforms = JSON.parse(json.Platforms || '[]');
-        this.PNForces = JSON.parse(json.PNForces || '[]');
-        this.TargetLocations = JSON.parse(json.TargetLocations || '[]');
-        this.Vehicles = JSON.parse(json.Vehicles || '[]');
-
-        /*LOOKUP*/
-        this.RequestingUnitId = json.RequestingUnit.Id;
-        this.SupportUnitId = json.SupportUnit.Id;
-
-        /*LOOKUPMULTI*/
-        this.OwningUnitsId = json.OwningUnitsId.results;
-
-        /*NUMBER*/
-        this.EstimatedDimensionsHeight = json.EstimatedDimensionsHeight;
-        this.EstimatedDimensionsLength = json.EstimatedDimensionsLength;
-        this.EstimatedWeight = json.EstimatedWeight;
-        this.Id = json.Id;
-        this.IsuWeight = json.IsuWeight;
-        this.NumberOfPallets = json.NumberOfPallets;
-        this.NumberOfPAX = json.NumberOfPAX;
-        this.NumberOfPersonnel = json.NumberOfPersonnel;
-        this.NumberOfRefuelPointsRequired = json.NumberOfRefuelPointsRequired;
-        this.PalletWeight = json.PalletWeight;
-        this.PaxBaggageWeight = json.PaxBaggageWeight;
-
-        /*PERSON OR GROUP*/
-        this.SelectedRequesters = [];
-        if (json.Requester && json.Requester.Id) {
-            this.SelectedRequesters.push({
-                Id: json.Requester.Id,
-                Title: json.Requester.Title,
-                value: json.Requester.Id,
-                display: json.Requester.Title
-                });
-        }
-
-        /*STRING*/
-        this.AirfieldLocations = json.AirfieldLocations;
-        this.AirMobilityType = json.AirMobilityType;
-        this.AltEmail = json.AltEmail;
-        this.AltPhone = json.AltPhone;
-        this.AltPOC = json.AltPOC;
-        this.AmplifyingDetail = json.AmplifyingDetail;
-        this.CommunicationSupportReqs = json.CommunicationSupportReqs;
-        this.Conop = json.Conop;
-        this.FFEquipment = json.FFEquipment;
-        this.InfillExfillType = json.InfillExfillType;
-        this.IsuType = json.IsuType;
-        this.JtacCasType = json.JtacCasType;
-        this.JtacFireType = json.JtacFireType;
-        this.MedicalSupportReqs = json.MedicalSupportReqs;
-        this.NegativeImpact = json.NegativeImpact;
-        this.Notes = json.Notes;
-        this.OperationType = json.OperationType;
-        this.OtherAIE = json.OtherAIE;
-        this.ParachuteType = json.ParachuteType;
-        this.ParachuteTypeOther = json.ParachuteTypeOther;
-        this.Pararescue = json.Pararescue;
-        this.RequesterEmail = json.RequesterEmail;
-        this.RequesterPhone = json.RequesterPhone;
-        this.StagingLocation = json.StagingLocation;
-        this.Status = json.Status;
-        this.SupportLocation = json.SupportLocation;
-        this.Surveys = json.Surveys;
-        this.TypeRelease = json.TypeRelease;
     }
 }
 
