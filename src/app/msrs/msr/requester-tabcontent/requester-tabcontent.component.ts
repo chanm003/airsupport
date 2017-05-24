@@ -81,7 +81,7 @@ export class RequesterTabcontentComponent implements OnInit {
         }
       },
       'Submit': {
-        shouldShow: () => !!this.msr.Id && this.msrStatusOnLoad === 'Draft',
+        shouldShow: () => this.msrStatusOnLoad === '' || this.msrStatusOnLoad === 'Draft',
         onClicked: () => {
           this.msr.Status = 'Submitted';
           this.saveButtonClicked.emit();
