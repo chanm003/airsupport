@@ -22,6 +22,7 @@ import { StatusTabcontentComponent } from './msr/status-tabcontent/status-tabcon
 import { NewsfeedComponent } from './newsfeed/newsfeed.component';
 import { StatusChangeComponent } from './newsfeed/status-change/status-change.component';
 import { MainformComponent } from './msr/requester-tabcontent/mainform/mainform.component';
+import { ErrorMessageComponent } from '../shared/error-message.component';
 
 const routes: Routes = [
   {
@@ -63,7 +64,8 @@ export const routedComponents = [
   SubunitsComponent,
   OutsideunitsComponent,
   StatusTabcontentComponent,
-  StatusChangeComponent
+  StatusChangeComponent,
+  ErrorMessageComponent
 ];
 
 @NgModule({

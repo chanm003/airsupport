@@ -18,7 +18,7 @@ export class CargoformComponent implements OnChanges{
      'NumberOfPAX': ['', Validators.required],
      'PaxBaggageWeight': '',
      'NumberOfPallets': '',
-     'IsuType': '',
+     'IsuType': ['', Validators.required],
      'PalletWeight': '',
      'IsuWeight': '',
      'HazmatRequired': '',
@@ -28,6 +28,9 @@ export class CargoformComponent implements OnChanges{
     this.validationMessages = {
       'NumberOfPAX': {
         required: 'Number of PAX is required'
+      },
+      'IsuType': {
+        required: 'ISU Type is required'
       }
     };
 
@@ -42,16 +45,6 @@ export class CargoformComponent implements OnChanges{
 
   shouldShow() {
     return this.msr.OperationType === 'Cargo/Personnel Move';
-  }
-
-  hasErrors(ctrlName) {
-    const ctrl = this.cargoForm.get(ctrlName);
-    return (ctrl.touched || ctrl.dirty) && !ctrl.valid;
-  }
-
-  getErrors(ctrlName) {
-    const ctrl = this.cargoForm.get(ctrlName);
-    return _.map(ctrl.errors, (value, key) => this.validationMessages[ctrlName][key]);
   }
 
   ngOnChanges() {}
