@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { Msr } from '../shared/msr.model';
+import { Msr, MsrTrackedChanges, MsrChangeReport } from '../shared/msr.model';
 import { EntityService } from '../../core/entity.service';
+import { NewsfeedItem, StatusChange } from '../../msrs/shared/newsfeed.model';
 import { MsrService } from '../shared/msr.service';
 import { NewsfeedService } from '../shared/newsfeed.service';
 import { MsrRouteData } from '../shared/msr-resolver.service';
@@ -18,7 +19,7 @@ export class MsrComponent implements OnInit {
   msrOnLoad: Msr;
   msrBeingEdited: Msr;
   dataEntryLookups: any;
-  tabsLogic: any;
+  tabPermissions: any;
   constructor(private route: ActivatedRoute,
     private router: Router,
     private entityService: EntityService,
@@ -27,56 +28,61 @@ export class MsrComponent implements OnInit {
     private msrService: MsrService) { }
 
   ngOnInit() {
+    this.listenForRouteData();
+  }
+
+  capturePristineMsr(msr: Msr) {
+    if (msr) {
+      this.msrOnLoad = msr;
+      this.msrBeingEdited = this.entityService.clone<Msr>(Msr, msr);
+      this.tabPermissions = TabPermissionsLogic.refresh(this.msrOnLoad, this.dataEntryLookups.currentUser,
+        this.dataEntryLookups.owningUnits);
+    }
+  }
+
+  listenForRouteData() {
     this.route.data.subscribe((resolved: {data: MsrRouteData}) => {
       this.dataEntryLookups = resolved.data.lookups;
-      this.setEditMsr(resolved.data.msr);
+      this.capturePristineMsr(resolved.data.msr);
     });
   }
 
   saveMsr() {
+    const changes = MsrTrackedChanges.compare(this.msrOnLoad, this.msrBeingEdited);
+
     if (!this.msrBeingEdited.Id) {
-      this.msrService.create(this.msrBeingEdited, this.tabsLogic)
-        .then((createdItem: any) => {
-          this.msrBeingEdited.Id = createdItem.Id;
-          this.createNewsfeedItems();
-        })
-        .then(() => this.router.navigate(['/msrs']));
+      this.msrService.create(this.msrBeingEdited, this.tabPermissions)
+        .then((createdItem: any) => this.createNewsfeedItems(changes, createdItem.Id))
+        .then((newsfeedItems) => this.router.navigate(['/msrs']));
     } else {
-      this.msrService.update(this.msrBeingEdited, this.tabsLogic)
-        .then(() => this.createNewsfeedItems())
-        .then((changes) => {
-          this.setEditMsr(this.msrBeingEdited);
-          this.msrBeingEdited.NewsfeedItems.push(...changes);
+      this.msrService.update(this.msrBeingEdited, this.tabPermissions)
+        .then(() => this.createNewsfeedItems(changes, this.msrBeingEdited.Id))
+        .then((newsfeedItems) => {
+          this.capturePristineMsr(this.msrBeingEdited);
+          this.msrBeingEdited.NewsfeedItems.push(...newsfeedItems);
           this.notificationService.success('Confirmation', 'Your changes were saved');
         });
     }
+
   }
 
-  createNewsfeedItems() {
-    return this.newsfeedService.createNotifications(this.msrOnLoad, this.msrBeingEdited);
+  createNewsfeedItems(changeReport: MsrChangeReport, msrID: number) {
+    return this.newsfeedService.createFromChangeReport(changeReport, msrID);
   }
+}
 
-  setEditMsr(msr: Msr) {
-    if (msr) {
-      this.msrOnLoad = msr;
-      this.msrBeingEdited = this.entityService.clone<Msr>(Msr, msr);
-      this.setTabsLogic();
-    }
+class TabPermissionsLogic {
+  private static isCurrentUserMemberOfOwningUnit(currentUser, owningUnits) {
+    return !!_.intersection(currentUser.owningUnits, _.map(owningUnits, 'Id')).length;
   }
-
-  isCurrentUserMemberOfOwningUnit() {
-    return !!_.intersection(this.dataEntryLookups.currentUser.owningUnits, _.map(this.dataEntryLookups.owningUnits, 'Id')).length;
+  private static isCurrentUserMemberOfAssignedSupportUnit(currentUser, msr) {
+    return _.includes(currentUser.supportUnits, msr.SupportUnitId);
   }
-
-  isCurrentUserMemberOfAssignedSupportUnit() {
-    return _.includes(this.dataEntryLookups.currentUser.supportUnits, this.msrOnLoad.SupportUnitId);
-  }
-
-  setTabsLogic() {
-    this.tabsLogic = {
-      'JSOAC/JMOC': !!this.msrOnLoad.Id && this.isCurrentUserMemberOfOwningUnit(),
-      'Support Unit': !!this.msrOnLoad.Id && !!this.msrOnLoad.SupportUnitId && this.isCurrentUserMemberOfAssignedSupportUnit(),
-      'Status': !!this.msrOnLoad.Id
+  static refresh(msr, currentUser, owningUnits) {
+    return  {
+      'JSOAC/JMOC': !!msr.Id && TabPermissionsLogic.isCurrentUserMemberOfOwningUnit(currentUser, owningUnits),
+      'Support Unit': !!msr.Id && !!msr.SupportUnitId && TabPermissionsLogic.isCurrentUserMemberOfAssignedSupportUnit(currentUser, msr),
+      'Status': !!msr.Id
     };
   }
 }

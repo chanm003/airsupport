@@ -5,19 +5,19 @@
       <app-requester-tabcontent [msr]="msrBeingEdited" [msrStatusOnLoad]="msrOnLoad.Status" [dataEntryLookups]="dataEntryLookups" (saveButtonClicked)="saveMsr()"></app-requester-tabcontent>  
     </ng-template>
   </ngb-tab>
-  <ngb-tab *ngIf="tabsLogic['JSOAC/JMOC']">
+  <ngb-tab *ngIf="tabPermissions['JSOAC/JMOC']">
     <ng-template ngbTabTitle><i class="fa fa-code-fork"></i> JSOAC/JMOC</ng-template>
     <ng-template ngbTabContent>
       <app-owner-tabcontent [msr]="msrBeingEdited" [msrOnLoad]="msrOnLoad" [dataEntryLookups]="dataEntryLookups" (saveButtonClicked)="saveMsr()"></app-owner-tabcontent>
     </ng-template>
   </ngb-tab>
-  <ngb-tab *ngIf="tabsLogic['Support Unit']">
+  <ngb-tab *ngIf="tabPermissions['Support Unit']">
     <ng-template ngbTabTitle><i class="fa fa-plane"></i> Support Unit</ng-template>
     <ng-template ngbTabContent>
       <app-support-tabcontent [msr]="msrBeingEdited" [dataEntryLookups]="dataEntryLookups" (saveButtonClicked)="saveMsr()"></app-support-tabcontent>
     </ng-template>
   </ngb-tab>
-  <ngb-tab *ngIf="tabsLogic['Status']">
+  <ngb-tab *ngIf="tabPermissions['Status']">
     <ng-template ngbTabTitle><i class="fa fa-comments-o"></i> Status</ng-template>
     <ng-template ngbTabContent>
       <app-status-tabcontent [msr]="msrBeingEdited"></app-status-tabcontent>

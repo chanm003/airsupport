@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { ExceptionService } from '../../core/exception.service';
 import { PagecontextService } from '../../core/pagecontext.service';
 import { NewsfeedItem, StatusChange } from '../../msrs/shared/newsfeed.model';
-import { Msr } from '../../msrs/shared/msr.model';
+import { Msr, MsrTrackedChanges, MsrChangeReport } from '../../msrs/shared/msr.model';
 import * as _ from 'lodash';
 
 @Injectable()
@@ -48,9 +48,18 @@ export class NewsfeedService {
       });
   }
 
-  createNotifications(prev: Msr, current: Msr) {
+  private associateChangesToMsr(changeReport: MsrChangeReport, msrID: number) {
+    _.each(changeReport, (val, key) => {
+      if (val) {
+        val.RelatedMsrId = msrID;
+      }
+    });
+  }
+
+  createFromChangeReport(changeReport: MsrChangeReport, msrID: number) {
+    this.associateChangesToMsr(changeReport, msrID);
     return Promise.all([
-      this.createStatusChangedNotification(current, prev)
+      (changeReport.StatusChange) ? this.create(changeReport.StatusChange) : Promise.resolve(null)
     ])
     .then((data) => {
       const changes = Array<NewsfeedItem>();
@@ -63,28 +72,5 @@ export class NewsfeedService {
 
       return changes;
     });
-  }
-
-  private createStatusChangedNotification(current, prev) {
-    const hasAssignedUnitChanged = current.SupportUnitId !== prev.SupportUnitId;
-    const hasStatusChanged = current.Status !== prev.Status;
-
-    if (hasAssignedUnitChanged || hasStatusChanged) {
-      const notification = new StatusChange();
-      notification.RelatedMsrId = current.Id;
-      notification.Type = 'StatusChange';
-      notification.JSON = {
-          prevStatus: prev.Status,
-          newStatus: current.Status
-      };
-
-      if (current.Status === 'Assigned') {
-        notification.JSON.comments = `assigned ${current.SupportUnit.Name} to support this MSR`;
-      }
-
-      return this.create(notification);
-    } else {
-      return Promise.resolve(null);
-    }
   }
 }

@@ -382,3 +382,34 @@ export class AssignedSubunit {
     subunitId?: number;
     platforms: Array<Platform>;
 }
+
+export class MsrTrackedChanges {
+  private static hasStatusChanged(prev, current): StatusChange|null {
+     const hasAssignedUnitChanged = current.SupportUnitId !== prev.SupportUnitId;
+    const hasStatusChanged = current.Status !== prev.Status;
+
+    if (hasAssignedUnitChanged || hasStatusChanged) {
+      const notification = new StatusChange();
+      notification.Type = 'StatusChange';
+      notification.JSON = {
+          prevStatus: prev.Status,
+          newStatus: current.Status
+      };
+
+      if (current.Status === 'Assigned') {
+        notification.JSON.comments = `assigned ${current.SupportUnit.Name} to support this MSR`;
+      }
+      return notification;
+    }
+    return null;
+  }
+  static compare(prev, current): MsrChangeReport {
+    return {
+      StatusChange: MsrTrackedChanges.hasStatusChanged(prev, current)
+    };
+  }
+}
+
+export class MsrChangeReport {
+  StatusChange: StatusChange | null;
+}

@@ -1,6 +1,6 @@
 <span><strong>{{newsfeeditem?.Author.Title}}</strong></span>
 
-<span *ngIf="newsfeeditem.JSON.prevStatus === ''">
+<span *ngIf="newsfeeditem.JSON.prevStatus === '' && newsfeeditem.JSON.newStatus === 'Draft'">
   created this MSR. The system set the status of this MSR to 'Draft'.
 </span>
 
@@ -9,15 +9,15 @@
 </span>
 
 <span *ngIf="newsfeeditem.JSON.newStatus === 'Submitted'">
-  submitted this MSR
+  submitted this MSR.
 </span>
 
 <span *ngIf="newsfeeditem.JSON.newStatus === 'Canceled'">
-  canceled this MSR
+  canceled this MSR.
 </span>
 
 <span *ngIf="newsfeeditem.JSON.newStatus === 'Rejected'">
-  rejected this MSR
+  rejected this MSR.
 
   <p *ngIf="newsfeeditem.JSON.comments">
     {{newsfeeditem.JSON.comments}}
