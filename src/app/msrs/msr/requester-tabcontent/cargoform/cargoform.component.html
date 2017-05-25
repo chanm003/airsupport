@@ -1,9 +1,14 @@
 <form [formGroup]="cargoForm" novalidate>
-<div *ngIf="msr.OperationType === 'Cargo/Personnel Move'">  
+<div *ngIf="shouldShow()">  
   <div class="row">
     <div class="form-group col-6">
       <label># PAX</label>
       <input [(ngModel)]="msr.NumberOfPAX" type="number" min="1" class="form-control" formControlName="NumberOfPAX">
+      <div class="has-danger" *ngIf="hasErrors('NumberOfPAX')">
+          <div class="form-control-feedback" *ngFor="let e of getErrors('NumberOfPAX')">
+              {{e}}
+          </div>
+      </div>
     </div>
     <div class="form-group col-6">
       <label>Pax Baggage Weight</label>
