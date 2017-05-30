@@ -23,6 +23,13 @@ legend {
     width:100%;
 }
 
+.form-group.required label:after{
+	color: #e32;
+    content: ' *';
+    display:inline;
+	font-weight: bold;
+}
+
 //TIMELINE START
 $primary: #3F51B5;
 $dark-primary: #303F9F;

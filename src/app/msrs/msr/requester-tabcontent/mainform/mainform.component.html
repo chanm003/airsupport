@@ -1,21 +1,24 @@
+<form [formGroup]="mainForm" novalidate>
 <div class="row">
-  <div class="form-group col-6">
+  <div class="form-group col-6 required">
     <label>Requesting Unit</label>
-    <select [(ngModel)]="msr.RequestingUnitId" class="form-control" name="RequestingUnitId">
-            <option *ngFor="let item of dataEntryLookups.requestingUnits" [ngValue]="item.Id">{{item.Name}}</option>
-          </select>
+    <select [(ngModel)]="msr.RequestingUnitId" class="form-control" formControlName="RequestingUnitId">
+      <option *ngFor="let item of dataEntryLookups.requestingUnits" [ngValue]="item.Id">{{item.Name}}</option>
+    </select>
+    <app-errormessage [parentFormGroup]="mainForm" [fieldName]="'RequestingUnitId'" [validationMessages]="validationMessages"></app-errormessage>
   </div>
-  <div class="form-group col-6">
+  <div class="form-group col-6 required">
     <label>Operation Type</label>
-    <select [(ngModel)]="msr.OperationType" class="form-control" name="OperationType">
-            <option *ngFor="let item of operationTypes" [value]="item">{{item}}</option>
-          </select>
+    <select [(ngModel)]="msr.OperationType" class="form-control" formControlName="OperationType">
+      <option *ngFor="let item of operationTypes" [value]="item">{{item}}</option>
+    </select>
+    <app-errormessage [parentFormGroup]="mainForm" [fieldName]="'OperationType'" [validationMessages]="validationMessages"></app-errormessage>
   </div>
 </div>
 <div class="row">
-  <div class="form-group col-6">
+  <div class="form-group col-6 required">
     <label>Requester</label>
-    <tag-input [(ngModel)]="msr.SelectedRequesters" [maxItems]="1" [ripple]="false" [theme]="'bootstrap'" [secondaryPlaceholder]="'Search in Directory'"
+    <tag-input [(ngModel)]="msr.SelectedRequesters" formControlName="SelectedRequesters" [maxItems]="1" [ripple]="false" [theme]="'bootstrap'" [secondaryPlaceholder]="'Search in Directory'"
       [onlyFromAutocomplete]="true" [onTextChangeDebounce]="250" (onAdd)="onRequesterAdded($event)" (onRemove)="onRequesterRemoved($event)">
       <tag-input-dropdown [autocompleteObservable]="getMatchingPeople" [minimumTextLength]="3">
         <ng-template let-item="item" let-index="index">
@@ -23,102 +26,113 @@
         </ng-template>
       </tag-input-dropdown>
     </tag-input>
+    <app-errormessage [parentFormGroup]="mainForm" [fieldName]="'SelectedRequesters'" [validationMessages]="validationMessages"></app-errormessage>
   </div>
   <div class="form-group col-6">
     <label>Alt POC</label>
-    <input [(ngModel)]="msr.AltPOC" type="text" class="form-control" name="AltPOC">
+    <input [(ngModel)]="msr.AltPOC" type="text" class="form-control" formControlName="AltPOC">
   </div>
 </div>
 <div class="row">
-  <div class="form-group col-6">
+  <div class="form-group col-6 required">
     <label>Requester Email</label>
     <div class="input-group">
-      <input [(ngModel)]="msr.RequesterEmail" type="email" class="form-control" name="RequesterEmail">
+      <input [(ngModel)]="msr.RequesterEmail" type="email" class="form-control" formControlName="RequesterEmail">
       <span class="input-group-addon"><i class="fa fa-envelope-o"></i></span>
     </div>
+    <app-errormessage [parentFormGroup]="mainForm" [fieldName]="'RequesterEmail'" [validationMessages]="validationMessages"></app-errormessage>
   </div>
   <div class="form-group col-6">
     <label>Alt Email</label>
     <div class="input-group">
-      <input [(ngModel)]="msr.AltEmail" type="email" class="form-control" name="AltEmail">
+      <input [(ngModel)]="msr.AltEmail" type="email" class="form-control" formControlName="AltEmail">
       <span class="input-group-addon"><i class="fa fa-envelope-o"></i></span>
     </div>
+    <app-errormessage [parentFormGroup]="mainForm" [fieldName]="'AltEmail'" [validationMessages]="validationMessages"></app-errormessage>
   </div>
 </div>
 <div class="row">
-  <div class="form-group col-6">
+  <div class="form-group col-6 required">
     <label>Requester Phone</label>
     <div class="input-group">
-      <input [(ngModel)]="msr.RequesterPhone" type="text" class="form-control" name="RequesterPhone">
+      <input [(ngModel)]="msr.RequesterPhone" type="text" class="form-control" formControlName="RequesterPhone">
       <span class="input-group-addon"><i class="fa fa-phone"></i></span>
     </div>
+    <app-errormessage [parentFormGroup]="mainForm" [fieldName]="'RequesterPhone'" [validationMessages]="validationMessages"></app-errormessage>
   </div>
   <div class="form-group col-6">
     <label>Alt Phone</label>
     <div class="input-group">
-      <input [(ngModel)]="msr.AltPhone" type="text" class="form-control" name="AltPhone">
+      <input [(ngModel)]="msr.AltPhone" type="text" class="form-control" formControlName="AltPhone">
       <span class="input-group-addon"><i class="fa fa-phone"></i></span>
     </div>
   </div>
 </div>
-<div class="row">
-  <div class="form-group col-6">
+<div class="row" formGroupName="missionDateRange">
+  <div class="form-group col-6 required">
     <label>Mission Start</label>
     <div class="input-group">
       <input class="form-control" [displayMonths]="2" [(ngModel)]="msr.MissionStart" ngbDatepicker #MissionStart="ngbDatepicker"
-        name="MissionStart">
+        formControlName="MissionStart">
       <div class="input-group-addon" (click)="MissionStart.toggle()">
         <i class="fa fa-calendar"></i>
       </div>
     </div>
+    <app-errormessage [parentFormGroup]="mainForm" [fieldName]="'missionDateRange.MissionStart'" [validationMessages]="validationMessages"></app-errormessage>
+    <app-errormessage [parentFormGroup]="mainForm" [fieldName]="'missionDateRange'" [validationMessages]="validationMessages"></app-errormessage>
   </div>
-  <div class="form-group col-6">
+  <div class="form-group col-6 required">
     <label>Mission End</label>
     <div class="input-group">
-      <input class="form-control" [displayMonths]="2" [(ngModel)]="msr.MissionEnd" ngbDatepicker #MissionEnd="ngbDatepicker" name="MissionEnd">
+      <input class="form-control" [displayMonths]="2" [(ngModel)]="msr.MissionEnd" ngbDatepicker #MissionEnd="ngbDatepicker" formControlName="MissionEnd">
       <div class="input-group-addon" (click)="MissionEnd.toggle()">
         <i class="fa fa-calendar"></i>
       </div>
     </div>
+    <app-errormessage [parentFormGroup]="mainForm" [fieldName]="'missionDateRange.MissionEnd'" [validationMessages]="validationMessages"></app-errormessage>
   </div>
 </div>
 <div class="row">
   <div class="form-group col-12">
     <label>CONOP</label>
-    <textarea [(ngModel)]="msr.Conop" name="Conop" rows="4" class="form-control" placeholder="Concept of Operation"></textarea>
+    <textarea [(ngModel)]="msr.Conop" formControlName="Conop" rows="4" class="form-control" placeholder="Concept of Operation"></textarea>
+    <app-errormessage [parentFormGroup]="mainForm" [fieldName]="'Conop'" [validationMessages]="validationMessages"></app-errormessage>
   </div>
 </div>
 <div class="row">
   <div class="form-group col-12">
     <label>Airfields/Locations</label>
-    <textarea [(ngModel)]="msr.AirfieldLocations" rows="2" class="form-control" name="AirfieldLocations"></textarea>
+    <textarea [(ngModel)]="msr.AirfieldLocations" rows="2" class="form-control" formControlName="AirfieldLocations"></textarea>
   </div>
 </div>
 <div class="row">
   <div class="form-group col-12">
     <label>Impact if not supported</label>
-    <textarea [(ngModel)]="msr.NegativeImpact" rows="2" class="form-control" name="NegativeImpact"></textarea>
+    <textarea [(ngModel)]="msr.NegativeImpact" rows="2" class="form-control" formControlName="NegativeImpact"></textarea>
   </div>
 </div>
 <div class="row">
   <div class="form-group col-6">
     <div class="checkbox">
       <label>
-              <input [(ngModel)]="msr.MedicalSupportRequired" type="checkbox" name="MedicalSupportRequired">
+              <input [(ngModel)]="msr.MedicalSupportRequired" type="checkbox" formControlName="MedicalSupportRequired">
               Medical Support Required
             </label>
     </div>
-    <textarea *ngIf="msr.MedicalSupportRequired" [(ngModel)]="msr.MedicalSupportReqs" name="MedicalSupportReqs" rows="2" class="form-control"
+    <textarea *ngIf="msr.MedicalSupportRequired" [(ngModel)]="msr.MedicalSupportReqs" formControlName="MedicalSupportReqs" rows="2" class="form-control"
       placeholder="Please elaborate on your medical requirements"></textarea>
+    <app-errormessage [parentFormGroup]="mainForm" [fieldName]="'MedicalSupportReqs'" [validationMessages]="validationMessages"></app-errormessage>
   </div>
   <div class="form-group col-6">
     <div class="checkbox">
       <label>
-              <input [(ngModel)]="msr.CommunicationSupportRequired" type="checkbox" name="CommunicationSupportRequired">
+              <input [(ngModel)]="msr.CommunicationSupportRequired" type="checkbox" formControlName="CommunicationSupportRequired">
               Communications Support Required
             </label>
     </div>
-    <textarea *ngIf="msr.CommunicationSupportRequired" [(ngModel)]="msr.CommunicationSupportReqs" name="CommunicationSupportReqs"
+    <textarea *ngIf="msr.CommunicationSupportRequired" [(ngModel)]="msr.CommunicationSupportReqs" formControlName="CommunicationSupportReqs"
       rows="2" class="form-control" placeholder="Please elaborate on your communications requirements"></textarea>
+      <app-errormessage [parentFormGroup]="mainForm" [fieldName]="'CommunicationSupportReqs'" [validationMessages]="validationMessages"></app-errormessage>
   </div>
 </div>
+</form>

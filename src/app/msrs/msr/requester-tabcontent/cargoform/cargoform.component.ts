@@ -10,9 +10,8 @@ import * as _ from 'lodash';
 })
 export class CargoformComponent implements OnChanges{
   @Input() msr: Msr;
-  @Output() isValid = new EventEmitter();
-  private cargoForm: FormGroup;
-  private validationMessages: any;
+  cargoForm: FormGroup;
+  validationMessages: any;
   constructor(private formBuilder: FormBuilder) {
     this.cargoForm = this.formBuilder.group({
      'NumberOfPAX': ['', Validators.required],
@@ -33,14 +32,10 @@ export class CargoformComponent implements OnChanges{
         required: 'ISU Type is required'
       }
     };
+  }
 
-    this.cargoForm.valueChanges.subscribe(() => {
-      if (this.shouldShow()) {
-        this.isValid.emit(this.cargoForm.valid);
-      } else {
-        this.isValid.emit(false);
-      }
-    });
+  isValid() {
+    return this.shouldShow() && this.cargoForm.valid;
   }
 
   shouldShow() {

@@ -1,5 +1,6 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ViewChild } from '@angular/core';
 import { Msr } from '../../shared/msr.model';
+import { MainformComponent } from './mainform/mainform.component';
 import * as _ from 'lodash';
 
 @Component({
@@ -11,6 +12,7 @@ export class RequesterTabcontentComponent implements OnInit {
   @Input() msr: Msr;
   @Input() msrStatusOnLoad: string;
   @Input() dataEntryLookups: any;
+  @ViewChild(MainformComponent) mainForm: MainformComponent;
   buttonsManager: any;
 
   sectionNames: Array<string> = [
@@ -40,15 +42,23 @@ export class RequesterTabcontentComponent implements OnInit {
       'Save': {
         shouldShow: () => this.msrStatusOnLoad === '' || this.msrStatusOnLoad === 'Draft',
         onClicked: () => {
-          this.msr.Status = 'Draft';
-          this.saveButtonClicked.emit();
+          this.mainForm.makeFieldOptional('Conop');
+          this.mainForm.markFormDirty();
+          if (this.mainForm.isValid()) {
+            this.msr.Status = 'Draft';
+            this.saveButtonClicked.emit();
+          }
         }
       },
       'Submit': {
         shouldShow: () => this.msrStatusOnLoad === '' || this.msrStatusOnLoad === 'Draft',
         onClicked: () => {
-          this.msr.Status = 'Submitted';
-          this.saveButtonClicked.emit();
+          this.mainForm.makeFieldRequired('Conop');
+          this.mainForm.markFormDirty();
+          if (this.mainForm.isValid()) {
+            this.msr.Status = 'Submitted';
+            this.saveButtonClicked.emit();
+          }
         }
       },
       'Cancel': {
