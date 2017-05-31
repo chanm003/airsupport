@@ -14,7 +14,7 @@
       </div>
       <div class="form-group" *ngIf="showFields['NumberOfPersonnel'](msr)">
         <label># Personnel</label>
-        <input [(ngModel)]="msr.NumberOfPersonnel" type="number" min="1" class="form-control" name="NumberOfPersonnel">
+        <input [(ngModel)]="msr.NumberOfPersonnel" type="number" OnlyNumber="true" min="1" class="form-control" name="NumberOfPersonnel">
       </div>
 
       <div class="form-group" *ngIf="showFields['ParachuteType'](msr)">
@@ -99,7 +99,7 @@
 
       <div class="form-group" *ngIf="showFields['NumberOfRefuelPointsRequired'](msr)">
         <label># of Refuel Points Required</label>
-        <input [(ngModel)]="msr.NumberOfRefuelPointsRequired" type="number" min="1" class="form-control" name="NumberOfRefuelPointsRequired">
+        <input [(ngModel)]="msr.NumberOfRefuelPointsRequired" type="number" OnlyNumber="true" min="1" class="form-control" name="NumberOfRefuelPointsRequired">
       </div>
 
     </div>
@@ -110,19 +110,19 @@
     <div class="row">
       <div class="form-group col-4">
         <div class="input-group">
-          <input [(ngModel)]="msr.EstimatedDimensionsHeight" type="number" min="1" class="form-control" name="EstimatedDimensionsHeight" placeholder="Height">
+          <input [(ngModel)]="msr.EstimatedDimensionsHeight" type="number" OnlyNumber="true" min="1" class="form-control" name="EstimatedDimensionsHeight" placeholder="Height">
           <span class="input-group-addon">inches</span>
         </div>
       </div>
       <div class="form-group col-4">
         <div class="input-group">
-          <input [(ngModel)]="msr.EstimatedDimensionsLength" type="number" min="1" class="form-control" name="EstimatedDimensionsLength" placeholder="Length">
+          <input [(ngModel)]="msr.EstimatedDimensionsLength" type="number" OnlyNumber="true" min="1" class="form-control" name="EstimatedDimensionsLength" placeholder="Length">
           <span class="input-group-addon">inches</span>
         </div>
       </div>
       <div class="form-group col-4">
         <div class="input-group">
-          <input [(ngModel)]="msr.EstimatedWeight" type="number" min="1" class="form-control" name="EstimatedWeight" placeholder="Weight">
+          <input [(ngModel)]="msr.EstimatedWeight" type="number" OnlyNumber="true" min="1" class="form-control" name="EstimatedWeight" placeholder="Weight">
           <span class="input-group-addon">lbs</span>
         </div>
       </div>
