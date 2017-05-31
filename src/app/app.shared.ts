@@ -7,6 +7,7 @@ import {NgbDateParserFormatterFactory} from './core/datepickerparser';
 import { TagInputModule } from 'ng2-tag-input';
 import {NgPipesModule} from 'ngx-pipes';
 import {OnlyNumberDirective} from './shared/onlynumber.directive';
+import { ErrorMessageComponent } from './shared/error-message.component';
 // imports: imports the module's exports. which are usually
 // declarables(components / directives / pipes) and providers.
 // in our case the FilterTextModule has a provider.
@@ -16,8 +17,9 @@ import {OnlyNumberDirective} from './shared/onlynumber.directive';
 // Even so, we import/export both of these because most other modules will import SharedModule and will need them.
 @NgModule({
   imports: [CommonModule, FormsModule, NgbModule, TagInputModule, NgPipesModule, ReactiveFormsModule ],
-  exports: [CommonModule, FormsModule, NgbModule, TagInputModule, NgPipesModule, ReactiveFormsModule, OnlyNumberDirective ],
-  declarations: [OnlyNumberDirective],
+  exports: [CommonModule, FormsModule, NgbModule, TagInputModule, NgPipesModule, ReactiveFormsModule, OnlyNumberDirective, 
+    ErrorMessageComponent ],
+  declarations: [OnlyNumberDirective, ErrorMessageComponent],
   providers: [
     {
       provide: NgbDateParserFormatter,
