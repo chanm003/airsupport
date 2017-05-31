@@ -104,7 +104,7 @@ export class MainformComponent implements OnChanges, OnInit {
         ngbDate: 'Must be format MM/DD/YYYY'
       },
       'Conop': {
-        required: 'CONOP is required when submitting a MSR'
+        required: 'CONOP is required in order to submit this MSR'
       },
       'CommunicationSupportReqs': {
         required: 'Requirements for communications support is required'
