@@ -9,7 +9,7 @@ import * as _ from 'lodash';
 })
 export class SupportTabcontentComponent implements OnInit {
   @Input() msr: Msr;
-  @Input() dataEntryLookups: any;
+  @Input() cachedData: any;
   @Output() saveButtonClicked = new EventEmitter<string>();
   assignedSupportUnit: any;
   constructor() {
@@ -20,7 +20,7 @@ export class SupportTabcontentComponent implements OnInit {
   }
 
   setSubunitsDataSource() {
-    const match = _.find(this.dataEntryLookups.supportUnits, {Id: this.msr.SupportUnitId});
+    const match = _.find(this.cachedData.supportUnits, {Id: this.msr.SupportUnitId});
     if (match) {
       this.assignedSupportUnit = match;
     }

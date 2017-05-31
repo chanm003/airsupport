@@ -11,7 +11,7 @@ export class RequesterTabcontentComponent implements OnInit {
   @Output() saveButtonClicked = new EventEmitter<string>();
   @Input() msr: Msr;
   @Input() msrStatusOnLoad: string;
-  @Input() dataEntryLookups: any;
+  @Input() cachedData: any;
   @ViewChild(MainformComponent) mainForm: MainformComponent;
   buttonsManager: any;
 

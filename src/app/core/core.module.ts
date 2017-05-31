@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ExceptionService } from './exception.service';
 import { PagecontextService } from './pagecontext.service';
-import { DatatentrylookupsService } from './datatentrylookups.service';
+import { CacheddataService } from './cacheddata.service';
 import { EntityService } from './entity.service';
 import { PeopleService } from './people.service';
 import { SimpleNotificationsModule } from 'angular2-notifications';
@@ -26,7 +26,7 @@ import { HttpModule } from '@angular/http';
   ],
   declarations: [],
   providers: [
-    DatatentrylookupsService,
+    CacheddataService,
     EntityService,
     ExceptionService,
     PagecontextService,

@@ -5,7 +5,7 @@ import { LocalStorageService } from 'angular-2-local-storage';
 import * as _ from 'lodash';
 
 @Injectable()
-export class DatatentrylookupsService {
+export class CacheddataService {
 
   constructor(private exceptionService: ExceptionService,
     private localStorageService: LocalStorageService,

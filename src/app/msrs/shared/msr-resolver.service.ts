@@ -5,7 +5,7 @@ import { Msr } from './msr.model';
 import { NewsfeedItem } from './newsfeed.model';
 import { MsrService } from './msr.service';
 import { NewsfeedService } from './newsfeed.service';
-import { DatatentrylookupsService } from '../../core/datatentrylookups.service';
+import { CacheddataService } from '../../core/cacheddata.service';
 
 export class MsrRouteData{
   constructor(public msr: Msr, public lookups: any) {
@@ -15,7 +15,7 @@ export class MsrRouteData{
 @Injectable()
 export class MsrResolver implements Resolve<MsrRouteData> {
   constructor(
-    private datatentrylookupsService: DatatentrylookupsService,
+    private cacheddataService: CacheddataService,
     private msrService: MsrService,
     private newsfeedService: NewsfeedService,
     private router: Router
@@ -25,7 +25,7 @@ export class MsrResolver implements Resolve<MsrRouteData> {
     const id = +route.params['id'];
     return Promise.all([
       this.msrService.get(id),
-      this.datatentrylookupsService.getAll(),
+      this.cacheddataService.getAll(),
       this.newsfeedService.getByMsr(id)
     ])
     .then(data => {

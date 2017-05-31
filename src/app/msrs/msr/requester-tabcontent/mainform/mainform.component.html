@@ -3,7 +3,7 @@
   <div class="form-group col-6 required">
     <label>Requesting Unit</label>
     <select [(ngModel)]="msr.RequestingUnitId" class="form-control" formControlName="RequestingUnitId">
-      <option *ngFor="let item of dataEntryLookups.requestingUnits" [ngValue]="item.Id">{{item.Name}}</option>
+      <option *ngFor="let item of cachedData.requestingUnits" [ngValue]="item.Id">{{item.Name}}</option>
     </select>
     <app-errormessage [parentFormGroup]="mainForm" [fieldName]="'RequestingUnitId'" [validationMessages]="validationMessages"></app-errormessage>
   </div>

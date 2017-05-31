@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Msr } from '../../msrs/shared/msr.model';
 import { ExceptionService } from '../../core/exception.service';
 import { PagecontextService } from '../../core/pagecontext.service';
-import { DatatentrylookupsService } from '../../core/datatentrylookups.service';
+import { CacheddataService } from '../../core/cacheddata.service';
 
 @Injectable()
 export class MsrService {

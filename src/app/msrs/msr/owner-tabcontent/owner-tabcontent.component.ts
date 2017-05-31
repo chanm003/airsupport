@@ -10,7 +10,7 @@ import * as _ from 'lodash';
 export class OwnerTabcontentComponent implements OnInit {
   @Input() msr: Msr;
   @Input() msrOnLoad: Msr;
-  @Input() dataEntryLookups: any;
+  @Input() cachedData: any;
   @Output() saveButtonClicked = new EventEmitter<string>();
 
   checkboxDataSource: Array<any>;
@@ -22,7 +22,7 @@ export class OwnerTabcontentComponent implements OnInit {
   }
 
   buildCheckboxDataSource() {
-    this.checkboxDataSource = _.map(this.dataEntryLookups['owningUnits'], (opt: any) => {
+    this.checkboxDataSource = _.map(this.cachedData['owningUnits'], (opt: any) => {
       return {
         value: opt.Id,
         display: opt.Name,
@@ -39,7 +39,7 @@ export class OwnerTabcontentComponent implements OnInit {
     if (this.msrOnLoad.SupportUnitId !== this.msr.SupportUnitId) {
       this.msr.Status = 'Assigned';
     }
-    this.msr.SupportUnit = _.find(this.dataEntryLookups.supportUnits, {Id: this.msr.SupportUnitId});
+    this.msr.SupportUnit = _.find(this.cachedData.supportUnits, {Id: this.msr.SupportUnitId});
   }
   onSaveButtonClicked(): void {
     this.saveButtonClicked.emit();

@@ -18,7 +18,7 @@ import * as _ from 'lodash';
 export class MsrComponent implements OnInit {
   msrOnLoad: Msr;
   msrBeingEdited: Msr;
-  dataEntryLookups: any;
+  cachedData: any;
   tabPermissions: any;
   constructor(private route: ActivatedRoute,
     private router: Router,
@@ -35,14 +35,14 @@ export class MsrComponent implements OnInit {
     if (msr) {
       this.msrOnLoad = msr;
       this.msrBeingEdited = this.entityService.clone<Msr>(Msr, msr);
-      this.tabPermissions = TabPermissionsLogic.refresh(this.msrOnLoad, this.dataEntryLookups.currentUser,
-        this.dataEntryLookups.owningUnits);
+      this.tabPermissions = TabPermissionsLogic.refresh(this.msrOnLoad, this.cachedData.currentUser,
+        this.cachedData.owningUnits);
     }
   }
 
   listenForRouteData() {
     this.route.data.subscribe((resolved: {data: MsrRouteData}) => {
-      this.dataEntryLookups = resolved.data.lookups;
+      this.cachedData = resolved.data.lookups;
       this.capturePristineMsr(resolved.data.msr);
     });
   }

@@ -9,7 +9,7 @@ import * as _ from 'lodash';
 })
 export class SubunitsComponent implements OnInit {
   @Input() msr: Msr;
-  @Input() dataEntryLookups: any;
+  @Input() cachedData: any;
   @Input() assignedSupportUnit: any;
   constructor() { }
 

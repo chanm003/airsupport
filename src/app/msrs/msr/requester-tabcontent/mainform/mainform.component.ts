@@ -11,7 +11,7 @@ import * as _ from 'lodash';
 })
 export class MainformComponent implements OnChanges, OnInit {
   @Input() msr: Msr;
-  @Input() dataEntryLookups: any;
+  @Input() cachedData: any;
   mainForm: FormGroup;
   validationMessages: any;
   getMatchingPeople = this.peopleService.searchUsers;
