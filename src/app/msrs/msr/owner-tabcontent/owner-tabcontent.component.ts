@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, OnChanges, Input, Output, EventEmitter } from '@angular/core';
 import { Msr } from '../../shared/msr.model';
 import * as _ from 'lodash';
 
@@ -7,7 +7,7 @@ import * as _ from 'lodash';
   templateUrl: './owner-tabcontent.component.html',
   styles: []
 })
-export class OwnerTabcontentComponent implements OnInit {
+export class OwnerTabcontentComponent implements OnInit, OnChanges {
   @Input() msr: Msr;
   @Input() msrOnLoad: Msr;
   @Input() cachedData: any;
@@ -18,6 +18,10 @@ export class OwnerTabcontentComponent implements OnInit {
    }
 
   ngOnInit() {
+  }
+
+  ngOnChanges() {
+    /*Fires when user goes from /msrs/8 to /msrs/9 */
     this.buildCheckboxDataSource();
   }
 
