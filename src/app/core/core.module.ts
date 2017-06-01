@@ -6,6 +6,7 @@ import { PagecontextService } from './pagecontext.service';
 import { CacheddataService } from './cacheddata.service';
 import { EntityService } from './entity.service';
 import { PeopleService } from './people.service';
+import { MissionService } from './mission.service';
 import { SimpleNotificationsModule } from 'angular2-notifications';
 import { LocalStorageModule } from 'angular-2-local-storage';
 import { HttpModule } from '@angular/http';
@@ -30,7 +31,8 @@ import { HttpModule } from '@angular/http';
     EntityService,
     ExceptionService,
     PagecontextService,
-    PeopleService
+    PeopleService,
+    MissionService
   ]
 })
 export class CoreModule { }

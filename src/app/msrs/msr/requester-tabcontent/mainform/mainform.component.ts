@@ -14,7 +14,7 @@ export class MainformComponent implements OnChanges, OnInit {
   @Input() cachedData: any;
   mainForm: FormGroup;
   validationMessages: any;
-  getMatchingPeople = this.peopleService.searchUsers;
+  getMatchingPeople = this.peopleService.search;
   operationTypes: Array<string> = [
     'Combat Support (ACS)',
     'Aviation Foreign Internal Defense (AvFID)',
@@ -126,7 +126,7 @@ export class MainformComponent implements OnChanges, OnInit {
   }
 
   markFormDirty(fg?: FormGroup) {
-    if(!fg) {
+    if (!fg) {
       fg = this.mainForm;
     }
     Object.keys(fg.controls).map((controlName) => {

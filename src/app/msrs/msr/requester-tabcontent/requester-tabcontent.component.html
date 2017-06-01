@@ -1,11 +1,34 @@
-<fieldset>
+<fieldset *ngIf="!hasLinkedMission()">
   <legend class="pl-2 pb-2">Mission Support Request</legend>    
+    <div class="pl-5 pr-3">
+      <div class="card card-inverse" style="background-color: #333; border-color: #333;">
+        <div class="card-block">
+          <h3 class="card-title">Link this MSR to an OAA</h3>
+          <p class="card-text">Does an OAA already exist? If so, start typing in the search box below.  Otherwise, please create an OAA first, before returning to this form.</p>
+          <p style="padding:5px 3px;background-color:#FFF;" >
+            <tag-input [(ngModel)]="msr.SelectedMissions" [maxItems]="1" [ripple]="false" [theme]="'bootstrap'" [secondaryPlaceholder]="'Search for OAAs'"
+              [onlyFromAutocomplete]="true" [onTextChangeDebounce]="250">
+              <tag-input-dropdown [autocompleteObservable]="getMatchingMissions" [minimumTextLength]="3">
+                <ng-template let-item="item" let-index="index">
+                  {{ item.display }}
+                </ng-template>
+              </tag-input-dropdown>
+            </tag-input>
+          </p>
+          <button type="button" class="btn btn-primary" (click)="nextButtonClicked()" [disabled]="!msr.SelectedMissions || !msr.SelectedMissions.length">Next <span class="fa fa-chevron-right"></span></button>
+        </div>
+      </div>
+    </div>
+</fieldset>
+
+<fieldset *ngIf="hasLinkedMission()">
+  <legend class="pl-2 pb-2">Mission Support Request  <small class="text-muted">({{msr.SelectedMissions[0].Title}})</small></legend>    
     <div class="pl-5 pr-3">
       <app-mainform [msr]="msr" [cachedData]="cachedData"></app-mainform>
     </div>
 </fieldset>
     
-<fieldset>
+<fieldset *ngIf="hasLinkedMission()">
   <legend class="pl-2 pb-2" *ngIf="!!getAdditionalFormSection()">{{getAdditionalFormSection()}}</legend>
   <div class="pl-5 pr-3">
       <app-cargoform [msr]="msr"></app-cargoform>

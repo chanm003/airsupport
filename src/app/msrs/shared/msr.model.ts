@@ -59,6 +59,7 @@ export class Msr {
     RequesterPhone?: string;
     RequestingUnit?: any;
     RequestingUnitId?: number;
+    SelectedMissions?: Array<any>;
     SelectedRequesters?: Array<any>;
     StagingLocation?: string;
     Status?: string;
@@ -111,6 +112,7 @@ export class Msr {
                 target[propName] = source[propName];
             },
             'Status': (target, source, propName) => target[propName] = source[propName],
+            'SelectedMissions': (target, source, propName) => target[propName] = JSON.parse(source[propName] || '[]'),
             /*AIR MOBILITY FORM FIELDS*/
             'AirMobilityType': (target, source, propName) => target[propName] = source[propName],
             'EstimatedDimensionsHeight': (target, source, propName) => target[propName] = source[propName],
@@ -217,6 +219,7 @@ export class Msr {
             'RequesterPhone': (target, source, propName) => target[propName] = source[propName],
             'RequestingUnitId': (target, source, propName) => target[propName] = source[propName],
             'Status': (target, source, propName) => target[propName] = source[propName],
+            'SelectedMissions': (target, source, propName) => target[propName] = JSON.stringify(source[propName]),
             /*AIR MOBILITY FORM FIELDS*/
             'AirMobilityType': (target, source, propName) => target[propName] = source[propName],
             'EstimatedDimensionsHeight': (target, source, propName) => target[propName] = source[propName],
@@ -287,6 +290,8 @@ export class Msr {
             this.OwningUnitsId = [];
             this.Platforms = [];
             this.PNForces = [];
+            this.SelectedMissions = [];
+            this.SelectedRequesters = [];
             this.TargetLocations = [];
             this.Vehicles = [];
         }

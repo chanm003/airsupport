@@ -18,8 +18,8 @@ export class MsrService {
     'NumberOfPersonnel', 'NumberOfRefuelPointsRequired', 'OperationType', 'OtherAIE', 'OwningUnitsId', 'OwningUnits/Id', 'OwningUnits/Name',
     'PNForces', 'PalletWeight', 'ParachuteType', 'ParachuteTypeOther', 'Pararescue', 'PaxBaggageWeight',
     'Platforms', 'RappelRequired', 'Requester/Id', 'Requester/Title', 'RequesterEmail', 'RequesterPhone', 'RequestingUnit/Id',
-    'RequestingUnit/Name', 'StagingLocation', 'Status', 'SupportLocation', 'SupportUnit/Id', 'SupportUnit/Name', 'Surveys',
-    'SurveysRequired', 'TargetLocations', 'Title', 'TypeRelease', 'Vehicles', 'VehiclesRequired'
+    'RequestingUnit/Name', 'SelectedMissions', 'StagingLocation', 'Status', 'SupportLocation', 'SupportUnit/Id', 'SupportUnit/Name',
+    'Surveys', 'SurveysRequired', 'TargetLocations', 'Title', 'TypeRelease', 'Vehicles', 'VehiclesRequired'
   ];
   fieldsToExpand = ['Author', 'Editor', 'OwningUnits', 'Requester', 'RequestingUnit' , 'SupportUnit'];
 

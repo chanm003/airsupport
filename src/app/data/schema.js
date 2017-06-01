@@ -372,8 +372,7 @@ msrSchema.lists['Mission Support Request'] = {
             DisplayName: "MissionSupportStart",
             Type: "DateTime",
             Required: "FALSE",
-            Format: "DateOnly", 					//please use either 'DateOnly' or 'DateTime'
-            Default: '[today]'						//(optional)	
+            Format: "DateOnly" 					//please use either 'DateOnly' or 'DateTime'
         },
         {
             //EXAMPLE: DateTime
@@ -381,8 +380,7 @@ msrSchema.lists['Mission Support Request'] = {
             DisplayName: "MissionSupportEnd",
             Type: "DateTime",
             Required: "FALSE",
-            Format: "DateOnly", 					//please use either 'DateOnly' or 'DateTime'
-            Default: '[today]'
+            Format: "DateOnly" 					//please use either 'DateOnly' or 'DateTime'
         },
         {
             //EXAMPLE: SINGLE LINE OF TEXT
@@ -486,6 +484,17 @@ msrSchema.lists['Mission Support Request'] = {
             //EXAMPLE: MULTIPLE LINE OF TEXT
             Name: "AssignedOutsideUnits",
             DisplayName: "AssignedOutsideUnits",
+            Type: "Note",
+            Required: "FALSE",
+            NumLines: 6,
+            RichText: "FALSE",						//RECOMMENDED
+            AppendOnly: "FALSE",						//VERSIONING MUST BE TURNED ON, otherwise specifie "FALSE"
+            JSON: true
+        },
+        {
+            //EXAMPLE: MULTIPLE LINE OF TEXT
+            Name: "SelectedMissions",
+            DisplayName: "SelectedMissions",
             Type: "Note",
             Required: "FALSE",
             NumLines: 6,

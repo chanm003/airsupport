@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter, ViewChild } from '@angular/core';
 import { Msr } from '../../shared/msr.model';
 import { MainformComponent } from './mainform/mainform.component';
+ import { MissionService } from '../../../core/mission.service';
 import * as _ from 'lodash';
 
 @Component({
@@ -14,12 +15,13 @@ export class RequesterTabcontentComponent implements OnInit {
   @Input() cachedData: any;
   @ViewChild(MainformComponent) mainForm: MainformComponent;
   buttonsManager: any;
-
+  isLinkedWithMission = false;
+  getMatchingMissions = this.missionService.search;
   sectionNames: Array<string> = [
     'Personnel/Cargo', 'SAM', 'ST/BA'
   ];
 
-  constructor() { }
+  constructor(private missionService: MissionService) { }
 
   ngOnInit() {
     this.setButtonsLogic();
@@ -35,6 +37,14 @@ export class RequesterTabcontentComponent implements OnInit {
     } else {
       return '';
     }
+  }
+
+  hasLinkedMission() {
+    return !!this.msr.Id || this.isLinkedWithMission;
+  }
+
+  nextButtonClicked() {
+    this.isLinkedWithMission = true;
   }
 
   setButtonsLogic() {
