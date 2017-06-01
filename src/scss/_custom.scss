@@ -4,6 +4,13 @@
     margin-bottom: 14px;
 }
 
+ input[readonly], textarea[readonly], .form-control[readonly]{
+   /* IE HACK - when field is read-only, get rid of blinking cursor */
+   color: #444 !important;
+   cursor: default;
+   background-color: #FFF;
+ }
+
 td > div.checkbox {
     text-align: center;
 }

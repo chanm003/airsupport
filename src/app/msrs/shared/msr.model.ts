@@ -292,8 +292,10 @@ export class Msr {
         }
     }
 
-    private convertToBootstrapDate(iso: string): NgbDateStruct {
+    private convertToBootstrapDate(iso: string): NgbDateStruct | null {
         const m = moment(iso);
+        if (!m.isValid()) { return null; };
+
         return {
             month: m.month() + 1,
             day: m.date(),
@@ -301,11 +303,11 @@ export class Msr {
         };
     }
 
-    private convertToIso(dt: NgbDateStruct) {
+    private convertToIso(dt: NgbDateStruct | null) {
         if (dt) {
             return `${dt.year}-${dt.month}-${dt.day}`;
         } else {
-            return moment().format('YYYY-MM-DD');
+            return null;
         }
     }
 

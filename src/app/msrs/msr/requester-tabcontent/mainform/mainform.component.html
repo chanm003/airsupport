@@ -73,8 +73,8 @@
     <label>Mission Start</label>
     <div class="input-group">
       <input class="form-control" [displayMonths]="2" [(ngModel)]="msr.MissionStart" ngbDatepicker #MissionStart="ngbDatepicker"
-        formControlName="MissionStart">
-      <div class="input-group-addon" (click)="MissionStart.toggle()">
+        formControlName="MissionStart" [maxDate]="msr.MissionEnd" readonly (click)="MissionStart.toggle();MissionEnd.close()">
+      <div class="input-group-addon" (click)="MissionStart.toggle();MissionEnd.close()">
         <i class="fa fa-calendar"></i>
       </div>
     </div>
@@ -84,8 +84,9 @@
   <div class="form-group col-6 required">
     <label>Mission End</label>
     <div class="input-group">
-      <input class="form-control" [displayMonths]="2" [(ngModel)]="msr.MissionEnd" ngbDatepicker #MissionEnd="ngbDatepicker" formControlName="MissionEnd">
-      <div class="input-group-addon" (click)="MissionEnd.toggle()">
+      <input class="form-control" [displayMonths]="2" [(ngModel)]="msr.MissionEnd" ngbDatepicker #MissionEnd="ngbDatepicker" formControlName="MissionEnd" 
+        [minDate]="msr.MissionStart" readonly (click)="MissionEnd.toggle();MissionStart.close()">
+      <div class="input-group-addon" (click)="MissionEnd.toggle();MissionStart.close()">
         <i class="fa fa-calendar"></i>
       </div>
     </div>

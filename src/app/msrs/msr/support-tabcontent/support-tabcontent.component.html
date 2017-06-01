@@ -7,8 +7,11 @@
         <label>Mission Start</label>
         <div class="input-group">
           <input class="form-control" [displayMonths]="2" [(ngModel)]="msr.MissionSupportStart" ngbDatepicker 
-              #MissionSupportStart="ngbDatepicker" name="MissionSupportStart">
-          <div class="input-group-addon" (click)="MissionSupportStart.toggle()">
+              #MissionSupportStart="ngbDatepicker" name="MissionSupportStart" readonly
+              [minDate]="msr.MissionStart"
+              [maxDate]=getMaximumDateForMissionSupportStart()
+              (click)="MissionSupportStart.toggle();MissionSupportEnd.close()">
+          <div class="input-group-addon" (click)="MissionSupportStart.toggle();MissionSupportEnd.close()">
             <i class="fa fa-calendar"></i>
           </div>
         </div>
@@ -17,8 +20,10 @@
         <label>Mission End</label>
         <div class="input-group">
           <input class="form-control" [displayMonths]="2" [(ngModel)]="msr.MissionSupportEnd" ngbDatepicker 
-              #MissionSupportEnd="ngbDatepicker" name="MissionSupportEnd">
-          <div class="input-group-addon" (click)="MissionSupportEnd.toggle()">
+              #MissionSupportEnd="ngbDatepicker" name="MissionSupportEnd" readonly
+              [minDate]="getMinimumDateForMissionSupportEnd()"
+              [maxDate]="msr.MissionEnd" (click)="MissionSupportEnd.toggle();MissionSupportStart.close()">
+          <div class="input-group-addon" (click)="MissionSupportEnd.toggle();MissionSupportStart.close()">
             <i class="fa fa-calendar"></i>
           </div>
         </div>
