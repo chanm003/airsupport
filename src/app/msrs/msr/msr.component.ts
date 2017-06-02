@@ -8,6 +8,7 @@ import { MsrService } from '../shared/msr.service';
 import { NewsfeedService } from '../shared/newsfeed.service';
 import { MsrRouteData } from '../shared/msr-resolver.service';
 import { NotificationsService } from 'angular2-notifications';
+import { MissionService } from '../../core/mission.service';
 import * as _ from 'lodash';
 
 @Component({
@@ -20,12 +21,15 @@ export class MsrComponent implements OnInit {
   msrBeingEdited: Msr;
   cachedData: any;
   tabPermissions: any;
+  isLinkedWithMission = false;
+  getMatchingMissions = this.missionService.search;
   constructor(private route: ActivatedRoute,
     private router: Router,
     private entityService: EntityService,
     private notificationService: NotificationsService,
     private newsfeedService: NewsfeedService,
-    private msrService: MsrService) { }
+    private msrService: MsrService,
+    private missionService: MissionService) { }
 
   ngOnInit() {
     this.listenForRouteData();
@@ -38,6 +42,14 @@ export class MsrComponent implements OnInit {
       this.tabPermissions = TabPermissionsLogic.refresh(this.msrOnLoad, this.cachedData.currentUser,
         this.cachedData.owningUnits);
     }
+  }
+
+  hasLinkedMission() {
+    return !!this.msrBeingEdited.Id || this.isLinkedWithMission;
+  }
+
+  nextButtonClicked() {
+    this.isLinkedWithMission = true;
   }
 
   listenForRouteData() {
