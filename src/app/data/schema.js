@@ -503,6 +503,13 @@ msrSchema.lists['Mission Support Request'] = {
             JSON: true
         },
         {
+            //EXAMPLE: SINGLE LINE OF TEXT
+            Name: "RelatedMissionId",
+            DisplayName: "RelatedMissionId",
+            Type: "Text",
+            Required: "FALSE"
+        },
+        {
             //EXAMPLE: Lookup field
             Name: "OwningUnits",
             DisplayName: "Owning Units",

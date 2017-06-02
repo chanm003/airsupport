@@ -1,10 +1,10 @@
 <div *ngIf="!hasLinkedMission()" class="card card-inverse" style="background-color: #333; border-color: #333;">
   <div class="card-block">
-    <h3 class="card-title">Link this MSR to an OAA</h3>
-    <p class="card-text">Does an OAA already exist? If so, start typing in the search box below.  Otherwise, please create an OAA first, before returning to this form.</p>
+    <h3 class="card-title">{{cardViewModel.cardTitle}}</h3>
+    <p class="card-text" [innerHTML]="cardViewModel.cardText"></p>
     <p style="padding:5px 3px;background-color:#FFF;" >
-      <tag-input [(ngModel)]="msrBeingEdited.SelectedMissions" [maxItems]="1" [ripple]="false" [theme]="'bootstrap'" [secondaryPlaceholder]="'Search for OAAs'"
-        [onlyFromAutocomplete]="true" [onTextChangeDebounce]="250">
+      <tag-input [(ngModel)]="msrBeingEdited.SelectedMissions" [maxItems]="1" [ripple]="false" [theme]="'bootstrap'" [secondaryPlaceholder]="cardViewModel.autocompletePlaceholderText"
+        [onlyFromAutocomplete]="true" [onTextChangeDebounce]="250" (onAdd)="onMissionAdded($event)">
         <tag-input-dropdown [autocompleteObservable]="getMatchingMissions" [minimumTextLength]="3">
           <ng-template let-item="item" let-index="index">
             {{ item.display }}

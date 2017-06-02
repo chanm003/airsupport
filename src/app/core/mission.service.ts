@@ -30,4 +30,13 @@ export class MissionService {
         return mappedData;
       });
     }
+
+    getCardViewModel() {
+      return {
+        cardTitle: 'Link this MSR to an OAA',
+        cardText: `Does an OAA already exist? If so, start typing in the search box below.  
+          Otherwise, please <strong>create an OAA</strong> first, before returning to this form.`,
+        autocompletePlaceholderText: `Search for OAAs`
+      };
+    }
 }

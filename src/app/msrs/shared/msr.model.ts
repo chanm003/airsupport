@@ -55,6 +55,7 @@ export class Msr {
     Platforms?: Array<Platform>;
     PNForces?: Array<PNForce>;
     RappelRequired?: boolean;
+    RelatedMissionId?: string;
     RequesterEmail?: string;
     RequesterPhone?: string;
     RequestingUnit?: any;
@@ -112,6 +113,7 @@ export class Msr {
                 target[propName] = source[propName];
             },
             'Status': (target, source, propName) => target[propName] = source[propName],
+            'RelatedMissionId': (target, source, propName) => target[propName] = source[propName],
             'SelectedMissions': (target, source, propName) => target[propName] = JSON.parse(source[propName] || '[]'),
             /*AIR MOBILITY FORM FIELDS*/
             'AirMobilityType': (target, source, propName) => target[propName] = source[propName],
@@ -219,6 +221,7 @@ export class Msr {
             'RequesterPhone': (target, source, propName) => target[propName] = source[propName],
             'RequestingUnitId': (target, source, propName) => target[propName] = source[propName],
             'Status': (target, source, propName) => target[propName] = source[propName],
+            'RelatedMissionId': (target, source, propName) => target[propName] = source[propName],
             'SelectedMissions': (target, source, propName) => target[propName] = JSON.stringify(source[propName]),
             /*AIR MOBILITY FORM FIELDS*/
             'AirMobilityType': (target, source, propName) => target[propName] = source[propName],

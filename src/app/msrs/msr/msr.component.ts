@@ -23,6 +23,7 @@ export class MsrComponent implements OnInit {
   tabPermissions: any;
   isLinkedWithMission = false;
   getMatchingMissions = this.missionService.search;
+  cardViewModel = this.missionService.getCardViewModel();
   constructor(private route: ActivatedRoute,
     private router: Router,
     private entityService: EntityService,
@@ -57,6 +58,10 @@ export class MsrComponent implements OnInit {
       this.cachedData = resolved.data.lookups;
       this.capturePristineMsr(resolved.data.msr);
     });
+  }
+
+  onMissionAdded(msn) {
+    this.msrBeingEdited.RelatedMissionId = String(msn.Id);
   }
 
   saveMsr() {
