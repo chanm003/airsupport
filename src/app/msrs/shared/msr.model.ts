@@ -408,6 +408,7 @@ export class MsrTrackedChanges {
 
       if (current.Status === 'Assigned') {
         notification.JSON.comments = `assigned ${current.SupportUnit.Name} to support this MSR`;
+        notification.JSON.emailTemplate = 'AssignedToSupportUnit';
       }
       return notification;
     }

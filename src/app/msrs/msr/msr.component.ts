@@ -6,6 +6,7 @@ import { EntityService } from '../../core/entity.service';
 import { NewsfeedItem, StatusChange } from '../../msrs/shared/newsfeed.model';
 import { MsrService } from '../shared/msr.service';
 import { NewsfeedService } from '../shared/newsfeed.service';
+import { EmailnotificationService } from '../shared/emailnotification.service';
 import { MsrRouteData } from '../shared/msr-resolver.service';
 import { NotificationsService } from 'angular2-notifications';
 import { MissionService } from '../../core/mission.service';
@@ -30,7 +31,8 @@ export class MsrComponent implements OnInit {
     private notificationService: NotificationsService,
     private newsfeedService: NewsfeedService,
     private msrService: MsrService,
-    private missionService: MissionService) { }
+    private missionService: MissionService,
+    private emailnotificationService: EmailnotificationService) { }
 
   ngOnInit() {
     this.listenForRouteData();
@@ -78,6 +80,7 @@ export class MsrComponent implements OnInit {
           this.capturePristineMsr(this.msrBeingEdited);
           this.msrBeingEdited.NewsfeedItems.push(...newsfeedItems);
           this.notificationService.success('Confirmation', 'Your changes were saved');
+          this.emailnotificationService.createFromChangeReport(changes, this.msrBeingEdited.Id, this.msrBeingEdited);
         });
     }
 

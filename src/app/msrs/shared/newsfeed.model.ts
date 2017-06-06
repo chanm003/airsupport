@@ -14,6 +14,7 @@ export class StatusChange implements NewsfeedItem {
         prevStatus: string;
         newStatus: string;
         comments?: string;
+        emailTemplate?: string;
     };
     Author?: { Title: string };
 }

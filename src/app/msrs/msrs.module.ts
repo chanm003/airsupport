@@ -5,6 +5,7 @@ import { SharedModule } from '../app.shared';
 import { routedComponents, MsrsRoutingModule } from './msrs-routing.module';
 import { MsrService } from './shared/msr.service';
 import { NewsfeedService } from './shared/newsfeed.service';
+import { EmailnotificationService } from './shared/emailnotification.service';
 
 @NgModule({
   imports: [
@@ -13,6 +14,6 @@ import { NewsfeedService } from './shared/newsfeed.service';
     MsrsRoutingModule
   ],
   declarations: [routedComponents],
-  providers: [MsrService, NewsfeedService]
+  providers: [MsrService, NewsfeedService, EmailnotificationService]
 })
 export class MsrsModule { }

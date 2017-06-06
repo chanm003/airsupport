@@ -745,3 +745,30 @@ msrSchema.lists['Newsfeed'] = {
         }
     ]
 };
+
+msrSchema.lists['EmailTemplates'] = {
+    BaseTemplate: 'genericList',
+    shouldHideTitleField: true,
+    fieldsToCreate: [
+        {
+            //EXAMPLE: MULTIPLE LINE OF TEXT
+            Name: "Body",
+            DisplayName: "Body",
+            Type: "Note",
+            Required: "FALSE",
+            NumLines: 24,
+            RichText: "FALSE",						//RECOMMENDED
+            AppendOnly: "FALSE"					//VERSIONING MUST BE TURNED ON, otherwise specifie "FALSE"
+        },
+        {
+            //EXAMPLE: MULTIPLE LINE OF TEXT
+            Name: "Description",
+            DisplayName: "Description",
+            Type: "Note",
+            Required: "FALSE",
+            NumLines: 6,
+            RichText: "FALSE",						//RECOMMENDED
+            AppendOnly: "FALSE"					//VERSIONING MUST BE TURNED ON, otherwise specifie "FALSE"
+        }
+    ]
+};

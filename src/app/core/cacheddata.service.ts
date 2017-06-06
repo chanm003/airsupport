@@ -14,7 +14,7 @@ export class CacheddataService {
 
   private getOwningUnits() {
     const listName = 'Owning Units';
-    const fieldsToSelect = ['Id', 'Name', 'Users/Id', 'Users/Title'];
+    const fieldsToSelect = ['Id', 'Name', 'Users/Id', 'Users/Title', 'Users/EMail'];
     const fieldsToExpand = ['Users'];
 
     return this.pagecontextService.getWeb().lists.getByTitle(listName).items
@@ -43,13 +43,28 @@ export class CacheddataService {
 
   private getSupportUnits() {
     const listName = 'Support Units';
-    const fieldsToSelect = ['Id', 'Name', 'Email', 'VerificationDate', 'PhoneNumber', 'Users/Id', 'Users/Title'];
+    const fieldsToSelect = ['Id', 'Name', 'Email', 'VerificationDate', 'PhoneNumber', 'Users/Id', 'Users/Title', 'Users/EMail'];
     const fieldsToExpand = ['Users'];
 
     return this.pagecontextService.getWeb().lists.getByTitle(listName).items
       .select(...fieldsToSelect)
       .expand(...fieldsToExpand)
       .get();
+  }
+
+  private getEmailTemplates() {
+    const listName = 'EmailTemplates';
+    const fieldsToSelect = ['Title', 'Body'];
+
+    return this.pagecontextService.getWeb().lists.getByTitle(listName).items
+      .select(...fieldsToSelect)
+      .get()
+      .then((data) => {
+        const templates = {};
+        _.each(data, (item) => templates[item.Title] = item.Body);
+        console.log(templates);
+        return templates;
+      });
   }
 
   private getInfoForCurrentUser() {
@@ -91,7 +106,8 @@ export class CacheddataService {
       this.getRequestingUnits(),
       this.getSubunits(),
       this.getSupportUnits(),
-      this.getInfoForCurrentUser()
+      this.getInfoForCurrentUser(),
+      this.getEmailTemplates()
     ])
     .then(data => {
       const owningUnits = data[0];
@@ -110,7 +126,8 @@ export class CacheddataService {
           supportUnits: supportUnits,
           requestingUnits: data[1],
           owningUnits: owningUnits,
-          currentUser: currentUser
+          currentUser: currentUser,
+          emailTemplates: data[5]
       };
 
       this.localStorageService.set('lookups', lookups);
