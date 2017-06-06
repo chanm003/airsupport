@@ -3,6 +3,7 @@
   <div class="form-group col-6 required">
     <label>Requesting Unit</label>
     <select [(ngModel)]="msr.RequestingUnitId" class="form-control" formControlName="RequestingUnitId">
+      <option value="" disabled="true" [selected]="!msr.RequestingUnitId">Select a Unit</option>
       <option *ngFor="let item of cachedData.requestingUnits" [ngValue]="item.Id">{{item.Name}}</option>
     </select>
     <app-errormessage [parentFormGroup]="mainForm" [fieldName]="'RequestingUnitId'" [validationMessages]="validationMessages"></app-errormessage>
@@ -10,6 +11,7 @@
   <div class="form-group col-6 required">
     <label>Operation Type</label>
     <select [(ngModel)]="msr.OperationType" class="form-control" formControlName="OperationType">
+      <option value="" disabled="true" [selected]="!msr.OperationType">Select an Operation Type</option>
       <option *ngFor="let item of operationTypes" [value]="item">{{item}}</option>
     </select>
     <app-errormessage [parentFormGroup]="mainForm" [fieldName]="'OperationType'" [validationMessages]="validationMessages"></app-errormessage>

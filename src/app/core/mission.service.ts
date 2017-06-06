@@ -32,11 +32,12 @@ export class MissionService {
     }
 
     getCardViewModel() {
+      const url = '/OAA/app/Index.aspx#/new';
       return {
         cardTitle: 'Link this MSR to an OAA',
         cardText: `Does an OAA already exist? If so, start typing in the search box below.  
-          Otherwise, please <strong>create an OAA</strong> first, before returning to this form.`,
-        autocompletePlaceholderText: `Search for OAAs`
+          Otherwise, please <a href="${url}">create an OAA</a> first, then return to this form.`,
+        autocompletePlaceholderText: `Search existing OAAs`
       };
     }
 }
