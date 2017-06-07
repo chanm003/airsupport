@@ -579,10 +579,11 @@ msrSchema.lists['Owning Units'] = {
             Name: "Users",
             DisplayName: "Users",
             Type: "UserMulti",
-            Required: "FALSE",
+            Required: "TRUE",
             UserSelectionMode: "PeopleOnly",	//please specify either 'PeopleOnly' or 'PeopleAndGroups'
             ShowField: 'ImnName',				//Name with presence	
-            Mult: "TRUE"
+            Mult: "TRUE",
+            Description: "Identify ALL users that need to see the tab: JSOAC/JMOC"
         }
     ]
 };
@@ -661,10 +662,11 @@ msrSchema.lists['Support Units'] = {
             Name: "Users",
             DisplayName: "Users",
             Type: "UserMulti",
-            Required: "FALSE",
+            Required: "TRUE",
             UserSelectionMode: "PeopleOnly",	//please specify either 'PeopleOnly' or 'PeopleAndGroups'
             ShowField: 'ImnName',				//Name with presence	
-            Mult: "TRUE"
+            Mult: "TRUE",
+            Description: "Identify ALL users that need to see the tab: Support Unit"
         }
     ]
 };

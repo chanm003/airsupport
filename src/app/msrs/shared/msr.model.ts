@@ -13,6 +13,7 @@ export class Msr {
     AmplifyingDetail?: string;
     AssignedOutsideUnits?: Array<AssignedOutsideUnit>;
     AssignedSubunits?: Array<AssignedSubunit>;
+    Author?: any;
     CommunicationSupportReqs?: string;
     CommunicationSupportRequired?: boolean;
     Conop?: string;

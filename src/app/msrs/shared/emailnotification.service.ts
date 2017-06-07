@@ -14,7 +14,7 @@ export class EmailnotificationService {
   }
 
   private send(msg: EmailMessage) {
-    console.log(msg);
+    return this.pagecontextService.sendEmail(msg.to, msg.cc, msg.subject, msg.body);
   }
 
   createFromChangeReport(changeReport: MsrChangeReport, msrID: number, msr: Msr) {
@@ -24,41 +24,43 @@ export class EmailnotificationService {
   }
 
   private sendNotifications(cachedData: any, changeReport: MsrChangeReport, msr: Msr) {
-    /*FIRE AND FORGET*/
+    /*FIRE AND FORGET, so not returning promise*/
     Promise.all([
-      (changeReport.StatusChange) ? this.send(this.generateMessage(cachedData, msr, changeReport.StatusChange)) : Promise.resolve(null)
+      (changeReport.StatusChange && changeReport.StatusChange.JSON.emailTemplate) ?
+        this.send(this.generateMessage(cachedData, msr, changeReport.StatusChange.JSON.emailTemplate)) : Promise.resolve(null)
     ]);
   }
 
-  private generateMessage(cachedData: any, msr: Msr, item: NewsfeedItem): EmailMessage {
+  private generateMessage(cachedData: any, msr: Msr, emailTemplate: string): EmailMessage {
     const currentUser = cachedData.currentUser.Title;
     const msrTitle = `MSR (${msr.SelectedMissions[0].Title})`;
-    const url = `${this.pagecontextService.getInfo().currentWebAbsoluteUrl}/index.aspx#/msrs/${msr.Id}`;
+    const url = `${this.pagecontextService.getInfo().currentWebAbsoluteUrl}/app/index.aspx#/msrs/${msr.Id}`;
 
     const funcs = {
       'AssignedToSupportUnit': () => {
         const supportUnit: any = _.find(cachedData.supportUnits, {Id: msr.SupportUnitId});
         const recipients = [];
-        recipients.push(msr.RequesterEmail);
-        if (supportUnit && supportUnit.Users && supportUnit.Users.results) {
-          _.each(supportUnit.Users.results, (user) => recipients.push(user.EMail));
-        }
-        const compiled = _.template(cachedData.emailTemplates['AssignedToSupportUnit']);
+        const courtesyCopy = [msr.RequesterEmail, msr.Author.EMail];
+        _.each(supportUnit.Users.results, (user) => recipients.push(user.EMail));
+        const compiled = _.template(cachedData.emailTemplates['AssignedToSupportUnit'].replace(/\n/g, '<br/>'));
+        const screenshot = `<img src="${this.pagecontextService.getInfo().screenshotsFolder}/supportunit.png"/>`;
         return {
           from: 'mike@chanm003.onmicrosoft.com',
           to: _.uniq(recipients),
-          subject: `${msrTitle} has been assigned to ${supportUnit.Name}`,
-          body: compiled({currentUser: currentUser, title: msrTitle, supportUnit: supportUnit.Name, url: url})
+          cc: _.uniq(courtesyCopy),
+          subject: `${msrTitle} has been assigned to the ${supportUnit.Name}`,
+          body: compiled({currentUser: currentUser, title: msrTitle, supportUnit: supportUnit.Name, url: url, screenshot: screenshot})
         };
       }
     };
-    return funcs[item.JSON.emailTemplate]();
+    return funcs[emailTemplate]();
   }
 }
 
 export class EmailMessage {
   from: string;
   to: Array<string>;
+  cc: Array<string>;
   subject: string;
   body: string;
 }
