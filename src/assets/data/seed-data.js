@@ -2,10 +2,11 @@ window.generateFakeData = function () {
     $.when(
         seedOwningUnits(),
         seedRequestingUnits(),
-        seedSupportUnits()
+        seedSupportUnits(), /*seeds items in two lists*/
+        seedEmailTemplates()
     )
         .then(function () {
-            console.log("Four lists have been seeded...");
+            console.log("Five lists have been seeded...");
         });
 
     function seedOwningUnits() {
@@ -85,5 +86,15 @@ window.generateFakeData = function () {
                 PhoneNumber: chance.phone()
             };
         }
+    }
+
+    function seedEmailTemplates() {
+        return spSchemaProvisioner.insertListItems({
+            listTitle: 'EmailTemplates',
+            itemsToCreate: [
+                { Title: 'AssignedToSupportUnit', Body: '${currentUser} has assigned ${title} to the ${supportUnit}.\n\nTo start assigning subunits and external units, click on the \'Support Unit\' tab at the below link:\n<a href="${url}">Link to MSR</a>\n\n${screenshot}' }, 
+                { Title: 'Submitted', Body: '${currentUser} has submitted ${title}.\n\nTo take ownership of this MSR, click on the \'JSOAC/JMOC\' tab at the below link:\n<a href="${url}">Link to MSR</a>\n\n${screenshot}'}
+            ]
+        });
     }
 }
