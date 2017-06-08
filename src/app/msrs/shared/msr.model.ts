@@ -405,18 +405,25 @@ export class MsrTrackedChanges {
      const hasAssignedUnitChanged = current.SupportUnitId !== prev.SupportUnitId;
     const hasStatusChanged = current.Status !== prev.Status;
 
-    if (hasAssignedUnitChanged || hasStatusChanged) {
-      const notification = new StatusChange();
-      notification.Type = 'StatusChange';
-      notification.JSON = {
-          prevStatus: prev.Status,
-          newStatus: current.Status
-      };
+        if (hasAssignedUnitChanged || hasStatusChanged) {
+        const notification = new StatusChange();
+        notification.Type = 'StatusChange';
+        notification.JSON = {
+            prevStatus: prev.Status,
+            newStatus: current.Status
+        };
 
-      if (current.Status === 'Assigned') {
-        notification.JSON.comments = `assigned ${current.SupportUnit.Name} to support this MSR`;
-        notification.JSON.emailTemplate = 'AssignedToSupportUnit';
-      }
+        if (current.Status === 'Assigned') {
+            notification.JSON.comments = `assigned ${current.SupportUnit.Name} to support this MSR`;
+            notification.JSON.emailTemplate = 'AssignedToSupportUnit';
+        }
+
+        if (current.Status === 'Submitted') {
+            /*No unit has taken ownership yet*/
+            if (current.OwningUnitsId.length === 0) {
+                notification.JSON.emailTemplate = 'Submitted';
+            }
+        }
       return notification;
     }
     return null;

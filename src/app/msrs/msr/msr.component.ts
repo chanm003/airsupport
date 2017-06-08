@@ -71,23 +71,29 @@ export class MsrComponent implements OnInit {
 
     if (!this.msrBeingEdited.Id) {
       this.msrService.create(this.msrBeingEdited, this.tabPermissions)
-        .then((createdItem: any) => this.createNewsfeedItems(changes, createdItem.Id))
-        .then((newsfeedItems) => this.router.navigate(['/msrs']));
+        .then((createdItem: any) => {
+          this.msrBeingEdited.Id = createdItem.Id;
+          this.createNewsfeedItems(changes, this.msrBeingEdited);
+        })
+        .then((newsfeedItems) => {
+          this.router.navigate(['/msrs']);
+          this.emailnotificationService.createFromChangeReport(changes, this.msrBeingEdited);
+        });
     } else {
       this.msrService.update(this.msrBeingEdited, this.tabPermissions)
-        .then(() => this.createNewsfeedItems(changes, this.msrBeingEdited.Id))
+        .then(() => this.createNewsfeedItems(changes, this.msrBeingEdited))
         .then((newsfeedItems) => {
           this.capturePristineMsr(this.msrBeingEdited);
           this.msrBeingEdited.NewsfeedItems.push(...newsfeedItems);
           this.notificationService.success('Confirmation', 'Your changes were saved');
-          this.emailnotificationService.createFromChangeReport(changes, this.msrBeingEdited.Id, this.msrBeingEdited);
+          this.emailnotificationService.createFromChangeReport(changes, this.msrBeingEdited);
         });
     }
 
   }
 
-  createNewsfeedItems(changeReport: MsrChangeReport, msrID: number) {
-    return this.newsfeedService.createFromChangeReport(changeReport, msrID);
+  createNewsfeedItems(changeReport: MsrChangeReport, msr: Msr) {
+    return this.newsfeedService.createFromChangeReport(changeReport, msr);
   }
 }
 

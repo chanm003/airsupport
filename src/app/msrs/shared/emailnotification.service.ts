@@ -17,8 +17,7 @@ export class EmailnotificationService {
     return this.pagecontextService.sendEmail(msg.to, msg.cc, msg.subject, msg.body);
   }
 
-  createFromChangeReport(changeReport: MsrChangeReport, msrID: number, msr: Msr) {
-    msr.Id = msrID;
+  createFromChangeReport(changeReport: MsrChangeReport, msr: Msr) {
     this.cacheddataService.getAll()
       .then(cacheData => this.sendNotifications(cacheData, changeReport, msr));
   }
@@ -50,6 +49,18 @@ export class EmailnotificationService {
           cc: _.uniq(courtesyCopy),
           subject: `${msrTitle} has been assigned to the ${supportUnit.Name}`,
           body: compiled({currentUser: currentUser, title: msrTitle, supportUnit: supportUnit.Name, url: url, screenshot: screenshot})
+        };
+      },
+      'Submitted': () => {
+        let recipients = [];
+        _.each(cachedData.owningUnits, (unit) => recipients = recipients.concat(_.map(unit.Users.results, 'EMail')));
+        const compiled = _.template(cachedData.emailTemplates['Submitted'].replace(/\n/g, '<br/>'));
+        const screenshot = `<img src="${this.pagecontextService.getInfo().screenshotsFolder}/takeownership.png"/>`;
+        return {
+          from: 'mike@chanm003.onmicrosoft.com',
+          to: _.uniq(recipients),
+          subject: `${msrTitle} has been submitted`,
+          body: compiled({currentUser: currentUser, title: msrTitle, url: url, screenshot: screenshot})
         };
       }
     };

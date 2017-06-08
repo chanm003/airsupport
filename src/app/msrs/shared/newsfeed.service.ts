@@ -56,8 +56,8 @@ export class NewsfeedService {
     });
   }
 
-  createFromChangeReport(changeReport: MsrChangeReport, msrID: number) {
-    this.associateChangesToMsr(changeReport, msrID);
+  createFromChangeReport(changeReport: MsrChangeReport, msr: Msr) {
+    this.associateChangesToMsr(changeReport, msr.Id);
     return Promise.all([
       (changeReport.StatusChange) ? this.create(changeReport.StatusChange) : Promise.resolve(null)
     ])
