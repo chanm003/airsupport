@@ -115,7 +115,12 @@ export class Msr {
             },
             'Status': (target, source, propName) => target[propName] = source[propName],
             'RelatedMissionId': (target, source, propName) => target[propName] = source[propName],
-            'SelectedMissions': (target, source, propName) => target[propName] = JSON.parse(source[propName] || '[]'),
+            'RelatedMission': (target, source, propName) => {
+                target['SelectedMissions'] = [];
+                if (source[propName]){
+                    target['SelectedMissions'].push(JSON.parse(source[propName]));
+                }
+            },
             /*AIR MOBILITY FORM FIELDS*/
             'AirMobilityType': (target, source, propName) => target[propName] = source[propName],
             'EstimatedDimensionsHeight': (target, source, propName) => target[propName] = source[propName],
@@ -223,7 +228,8 @@ export class Msr {
             'RequestingUnitId': (target, source, propName) => target[propName] = source[propName],
             'Status': (target, source, propName) => target[propName] = source[propName],
             'RelatedMissionId': (target, source, propName) => target[propName] = source[propName],
-            'SelectedMissions': (target, source, propName) => target[propName] = JSON.stringify(source[propName]),
+            'SelectedMissions': (target, source, propName) => target['RelatedMission'] = (source[propName].length) ?
+                JSON.stringify(source[propName][0]) : null,
             /*AIR MOBILITY FORM FIELDS*/
             'AirMobilityType': (target, source, propName) => target[propName] = source[propName],
             'EstimatedDimensionsHeight': (target, source, propName) => target[propName] = source[propName],

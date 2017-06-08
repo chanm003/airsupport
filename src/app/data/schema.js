@@ -493,8 +493,8 @@ msrSchema.lists['Mission Support Request'] = {
         },
         {
             //EXAMPLE: MULTIPLE LINE OF TEXT
-            Name: "SelectedMissions",
-            DisplayName: "SelectedMissions",
+            Name: "RelatedMission",
+            DisplayName: "RelatedMission",
             Type: "Note",
             Required: "FALSE",
             NumLines: 6,
