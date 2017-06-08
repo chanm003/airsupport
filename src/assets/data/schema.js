@@ -764,8 +764,8 @@ msrSchema.lists['EmailTemplates'] = {
         },
         {
             //EXAMPLE: MULTIPLE LINE OF TEXT
-            Name: "Description",
-            DisplayName: "Description",
+            Name: "TokensDescription",
+            DisplayName: "Description of Available Tokens",
             Type: "Note",
             Required: "FALSE",
             NumLines: 6,

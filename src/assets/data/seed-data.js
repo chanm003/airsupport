@@ -11,7 +11,10 @@ window.generateFakeData = function () {
     function seedOwningUnits() {
         return spSchemaProvisioner.insertListItems({
             listTitle: 'Owning Units',
-            itemsToCreate: [{ Name: 'JSOAC-E' }, { Name: 'SOCEUR JMOC' }]
+            itemsToCreate: [
+                { Name: 'JSOAC-E', Users: spSchemaProvisioner.fieldValues.generateForPersonField([_spPageContextInfo.userId]) }, 
+                { Name: 'SOCEUR JMOC', Users: spSchemaProvisioner.fieldValues.generateForPersonField([_spPageContextInfo.userId]) }
+            ]
         });
     }
 
@@ -41,7 +44,7 @@ window.generateFakeData = function () {
                     PocName: chance.name(),
                     PocPhone: chance.phone(),
                     PocEmail: chance.email(),
-                    ParentUnitId: chance.pickone(supportUnitIds)
+                    ParentUnit: spSchemaProvisioner.fieldValues.generateForLookupField(chance.pickone(supportUnitIds))
                 };
             }
         }
@@ -51,7 +54,8 @@ window.generateFakeData = function () {
                 Name: generateSupportOrgName('Group'),
                 Email: chance.email(),
                 VerificationDate: chance.date({ year: 2016 }).toISOString().split('T')[0],
-                PhoneNumber: chance.phone()
+                PhoneNumber: chance.phone(),
+                Users: spSchemaProvisioner.fieldValues.generateForPersonField([_spPageContextInfo.userId])
             };
         }
     }
