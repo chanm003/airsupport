@@ -1,30 +1,11 @@
 <fieldset>
   <legend class="pl-2 pb-2" style="display:none;"></legend>
   <div class="pl-5 pr-3">
-    <div class="row">
-      <div class="form-group col-6">
-        <label>Unit Assigned</label>
-        <select [(ngModel)]="msr.SupportUnitId" class="form-control" name="SupportUnitId" (change)="onSupportUnitChanged()">
-          <option *ngFor="let item of cachedData.supportUnits" [ngValue]="item.Id">{{item.Name}}</option>
-        </select>
-      </div>
-    </div>
-
+    
     <div class="row">
       <div class="form-group col-6">
         <label>Notes</label>
         <textarea [(ngModel)]="msr.Notes" name="Notes" rows="9" class="form-control"></textarea>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="form-group col-6">
-        <label>Owner</label>
-        <div>
-          <label *ngFor="let item of checkboxDataSource" class="checkbox-inline">
-            <input type="checkbox" [(ngModel)]="item['isChecked']" (change)="onCheckboxClicked()"> {{item.display}}
-          </label>
-        </div>
       </div>
     </div>
 
@@ -36,4 +17,4 @@
   </div>
 </fieldset>
 
-<app-updatestatus [msr]="msr"></app-updatestatus>
+<app-updatestatus [msr]="msr" [cachedData]="cachedData"></app-updatestatus>
