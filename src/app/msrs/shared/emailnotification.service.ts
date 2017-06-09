@@ -33,7 +33,7 @@ export class EmailnotificationService {
   private generateMessage(cachedData: any, msr: Msr, emailTemplate: string): EmailMessage {
     const currentUser = cachedData.currentUser.Title;
     const msrTitle = `MSR (${msr.SelectedMissions[0].Title})`;
-    const url = `${this.pagecontextService.getInfo().currentWebAbsoluteUrl}/app/index.aspx#/msrs/${msr.Id}`;
+    const url = `${this.pagecontextService.getInfo().currentWebAbsoluteUrl}/index.aspx#/msrs/${msr.Id}`;
 
     const funcs = {
       'AssignedToSupportUnit': () => {
