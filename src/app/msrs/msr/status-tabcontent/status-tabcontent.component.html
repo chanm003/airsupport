@@ -1,42 +1,8 @@
 <fieldset>
-  <legend class="pl-2 pb-2">
-    <div ngbDropdown class="d-inline-block">
-      <button class="btn btn-primary" ngbDropdownToggle [class.disabled]="msr.Status ==='Canceled' || msr.Status ==='Draft'">Update Status</button>
-      <div class="dropdown-menu">
-        <button *ngFor="let item of statuses" [class.disabled]="msr.Status === item" class="dropdown-item" (click)="openModal(statusModal, item)">{{item}}</button>
-      </div>
-    </div>
-  </legend>
+  <legend class="pl-2 pb-2">Newsfeed</legend> 
   <div class="pl-5 pr-3">
     <app-newsfeed [newsfeeditems]="msr.NewsfeedItems | orderBy: '-Created'"></app-newsfeed>
   </div>
 </fieldset>
-
-<ng-template #statusModal let-c="close" let-d="dismiss">
-  <div class="modal-header">
-    <h4 class="modal-title">Change MSR Status</h4>
-    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  <div class="modal-body">
-    <div class="form-group">
-      <label>Status</label>
-      <select [(ngModel)]="formData.status" class="form-control" name="status">
-             <option *ngFor="let item of statuses" [value]="item">{{item}}</option>
-      </select>
-    </div>
-
-    <div class="form-group">
-      <label>Notes</label>
-      <textarea [(ngModel)]="formData.notes" rows="6" class="form-control" name="notes"></textarea>
-    </div>
-
-  </div>
-  <div class="modal-footer">
-    <button type="button" class="btn btn-secondary" (click)="c('Close click')">Close</button>
-    <button type="button" class="btn btn-primary" (click)="changeStatus()">Save</button>
-  </div>
-</ng-template>
 
 

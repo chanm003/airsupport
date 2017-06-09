@@ -48,6 +48,7 @@ export class Msr {
     OperationType?: string;
     OtherAIE?: string;
     OwningUnitsId?: Array<number>;
+    OwningUnits?: any;
     PalletWeight?: number;
     ParachuteType?: string;
     ParachuteTypeOther?: string;

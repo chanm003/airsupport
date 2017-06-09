@@ -57,8 +57,13 @@
 
     <app-subunits [msr]="msr" [cachedData]="cachedData" [assignedSupportUnit]="assignedSupportUnit"></app-subunits>
     <app-outsideunits [msr]="msr"></app-outsideunits>
-
-    <button (click)="onSaveButtonClicked()" class="btn btn-primary" type="button"><i class="fa fa-save"></i>&nbsp; Save</button>
-
+    <div class="row">
+      <div class="form-group col-6">
+        <button (click)="onSaveButtonClicked()" class="btn btn-primary" type="button"><i class="fa fa-save"></i>&nbsp; Save</button>
+      </div>
+    </div>
   </div>
 </fieldset>
+
+<app-updatestatus [msr]="msr"></app-updatestatus>
+ 
