@@ -5,6 +5,9 @@ import * as _ from 'lodash';
 
 import { NgbModal, NgbModalRef, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { NewsfeedService } from '../../shared/newsfeed.service';
+import { MsrService, MsrStatusUpdate } from '../../shared/msr.service';
+import { NewsfeedItem } from '../../shared/newsfeed.model';
+import { NotificationsService } from 'angular2-notifications';
 
 @Component({
   selector: 'app-updatestatus',
@@ -16,34 +19,67 @@ export class UpdatestatusComponent implements OnInit, OnChanges {
   statuses = ['Vetting', 'Assigned', 'Planning', 'Approved', 'Rejected'];
   formData = {
     status: '',
-    notes: ''
+    notes: '',
+    SupportUnitId: null,
+    OwningUnitsId: null
   };
 
   @Input() msr: Msr;
   @Input() cachedData: any;
   checkboxDataSource: Array<any>;
 
-  constructor(private modalService: NgbModal, private newsfeedService: NewsfeedService) { }
+  constructor(private modalService: NgbModal, private msrService: MsrService,
+    private newsfeedService: NewsfeedService, private notificationService: NotificationsService) { }
 
   ngOnInit() { }
 
   openModal(modalContent, selectedStatus) {
     this.formData.status = selectedStatus;
+    this.formData.SupportUnitId = this.msr.SupportUnitId;
+    this.formData.OwningUnitsId = this.msr.OwningUnitsId;
     this.modalRef = this.modalService.open(modalContent);
 
-    this.modalRef.result.then(() => {
-      this.formData = {
-        status: '',
-        notes: ''
-      };
-    });
+    this.modalRef.result.then(
+      () => {
+        this.clearForm();
+      }, (reason) => {
+        this.clearForm();
+      });
+  }
+
+  clearForm() {
+    this.formData.notes = '';
+  }
+
+  refreshParent() {
+    this.msr.Status = this.formData.status;
+    this.msr.OwningUnitsId = this.formData.OwningUnitsId;
+    this.msr.SupportUnitId = this.formData.SupportUnitId;
+    this.msr.SupportUnit = _.find(this.cachedData.supportUnits, { Id: this.formData.SupportUnitId });
   }
 
   renderOwningUnits(msr: Msr) {
     return _.map(msr.OwningUnitsId, (id: any) => _.find(this.cachedData['owningUnits'], {Id: id}));
   }
 
-  changeStatus() {
+  updateStatus() {
+    const update = new MsrStatusUpdate();
+    update.Id = this.msr.Id;
+    update.OwningUnitsId = this.formData.OwningUnitsId;
+    update.Status = this.formData.status;
+    update.SupportUnitId = this.formData.SupportUnitId;
+
+    return this.msrService.updateStatus(update)
+      .then(() => this.createNewsfeedItem())
+      .then((newsfeedItem) => {
+        this.refreshParent();
+        this.msr.NewsfeedItems.push(newsfeedItem);
+        this.notificationService.success('Confirmation', 'Your changes were saved');
+        this.modalRef.close();
+      });
+  }
+
+  createNewsfeedItem(): Promise<any> {
     const change = new StatusChange();
     change.Type = 'StatusChange';
     change.RelatedMsrId = this.msr.Id;
@@ -53,12 +89,7 @@ export class UpdatestatusComponent implements OnInit, OnChanges {
       comments: this.formData.notes
     };
 
-    this.newsfeedService.create(change)
-      .then((createdItem) => {
-        this.msr.NewsfeedItems.push(createdItem);
-        this.modalRef.close();
-      });
-    ;
+    return this.newsfeedService.create(change);
   }
 
   ngOnChanges() {
@@ -78,10 +109,6 @@ export class UpdatestatusComponent implements OnInit, OnChanges {
   }
 
   onCheckboxClicked() {
-    this.msr.OwningUnitsId = _.map(_.filter(this.checkboxDataSource, { isChecked: true }), 'value');
-  }
-
-  onSupportUnitChanged() {
-    this.msr.SupportUnit = _.find(this.cachedData.supportUnits, { Id: this.msr.SupportUnitId });
+    this.formData.OwningUnitsId = _.map(_.filter(this.checkboxDataSource, { isChecked: true }), 'value');
   }
 }

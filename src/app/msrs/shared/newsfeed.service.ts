@@ -17,14 +17,14 @@ export class NewsfeedService {
     private pagecontextService: PagecontextService) {
   }
 
-  create(item: NewsfeedItem) {
+  create(item: NewsfeedItem): Promise<NewsfeedItem> {
     return this.pagecontextService.getWeb().lists.getByTitle(this.listName).items.add({
       Type: item.Type,
       JSON: JSON.stringify(item.JSON),
       RelatedMsrId: item.RelatedMsrId
     })
     .then((resp) => {
-      const newItem = resp.data;
+      const newItem: NewsfeedItem = <NewsfeedItem>resp.data;
       newItem.JSON = JSON.parse(newItem.JSON);
       newItem.Author = { Title: 'You' };
       return newItem;

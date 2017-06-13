@@ -39,6 +39,10 @@ export class MsrService {
     .catch(reason => console.log(reason));
   }
 
+  updateStatus(statusUpdate: MsrStatusUpdate) {
+    return this.pagecontextService.getWeb().lists.getByTitle(this.listName).items.getById(statusUpdate.Id).update(statusUpdate.createDto());
+  }
+
   getAll() {
     return this.pagecontextService.getWeb().lists.getByTitle(this.listName).items
       .select(...this.fieldsToSelect)
@@ -46,7 +50,7 @@ export class MsrService {
       .get();
   }
 
-  get(id: number):Promise<Msr> {
+  get(id: number): Promise<Msr> {
     if (!id) {
       return Promise.resolve(null);
     }
@@ -59,5 +63,20 @@ export class MsrService {
       .then(function(res){
         return new Msr(res);
       });
+  }
+}
+
+export class MsrStatusUpdate {
+  Id: number;
+  Status: string;
+  OwningUnitsId: Array<number>;
+  SupportUnitId?: number;
+
+  createDto() {
+    return {
+      Status: this.Status,
+      OwningUnitsId: {results: this.OwningUnitsId},
+      SupportUnitId: this.SupportUnitId
+    };
   }
 }

@@ -39,7 +39,7 @@ export class Msr {
     MissionSupportEnd?: NgbDateStruct;
     MissionSupportStart?: NgbDateStruct;
     NegativeImpact?: string;
-    NewsfeedItems?: Array<NewsfeedItem>;
+    NewsfeedItems?: Array<any>;
     Notes?: string;
     NumberOfPallets?: number;
     NumberOfPAX?: number;
@@ -272,8 +272,6 @@ export class Msr {
             'Vehicles': (target, source, propName) => target[propName] = JSON.stringify(source[propName]),
             /*JSOAC/JMOC FIELDS*/
             'Notes': (target, source, propName) => target[propName] = source[propName],
-            'OwningUnitsId': (target, source, propName) => target[propName] = {results: source[propName]},
-            'SupportUnitId': (target, source, propName) => target[propName] = source[propName],
             /*SUPPORT UNIT FIELDS*/
             'AircraftSecurityRequired': (target, source, propName) => target[propName] = source[propName],
             'AssignedSubunits': (target, source, propName) => target[propName] = JSON.stringify(source[propName]),

@@ -11,6 +11,10 @@
    background-color: #FFF;
  }
 
+ select.form-control:not([size]):not([multiple]) {
+	 height: auto;
+ }
+
 td > div.checkbox {
     text-align: center;
 }
