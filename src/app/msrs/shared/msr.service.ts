@@ -69,13 +69,15 @@ export class MsrService {
 export class MsrStatusUpdate {
   Id: number;
   Status: string;
+  OwningUnits?: Array<any>;
   OwningUnitsId: Array<number>;
   SupportUnitId?: number;
+  SupportUnit?: any;
 
   createDto() {
     return {
       Status: this.Status,
-      OwningUnitsId: {results: this.OwningUnitsId},
+      OwningUnitsId: (this.OwningUnitsId) ? {results: this.OwningUnitsId} : undefined,
       SupportUnitId: this.SupportUnitId
     };
   }

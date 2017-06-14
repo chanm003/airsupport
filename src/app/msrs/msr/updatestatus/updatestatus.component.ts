@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, OnChanges } from '@angular/core';
-import { Msr } from '../../shared/msr.model';
+import { Msr, MsrTrackedChanges, MsrChangeReport } from '../../shared/msr.model';
 import { StatusChange } from '../../shared/newsfeed.model';
 import * as _ from 'lodash';
 
@@ -8,6 +8,7 @@ import { NewsfeedService } from '../../shared/newsfeed.service';
 import { MsrService, MsrStatusUpdate } from '../../shared/msr.service';
 import { NewsfeedItem } from '../../shared/newsfeed.model';
 import { NotificationsService } from 'angular2-notifications';
+import { EmailnotificationService } from '../../shared/emailnotification.service';
 
 @Component({
   selector: 'app-updatestatus',
@@ -29,7 +30,8 @@ export class UpdatestatusComponent implements OnInit, OnChanges {
   checkboxDataSource: Array<any>;
 
   constructor(private modalService: NgbModal, private msrService: MsrService,
-    private newsfeedService: NewsfeedService, private notificationService: NotificationsService) { }
+    private newsfeedService: NewsfeedService, private notificationService: NotificationsService, 
+    private emailnotificationService: EmailnotificationService) { }
 
   ngOnInit() { }
 
@@ -51,11 +53,18 @@ export class UpdatestatusComponent implements OnInit, OnChanges {
     this.formData.notes = '';
   }
 
-  refreshParent() {
-    this.msr.Status = this.formData.status;
-    this.msr.OwningUnitsId = this.formData.OwningUnitsId;
-    this.msr.SupportUnitId = this.formData.SupportUnitId;
-    this.msr.SupportUnit = _.find(this.cachedData.supportUnits, { Id: this.formData.SupportUnitId });
+  refreshParent(msrUpdateResult: MsrStatusUpdate) {
+    this.msr.Status = msrUpdateResult.Status;
+
+    if (msrUpdateResult.OwningUnitsId) {
+      this.msr.OwningUnitsId = msrUpdateResult.OwningUnitsId;
+      this.msr.OwningUnits = msrUpdateResult.OwningUnits;
+    }
+
+    if (msrUpdateResult.SupportUnitId) {
+      this.msr.SupportUnitId = msrUpdateResult.SupportUnitId;
+      this.msr.SupportUnit = msrUpdateResult.SupportUnit;
+    }
   }
 
   renderOwningUnits(msr: Msr) {
@@ -65,18 +74,30 @@ export class UpdatestatusComponent implements OnInit, OnChanges {
   updateStatus() {
     const update = new MsrStatusUpdate();
     update.Id = this.msr.Id;
-    update.OwningUnitsId = this.formData.OwningUnitsId;
     update.Status = this.formData.status;
-    update.SupportUnitId = this.formData.SupportUnitId;
+    if (this.formData.status === 'Vetting') {
+      update.OwningUnitsId = this.formData.OwningUnitsId;
+      update.OwningUnits = _.map(update.OwningUnitsId, (unitId) =>  _.find(this.cachedData.owningUnits, { Id: unitId }));
+    }
+    if (this.formData.status === 'Assigned') {
+      update.SupportUnit = _.find(this.cachedData.supportUnits, { Id: this.formData.SupportUnitId });
+      update.SupportUnitId = this.formData.SupportUnitId;
+    }
 
+    const changes = MsrTrackedChanges.compare(this.msr, update);
     return this.msrService.updateStatus(update)
-      .then(() => this.createNewsfeedItem())
-      .then((newsfeedItem) => {
-        this.refreshParent();
-        this.msr.NewsfeedItems.push(newsfeedItem);
+      .then(() => this.createNewsfeedItems(changes, this.msr))
+      .then((newsfeedItems) => {
+        this.refreshParent(update);
+        this.msr.NewsfeedItems.push(...newsfeedItems);
+        this.emailnotificationService.createFromChangeReport(changes, this.msr);
         this.notificationService.success('Confirmation', 'Your changes were saved');
         this.modalRef.close();
       });
+  }
+
+  createNewsfeedItems(changeReport: MsrChangeReport, msr: Msr) {
+    return this.newsfeedService.createFromChangeReport(changeReport, msr);
   }
 
   createNewsfeedItem(): Promise<any> {

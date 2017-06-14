@@ -10,7 +10,7 @@ import * as _ from 'lodash';
 export class RequesterTabcontentComponent implements OnInit {
   @Output() saveButtonClicked = new EventEmitter<string>();
   @Input() msr: Msr;
-  @Input() msrStatusOnLoad: string;
+  @Input() msrOnLoad: Msr;
   @Input() cachedData: any;
   @ViewChild(MainformComponent) mainForm: MainformComponent;
   buttonsManager: any;
@@ -39,7 +39,7 @@ export class RequesterTabcontentComponent implements OnInit {
   setButtonsLogic() {
     this.buttonsManager = {
       'Save': {
-        shouldShow: () => this.msrStatusOnLoad === '' || this.msrStatusOnLoad === 'Draft',
+        shouldShow: () => this.msrOnLoad.Status === '' || this.msrOnLoad.Status === 'Draft',
         onClicked: () => {
           this.mainForm.makeFieldOptional('Conop');
           this.mainForm.markFormDirty();
@@ -50,7 +50,7 @@ export class RequesterTabcontentComponent implements OnInit {
         }
       },
       'Submit': {
-        shouldShow: () => this.msrStatusOnLoad === '' || this.msrStatusOnLoad === 'Draft',
+        shouldShow: () => this.msrOnLoad.Status === '' || this.msrOnLoad.Status === 'Draft',
         onClicked: () => {
           this.mainForm.makeFieldRequired('Conop');
           this.mainForm.markFormDirty();
@@ -61,14 +61,14 @@ export class RequesterTabcontentComponent implements OnInit {
         }
       },
       'Cancel': {
-        shouldShow: () => !!this.msr.Id && _.includes(['Submitted', 'Vetting', 'Assigned', 'Planning', 'Approved'], this.msrStatusOnLoad),
+        shouldShow: () => !!this.msr.Id && _.includes(['Submitted', 'Vetting', 'Assigned', 'Planning', 'Approved'], this.msrOnLoad.Status),
         onClicked: () => {
           this.msr.Status = 'Canceled';
           this.saveButtonClicked.emit();
         }
       },
       'Reopen': {
-        shouldShow: () => !!this.msr.Id && this.msrStatusOnLoad !== 'Draft',
+        shouldShow: () => !!this.msr.Id && this.msrOnLoad.Status !== 'Draft',
         onClicked: () => {
           this.msr.Status = 'Draft';
           this.saveButtonClicked.emit();

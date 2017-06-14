@@ -19,7 +19,7 @@
   <ngb-tab>
     <ng-template ngbTabTitle><i class="fa fa-user"></i> Requester</ng-template>
     <ng-template ngbTabContent>
-      <app-requester-tabcontent [msr]="msrBeingEdited" [msrStatusOnLoad]="msrOnLoad.Status" [cachedData]="cachedData" (saveButtonClicked)="saveMsr()"></app-requester-tabcontent>  
+      <app-requester-tabcontent [msr]="msrBeingEdited" [msrOnLoad]="msrOnLoad" [cachedData]="cachedData" (saveButtonClicked)="saveMsr()"></app-requester-tabcontent>  
     </ng-template>
   </ngb-tab>
   <ngb-tab *ngIf="tabPermissions['JSOAC/JMOC']">
