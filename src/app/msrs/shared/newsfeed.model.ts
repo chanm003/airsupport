@@ -17,6 +17,7 @@ export class StatusChange implements NewsfeedItem {
         newStatus: string;
         comments?: string;
         emailTemplate?: string;
+        systemNotes?: string;
     };
     Author?: { Title: string };
     Created?: string;

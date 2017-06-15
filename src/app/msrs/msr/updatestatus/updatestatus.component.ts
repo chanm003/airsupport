@@ -100,19 +100,6 @@ export class UpdatestatusComponent implements OnInit, OnChanges {
     return this.newsfeedService.createFromChangeReport(changeReport, msr);
   }
 
-  createNewsfeedItem(): Promise<any> {
-    const change = new StatusChange();
-    change.Type = 'StatusChange';
-    change.RelatedMsrId = this.msr.Id;
-    change.JSON = {
-      prevStatus: this.msr.Status,
-      newStatus: this.formData.status,
-      comments: this.formData.notes
-    };
-
-    return this.newsfeedService.create(change);
-  }
-
   ngOnChanges() {
     /*Fires when user goes from /msrs/8 to /msrs/9 */
     this.buildCheckboxDataSource();

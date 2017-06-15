@@ -400,11 +400,17 @@ export class AssignedSubunit {
 }
 
 export class MsrTrackedChanges {
-  private static hasStatusChanged(prev, current): StatusChange|null {
-     const hasAssignedUnitChanged = current.SupportUnitId !== prev.SupportUnitId;
-    const hasStatusChanged = current.Status !== prev.Status;
 
-        if (hasAssignedUnitChanged || hasStatusChanged) {
+    private static hasStatusChanged(prev, current): StatusChange|null {
+        const hasAssignedUnitChanged = current.SupportUnitId !== undefined && (current.SupportUnitId !== prev.SupportUnitId);
+        const hasStatusChanged = current.Status !== prev.Status;
+        const hasOwningUnitsChanged = current.OwningUnitsId !== undefined &&
+            !this.arraysAreEqual(current.OwningUnitsId, prev.OwningUnitsId);
+
+        if (!hasOwningUnitsChanged && !hasAssignedUnitChanged && !hasStatusChanged) {
+            return null;
+        }
+
         const notification = new StatusChange();
         notification.Type = 'StatusChange';
         notification.JSON = {
@@ -412,26 +418,69 @@ export class MsrTrackedChanges {
             newStatus: current.Status
         };
 
-        if (current.Status === 'Assigned') {
-            notification.JSON.comments = `assigned ${current.SupportUnit.Name} to support this MSR`;
-            notification.JSON.emailTemplate = 'AssignedToSupportUnit';
+        if (prev.Status === '' && current.Status === 'Draft') {
+            notification.JSON.systemNotes =
+                `created this MSR. The system set the status of this MSR to 'Draft'.`;
+        }
+
+        if (prev.Status !== '' && current.Status === 'Draft') {
+            notification.JSON.systemNotes =
+                `reopened this MSR.  The system set the status of this MSR to 'Draft'.`;
         }
 
         if (current.Status === 'Submitted') {
             /*No unit has taken ownership yet*/
             if (current.OwningUnitsId.length === 0) {
+                notification.JSON.systemNotes = 'submitted this MSR.';
                 notification.JSON.emailTemplate = 'Submitted';
             }
         }
-      return notification;
+
+        if (current.Status === 'Canceled') {
+            notification.JSON.systemNotes = 'canceled this MSR.';
+        }
+
+        if (current.Status === 'Rejected') {
+            notification.JSON.systemNotes = 'rejected this MSR.';
+        }
+
+        if (current.Status === 'Approved') {
+            notification.JSON.systemNotes = 'approved this MSR.';
+        }
+
+        if (current.Status === 'Vetting') {
+            const selectedUnits = _.map(current.OwningUnits, 'Name');
+            const owner = selectedUnits.length === 1 ? 'owner' : 'owners';
+            notification.JSON.systemNotes =
+                `tagged ${selectedUnits.join(', ')} as the ${owner} of this MSR and set the status to 'Vetting'.`;
+        }
+
+        if (current.Status === 'Planning') {
+            notification.JSON.systemNotes =
+                `set the status of this MSR to 'Planning'.`;
+        }
+
+        if (current.Status === 'Assigned') {
+            notification.JSON.systemNotes =
+                `assigned ${current.SupportUnit.Name} to support this MSR and set the status of this MSR to 'Assigned'.`;
+            notification.JSON.emailTemplate = 'AssignedToSupportUnit';
+        }
+        return notification;
     }
-    return null;
-  }
-  static compare(prev, current): MsrChangeReport {
-    return {
-      StatusChange: MsrTrackedChanges.hasStatusChanged(prev, current)
-    };
-  }
+
+    static compare(prev, current): MsrChangeReport {
+        return {
+        StatusChange: MsrTrackedChanges.hasStatusChanged(prev, current)
+        };
+    }
+
+    private static arraysAreEqual(arr1: Array<number>, arr2: Array<number>) {
+        if (arr1.length !== arr2.length) {
+            return false;
+        }
+
+        return _.intersection(arr1, arr2).length === arr1.length;
+    }
 }
 
 export class MsrChangeReport {
