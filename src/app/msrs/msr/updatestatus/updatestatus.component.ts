@@ -85,6 +85,9 @@ export class UpdatestatusComponent implements OnInit, OnChanges {
     }
 
     const changes = MsrTrackedChanges.compare(this.msr, update);
+    if (changes['StatusChange']) {
+      changes['StatusChange'].JSON.comments = this.formData.notes;
+    }
     return this.msrService.updateStatus(update)
       .then(() => this.createNewsfeedItems(changes, this.msr))
       .then((newsfeedItems) => {
