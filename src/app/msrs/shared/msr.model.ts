@@ -446,6 +446,7 @@ export class MsrTrackedChanges {
 
         if (current.Status === 'Approved') {
             notification.JSON.systemNotes = 'approved this MSR.';
+            notification.JSON.emailTemplate = 'Approved';
         }
 
         if (current.Status === 'Vetting') {
