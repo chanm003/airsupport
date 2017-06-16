@@ -459,6 +459,7 @@ export class MsrTrackedChanges {
         if (current.Status === 'Planning') {
             notification.JSON.systemNotes =
                 `set the status of this MSR to 'Planning'.`;
+            notification.JSON.emailTemplate = 'Planning';
         }
 
         if (current.Status === 'Assigned') {

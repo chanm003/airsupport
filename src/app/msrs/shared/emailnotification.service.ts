@@ -34,10 +34,10 @@ export class EmailnotificationService {
     const currentUser = cachedData.currentUser.Title;
     const msrTitle = `MSR (${msr.SelectedMissions[0].Title})`;
     const url = `${this.pagecontextService.getInfo().currentWebAbsoluteUrl}/index.aspx#/msrs/${msr.Id}`;
+    const supportUnit: any = _.find(cachedData.supportUnits, {Id: msr.SupportUnitId});
 
     const funcs = {
       'AssignedToSupportUnit': () => {
-        const supportUnit: any = _.find(cachedData.supportUnits, {Id: msr.SupportUnitId});
         const recipients = [];
         const courtesyCopy = [msr.RequesterEmail, msr.Author.EMail];
         _.each(supportUnit.Users.results, (user) => recipients.push(user.EMail));
@@ -71,6 +71,15 @@ export class EmailnotificationService {
           to: _.uniq([msr.RequesterEmail, msr.Author.EMail]),
           subject: `${owningUnits} is vetting ${msrTitle}`,
           body: compiled({currentUser: currentUser, title: msrTitle, url: url, owningUnits: owningUnits})
+        };
+      },
+      'Planning': () => {
+        const compiled = _.template(cachedData.emailTemplates['Planning'].replace(/\n/g, '<br/>'));
+        return {
+          from: 'mike@chanm003.onmicrosoft.com',
+          to: _.uniq([msr.RequesterEmail, msr.Author.EMail]),
+          subject: `${supportUnit.Name} has started planning for ${msrTitle}`,
+          body: compiled({currentUser: currentUser, title: msrTitle, url: url, supportUnit: supportUnit.Name})
         };
       }
     };
