@@ -90,6 +90,15 @@ export class EmailnotificationService {
           subject: `${msrTitle} has been approved`,
           body: compiled({currentUser: currentUser, title: msrTitle, url: url})
         };
+      },
+      'Rejected': () => {
+        const compiled = _.template(cachedData.emailTemplates['Rejected'].replace(/\n/g, '<br/>'));
+        return {
+          from: 'mike@chanm003.onmicrosoft.com',
+          to: _.uniq([msr.RequesterEmail, msr.Author.EMail]),
+          subject: `${msrTitle} has been rejected`,
+          body: compiled({currentUser: currentUser, title: msrTitle, url: url})
+        };
       }
     };
     return funcs[emailTemplate]();

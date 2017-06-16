@@ -96,7 +96,8 @@ window.generateFakeData = function () {
                 { Title: 'Submitted', Body: '${currentUser} has submitted ${title}.\n\nTo take ownership of this MSR, click on the \'JSOAC/JMOC\' tab at the below link:\n<a href="${url}">Link to MSR</a>\n\n${screenshot}'},
                 { Title: 'Vetting', Body: '${currentUser} has set the status of ${title} to Vetting.\n\n${owningUnits} will review your request to ensure it is valid and filled out correctly:\n<a href="${url}">Link to MSR</a>\n\n'},
                 { Title: 'Planning', Body: '${currentUser} has set the status of ${title} to Planning.\n\n${supportUnit} will assign subunits and platforms (as needed) to fulfill your request:\n<a href="${url}">Link to MSR</a>\n\n'},
-                { Title: 'Approved', Body: '${currentUser} has approved ${title}:\n<a href="${url}">Link to MSR</a>\n\n'}
+                { Title: 'Approved', Body: '${currentUser} has approved ${title}:\n<a href="${url}">Link to MSR</a>\n\n'},
+                { Title: 'Rejected', Body: '${currentUser} has rejected ${title}:\n<a href="${url}">Link to MSR</a>\n\n'}
             ]
         });
     }

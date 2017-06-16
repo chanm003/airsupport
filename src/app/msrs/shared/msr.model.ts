@@ -442,6 +442,7 @@ export class MsrTrackedChanges {
 
         if (current.Status === 'Rejected') {
             notification.JSON.systemNotes = 'rejected this MSR.';
+            notification.JSON.emailTemplate = 'Rejected';
         }
 
         if (current.Status === 'Approved') {
