@@ -62,6 +62,16 @@ export class EmailnotificationService {
           subject: `${msrTitle} has been submitted`,
           body: compiled({currentUser: currentUser, title: msrTitle, url: url, screenshot: screenshot})
         };
+      },
+      'Vetting': () => {
+        const owningUnits = _.map(msr.OwningUnits, 'Name').join(', ');
+        const compiled = _.template(cachedData.emailTemplates['Vetting'].replace(/\n/g, '<br/>'));
+        return {
+          from: 'mike@chanm003.onmicrosoft.com',
+          to: _.uniq([msr.RequesterEmail, msr.Author.EMail]),
+          subject: `${owningUnits} is vetting ${msrTitle}`,
+          body: compiled({currentUser: currentUser, title: msrTitle, url: url, owningUnits: owningUnits})
+        };
       }
     };
     return funcs[emailTemplate]();

@@ -453,6 +453,7 @@ export class MsrTrackedChanges {
             const owner = selectedUnits.length === 1 ? 'owner' : 'owners';
             notification.JSON.systemNotes =
                 `tagged ${selectedUnits.join(', ')} as the ${owner} of this MSR and set the status to 'Vetting'.`;
+            notification.JSON.emailTemplate = 'Vetting';
         }
 
         if (current.Status === 'Planning') {
