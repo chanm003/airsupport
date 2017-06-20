@@ -31,7 +31,7 @@
   <ngb-tab *ngIf="tabPermissions['Support Unit']">
     <ng-template ngbTabTitle><i class="fa fa-plane"></i> Support Unit</ng-template>
     <ng-template ngbTabContent>
-      <app-support-tabcontent [msr]="msrBeingEdited" [cachedData]="cachedData" (saveButtonClicked)="saveMsr()"></app-support-tabcontent>
+      <app-support-tabcontent [msr]="msrBeingEdited" [msrOnLoad]="msrOnLoad" [cachedData]="cachedData" (saveButtonClicked)="saveMsr()"></app-support-tabcontent>
     </ng-template>
   </ngb-tab>
   <ngb-tab *ngIf="tabPermissions['Status']">

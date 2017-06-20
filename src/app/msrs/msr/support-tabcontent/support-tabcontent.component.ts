@@ -10,6 +10,7 @@ import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 })
 export class SupportTabcontentComponent implements OnInit {
   @Input() msr: Msr;
+  @Input() msrOnLoad: Msr;
   @Input() cachedData: any;
   @Output() saveButtonClicked = new EventEmitter<string>();
   assignedSupportUnit: any;

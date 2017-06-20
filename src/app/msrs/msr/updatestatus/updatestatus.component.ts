@@ -26,6 +26,7 @@ export class UpdatestatusComponent implements OnInit, OnChanges {
   };
 
   @Input() msr: Msr;
+  @Input() msrOnLoad: Msr;
   @Input() cachedData: any;
   checkboxDataSource: Array<any>;
 
@@ -54,17 +55,12 @@ export class UpdatestatusComponent implements OnInit, OnChanges {
   }
 
   refreshParent(msrUpdateResult: MsrStatusUpdate) {
-    this.msr.Status = msrUpdateResult.Status;
-
-    if (msrUpdateResult.OwningUnitsId) {
-      this.msr.OwningUnitsId = msrUpdateResult.OwningUnitsId;
-      this.msr.OwningUnits = msrUpdateResult.OwningUnits;
-    }
-
-    if (msrUpdateResult.SupportUnitId) {
-      this.msr.SupportUnitId = msrUpdateResult.SupportUnitId;
-      this.msr.SupportUnit = msrUpdateResult.SupportUnit;
-    }
+    _.each(['Status', 'OwningUnits', 'OwningUnitsId', 'SupportUnitId', 'SupportUnit'], (propName) => {
+      if(msrUpdateResult[propName]){
+        this.msr[propName] = msrUpdateResult[propName];
+        this.msrOnLoad[propName] = msrUpdateResult[propName];
+      }
+    });
   }
 
   renderOwningUnits(msr: Msr) {
