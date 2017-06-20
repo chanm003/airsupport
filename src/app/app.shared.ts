@@ -8,6 +8,7 @@ import { TagInputModule } from 'ng2-tag-input';
 import {NgPipesModule} from 'ngx-pipes';
 import {OnlyNumberDirective} from './shared/onlynumber.directive';
 import { ErrorMessageComponent } from './shared/error-message.component';
+import {BusyModule} from 'angular2-busy';
 // imports: imports the module's exports. which are usually
 // declarables(components / directives / pipes) and providers.
 // in our case the FilterTextModule has a provider.
@@ -16,9 +17,9 @@ import { ErrorMessageComponent } from './shared/error-message.component';
 // SharedModule does not use CommonModule, but does use FormsModule.
 // Even so, we import/export both of these because most other modules will import SharedModule and will need them.
 @NgModule({
-  imports: [CommonModule, FormsModule, NgbModule, TagInputModule, NgPipesModule, ReactiveFormsModule ],
+  imports: [CommonModule, FormsModule, NgbModule, TagInputModule, NgPipesModule, ReactiveFormsModule, BusyModule ],
   exports: [CommonModule, FormsModule, NgbModule, TagInputModule, NgPipesModule, ReactiveFormsModule, OnlyNumberDirective, 
-    ErrorMessageComponent ],
+    ErrorMessageComponent, BusyModule ],
   declarations: [OnlyNumberDirective, ErrorMessageComponent],
   providers: [
     {

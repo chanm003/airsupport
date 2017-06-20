@@ -18,6 +18,7 @@ import * as _ from 'lodash';
   styles: []
 })
 export class MsrComponent implements OnInit {
+  busy: Promise<any>;
   msrOnLoad: Msr;
   msrBeingEdited: Msr;
   cachedData: any;
@@ -80,7 +81,7 @@ export class MsrComponent implements OnInit {
           this.emailnotificationService.createFromChangeReport(changes, this.msrBeingEdited);
         });
     } else {
-      this.msrService.update(this.msrBeingEdited, this.tabPermissions)
+      this.busy = this.msrService.update(this.msrBeingEdited, this.tabPermissions)
         .then(() => this.createNewsfeedItems(changes, this.msrBeingEdited))
         .then((newsfeedItems) => {
           this.capturePristineMsr(this.msrBeingEdited);

@@ -14,6 +14,7 @@ import { BreadcrumbsComponent } from './shared/breadcrumb.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SimpleNotificationsModule } from 'angular2-notifications';
+import {BusyModule} from 'angular2-busy';
 
 // Routing Module
 import { AppRoutingModule } from './app.routing';
@@ -27,6 +28,7 @@ import { FullLayoutComponent } from './layouts/full-layout.component';
     BrowserModule,
     CoreModule,
     BrowserAnimationsModule,
+    BusyModule,
     SimpleNotificationsModule.forRoot(),
     ChartsModule,
     AppRoutingModule

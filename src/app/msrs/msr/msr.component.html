@@ -15,6 +15,8 @@
     <button type="button" class="btn btn-primary" (click)="nextButtonClicked()" [disabled]="!msrBeingEdited.SelectedMissions || !msrBeingEdited.SelectedMissions.length">Next <span class="fa fa-chevron-right"></span></button>
   </div>
 </div>
+
+<div [ngBusy]="busy"> 
 <ngb-tabset *ngIf="hasLinkedMission()">
   <ngb-tab>
     <ng-template ngbTabTitle><i class="fa fa-user"></i> Requester</ng-template>
@@ -41,3 +43,4 @@
     </ng-template>
   </ngb-tab>
 </ngb-tabset>
+</div>
