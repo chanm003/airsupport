@@ -79,6 +79,7 @@ export class MsrComponent implements OnInit {
           this.createNewsfeedItems(changes, this.msrBeingEdited);
         })
         .then((newsfeedItems) => {
+          this.spinnerService.hide();
           this.router.navigate(['/msrs']);
           this.emailnotificationService.createFromChangeReport(changes, this.msrBeingEdited);
         });
