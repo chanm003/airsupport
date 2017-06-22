@@ -9,6 +9,7 @@ import { MsrService, MsrStatusUpdate } from '../../shared/msr.service';
 import { NewsfeedItem } from '../../shared/newsfeed.model';
 import { NotificationsService } from 'angular2-notifications';
 import { EmailnotificationService } from '../../shared/emailnotification.service';
+import { SpinnerService } from '../../../core/spinner/spinner.service';
 
 @Component({
   selector: 'app-updatestatus',
@@ -31,7 +32,8 @@ export class UpdatestatusComponent implements OnInit, OnChanges {
   checkboxDataSource: Array<any>;
 
   constructor(private modalService: NgbModal, private msrService: MsrService,
-    private newsfeedService: NewsfeedService, private notificationService: NotificationsService, 
+    private newsfeedService: NewsfeedService, private notificationService: NotificationsService,
+    private spinnerService: SpinnerService,
     private emailnotificationService: EmailnotificationService) { }
 
   ngOnInit() { }
@@ -84,12 +86,14 @@ export class UpdatestatusComponent implements OnInit, OnChanges {
     if (changes['StatusChange']) {
       changes['StatusChange'].JSON.comments = this.formData.notes;
     }
+    this.spinnerService.show();
     return this.msrService.updateStatus(update)
       .then(() => this.createNewsfeedItems(changes, this.msr))
       .then((newsfeedItems) => {
         this.refreshParent(update);
         this.msr.NewsfeedItems.push(...newsfeedItems);
         this.emailnotificationService.createFromChangeReport(changes, this.msr);
+        this.spinnerService.hide();
         this.notificationService.success('Confirmation', 'Your changes were saved');
         this.modalRef.close();
       });

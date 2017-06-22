@@ -4,6 +4,10 @@
     margin-bottom: 14px;
 }
 
+.spinner-container.modal-backdrop {
+	z-index: 1060;
+}
+
  input[readonly], textarea[readonly], .form-control[readonly]{
    /* IE HACK - when field is read-only, get rid of blinking cursor */
    color: #444 !important;

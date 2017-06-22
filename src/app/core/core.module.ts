@@ -10,6 +10,8 @@ import { MissionService } from './mission.service';
 import { SimpleNotificationsModule } from 'angular2-notifications';
 import { LocalStorageModule } from 'angular-2-local-storage';
 import { HttpModule } from '@angular/http';
+import { SpinnerComponent } from './spinner/spinner.component';
+import { SpinnerService } from './spinner/spinner.service';
 
 @NgModule({
   imports: [
@@ -23,16 +25,19 @@ import { HttpModule } from '@angular/http';
     })
   ],
   exports: [
-    CommonModule, FormsModule, HttpModule, SimpleNotificationsModule, LocalStorageModule
+    CommonModule, FormsModule, HttpModule, SimpleNotificationsModule, LocalStorageModule, SpinnerComponent
   ],
-  declarations: [],
+  declarations: [
+    SpinnerComponent
+  ],
   providers: [
     CacheddataService,
     EntityService,
     ExceptionService,
     PagecontextService,
     PeopleService,
-    MissionService
+    MissionService,
+    SpinnerService
   ]
 })
 export class CoreModule { }

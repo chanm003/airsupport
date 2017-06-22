@@ -10,6 +10,7 @@ import { EmailnotificationService } from '../shared/emailnotification.service';
 import { MsrRouteData } from '../shared/msr-resolver.service';
 import { NotificationsService } from 'angular2-notifications';
 import { MissionService } from '../../core/mission.service';
+import { SpinnerService } from '../../core/spinner/spinner.service';
 import * as _ from 'lodash';
 
 @Component({
@@ -18,7 +19,6 @@ import * as _ from 'lodash';
   styles: []
 })
 export class MsrComponent implements OnInit {
-  busy: Promise<any>;
   msrOnLoad: Msr;
   msrBeingEdited: Msr;
   cachedData: any;
@@ -33,7 +33,8 @@ export class MsrComponent implements OnInit {
     private newsfeedService: NewsfeedService,
     private msrService: MsrService,
     private missionService: MissionService,
-    private emailnotificationService: EmailnotificationService) { }
+    private emailnotificationService: EmailnotificationService,
+    private spinnerService: SpinnerService) { }
 
   ngOnInit() {
     this.listenForRouteData();
@@ -70,6 +71,7 @@ export class MsrComponent implements OnInit {
   saveMsr() {
     const changes = MsrTrackedChanges.compare(this.msrOnLoad, this.msrBeingEdited);
 
+    this.spinnerService.show();
     if (!this.msrBeingEdited.Id) {
       this.msrService.create(this.msrBeingEdited, this.tabPermissions)
         .then((createdItem: any) => {
@@ -81,11 +83,12 @@ export class MsrComponent implements OnInit {
           this.emailnotificationService.createFromChangeReport(changes, this.msrBeingEdited);
         });
     } else {
-      this.busy = this.msrService.update(this.msrBeingEdited, this.tabPermissions)
+      this.msrService.update(this.msrBeingEdited, this.tabPermissions)
         .then(() => this.createNewsfeedItems(changes, this.msrBeingEdited))
         .then((newsfeedItems) => {
           this.capturePristineMsr(this.msrBeingEdited);
           this.msrBeingEdited.NewsfeedItems.push(...newsfeedItems);
+          this.spinnerService.hide();
           this.notificationService.success('Confirmation', 'Your changes were saved');
           this.emailnotificationService.createFromChangeReport(changes, this.msrBeingEdited);
         });
