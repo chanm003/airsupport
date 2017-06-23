@@ -32,6 +32,7 @@
     "angular2-notifications": "^0.7.3",
     "chart.js": "2.5.0",
     "core-js": "2.4.1",
+    "daypilot-pro-angular": "https://npm.daypilot.org/daypilot-pro-angular/trial/8.3.2805.tar.gz",
     "es6-promise": "^4.1.0",
     "moment": "2.18.1",
     "ng2-charts": "1.5.0",

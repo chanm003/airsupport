@@ -1,0 +1,6 @@
+<div class="left" style="float:right;width:150px;overflow:auto;">
+    <daypilot-navigator [config]="navigatorConfig" (dateChange)="changeDate()" #navigator></daypilot-navigator>    
+</div>
+<div class="right" style="margin-right:150px;overflow:auto;">
+    <daypilot-scheduler [config]="config" [events]="events" #scheduler></daypilot-scheduler>
+</div>

@@ -50,6 +50,13 @@ export class MsrService {
       .get();
   }
 
+  getByDateRange(start: string, end: string) {
+    return this.pagecontextService.getWeb().lists.getByTitle(this.listName).items
+      .select('Id,MissionStart,MissionEnd,OperationType,Status,SupportUnitId,RelatedMission')
+      .filter(`MissionStart le '${end}' and MissionEnd ge '${start}'`)
+      .get();
+  }
+
   get(id: number): Promise<Msr> {
     if (!id) {
       return Promise.resolve(null);

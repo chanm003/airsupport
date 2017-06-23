@@ -23,6 +23,7 @@ import { NewsfeedComponent } from './newsfeed/newsfeed.component';
 import { StatusChangeComponent } from './newsfeed/status-change/status-change.component';
 import { MainformComponent } from './msr/requester-tabcontent/mainform/mainform.component';
 import { UpdatestatusComponent } from './msr/updatestatus/updatestatus.component';
+import { CalendarComponent } from './calendar/calendar.component';
 
 const routes: Routes = [
   {
@@ -34,6 +35,10 @@ const routes: Routes = [
         component: MsrListComponent,
       },
       {
+        path: 'calendar',
+        component: CalendarComponent
+      },
+      {
         path: ':id',
         component: MsrComponent,
         resolve: {
@@ -42,6 +47,7 @@ const routes: Routes = [
       }
     ]
   },
+  
 ];
 export const routedComponents = [
   MsrsComponent,
@@ -65,7 +71,8 @@ export const routedComponents = [
   OutsideunitsComponent,
   StatusTabcontentComponent,
   StatusChangeComponent,
-  UpdatestatusComponent
+  UpdatestatusComponent,
+  CalendarComponent
 ];
 
 @NgModule({
