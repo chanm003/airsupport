@@ -1,6 +1,12 @@
+<div class="form-group col-4 pl-0">
+<div class="input-group">
+    <input type="text" class="form-control" [(ngModel)]="filter.text" (keyup)="applyFilter()">
+    <span class="input-group-addon"><i class="fa fa-search"></i></span>
+</div>
+</div>
 <div class="left" style="float:right;width:150px;overflow:auto;">
-    <daypilot-navigator [config]="navigatorConfig" (dateChange)="changeDate()" #navigator></daypilot-navigator>    
+    <daypilot-navigator [config]="navigatorConfig" (dateChange)="changeDate()" #navigator></daypilot-navigator>
 </div>
 <div class="right" style="margin-right:150px;overflow:auto;">
-    <daypilot-scheduler [config]="config" [events]="events" #scheduler></daypilot-scheduler>
+    <daypilot-scheduler [config]="config" [events]="config.events" #scheduler></daypilot-scheduler>
 </div>

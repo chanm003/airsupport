@@ -1,4 +1,8 @@
 // Here you can add other styles
+.scheduler_default_corner > div{
+    display: none;
+}
+
 .radio-inline, .checkbox-inline{
     margin-right: 12px;
     margin-bottom: 14px;

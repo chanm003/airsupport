@@ -51,8 +51,11 @@ export class MsrService {
   }
 
   getByDateRange(start: string, end: string) {
+    const fieldsToSelect = `Id,Conop,MissionStart,MissionEnd,OperationType,Status,SupportUnitId,RelatedMission,Requester/Title,
+      RequesterEmail,RequesterPhone,RequestingUnit/Name`;
     return this.pagecontextService.getWeb().lists.getByTitle(this.listName).items
-      .select('Id,MissionStart,MissionEnd,OperationType,Status,SupportUnitId,RelatedMission')
+      .select(fieldsToSelect)
+      .expand('Requester,RequestingUnit')
       .filter(`MissionStart le '${end}' and MissionEnd ge '${start}'`)
       .get();
   }

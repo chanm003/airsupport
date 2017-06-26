@@ -1,6 +1,8 @@
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import {DayPilot, DayPilotSchedulerComponent, DayPilotNavigatorComponent} from 'daypilot-pro-angular';
 import {CacheddataService} from '../../core/cacheddata.service';
+import { PagecontextService} from '../../core/pagecontext.service';
+import { SpinnerService } from '../../core/spinner/spinner.service';
 import {MsrService} from '../shared/msr.service';
 import * as _ from 'lodash';
 import * as moment from 'moment';
@@ -18,13 +20,34 @@ export class CalendarComponent implements OnInit, AfterViewInit {
   @ViewChild('navigator')
   navigator: DayPilotNavigatorComponent;
 
+  filter = {
+    text: ''
+  };
+
   config: any = {
+    bubble: new DayPilot.Bubble(),
+    eventHeight: 40,
+    eventMoveHandling: 'Disabled',
+    eventResizeHandling: 'Disabled',
+    onEventClick: (args) => {
+      const dayPilotEvent = args.e.toJSON();
+      const url = `${this.pagecontextService.getInfo().currentWebAbsoluteUrl}/index.aspx#/msrs/${dayPilotEvent.id}`;
+      window.open(url, '_blank');
+    },
+    onEventFilter: args => {
+      const params = args.filter;
+      const currentItem = args.e;
+      const strCurrentItem = currentItem.text().toLowerCase() + currentItem.data.areas[0].html.toLowerCase() +
+        currentItem.data.bubbleHtml.toLowerCase();
+      if (params.text && !_.includes(strCurrentItem, params.text.toLowerCase())) {
+        args.visible = false;
+      }
+    },
+    scale: 'Day',
     timeHeaders: [
       { groupBy: 'Month', format: 'MMMM yyyy' },
       { groupBy: 'Day', format: 'd' }
-    ],
-    eventHeight: 40,
-    scale: 'Day'
+    ]
   };
 
   navigatorConfig: any = {
@@ -33,7 +56,12 @@ export class CalendarComponent implements OnInit, AfterViewInit {
     selectMode: 'month'
   };
 
-  constructor(private cacheddataService: CacheddataService, private msrService: MsrService) { }
+  constructor( private cacheddataService: CacheddataService, private msrService: MsrService,
+    private pagecontextService: PagecontextService, private spinnerService: SpinnerService) { }
+
+  applyFilter() {
+    this.scheduler.control.events.filter(this.filter);
+  }
 
   ngOnInit() {
   }
@@ -71,8 +99,12 @@ export class CalendarComponent implements OnInit, AfterViewInit {
     const end = start.clone().add(3, 'months').startOf('month');
     this.config.days = end.diff(start, 'days');
 
+    this.spinnerService.show();
     this.msrService.getByDateRange(start.format('YYYY-MM-DD'), end.format('YYYY-MM-DD'))
-      .then(data => this.refreshEvents(data));
+      .then(data => {
+        this.refreshEvents(data);
+        this.spinnerService.hide();
+      });
   }
 
   refreshEvents(data) {
@@ -83,7 +115,21 @@ export class CalendarComponent implements OnInit, AfterViewInit {
         start: item.MissionStart.split('T')[0],
         end: item.MissionEnd.split('T')[0],
         text: JSON.parse(item.RelatedMission).Title,
-        barColor: this.getColor(item.Status)
+        barColor: this.getColor(item.Status),
+        bubbleHtml: `
+          <div style="padding:5px 10px 0px 10px;">
+            <address>
+              <strong>${item.Requester.Title}</strong><br>
+              ${item.RequestingUnit.Name}<br>
+              <i class="fa fa-envelope"></i> ${item.RequesterEmail}<br>
+              <i class="fa fa-phone-square"></i> ${item.RequesterPhone}<br>
+              ${item.Conop}
+            </address>
+          </div>
+        `,
+        areas:  [
+          { bottom: 5, left: 3, html: item.OperationType, style: '' }
+        ]
       };
     });
     this.config.events = data;
