@@ -62,7 +62,6 @@ export class CacheddataService {
       .then((data) => {
         const templates = {};
         _.each(data, (item) => templates[item.Title] = item.Body);
-        console.log(templates);
         return templates;
       });
   }
@@ -133,5 +132,14 @@ export class CacheddataService {
       this.localStorageService.set('lookups', lookups);
       return this.localStorageService.get('lookups');
     });
+  }
+
+  addRequestUnit(unit) {
+    return this.pagecontextService.getWeb().lists.getByTitle('Requesting Units').items.add({
+      Name: unit.name,
+      Email: unit.email,
+      PhoneNumber: unit.phone
+    })
+    .then(() => this.localStorageService.remove('lookups'));
   }
 }

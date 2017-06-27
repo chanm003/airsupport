@@ -2,7 +2,10 @@ import { Component, Input, Output, EventEmitter, OnChanges, OnInit } from '@angu
 import { FormBuilder, FormGroup, Validators, AbstractControl} from '@angular/forms';
 import { Msr } from '../../../shared/msr.model';
 import { PeopleService } from '../../../../core/people.service';
+import { CacheddataService } from '../../../../core/cacheddata.service';
+import { SpinnerService } from '../../../../core/spinner/spinner.service';
 import * as _ from 'lodash';
+import { NgbModal, NgbModalRef, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-mainform',
@@ -12,6 +15,7 @@ import * as _ from 'lodash';
 export class MainformComponent implements OnChanges, OnInit {
   @Input() msr: Msr;
   @Input() cachedData: any;
+  modalRef: NgbModalRef;
   mainForm: FormGroup;
   validationMessages: any;
   getMatchingPeople = this.peopleService.search;
@@ -26,6 +30,12 @@ export class MainformComponent implements OnChanges, OnInit {
     'Special Tactics/Battlefield Airman (ST/BAO)',
     'Cargo/Personnel Move'
   ];
+
+  newRequestUnit = {
+    name: '',
+    email: '',
+    phone: ''
+  };
 
   ngbDateRangeValid(startFieldName: string, endFieldName: string) {
     return  (fg: AbstractControl): {[key: string]: boolean} | null => {
@@ -49,7 +59,8 @@ export class MainformComponent implements OnChanges, OnInit {
   }
 
 
-  constructor(private fb: FormBuilder, private peopleService: PeopleService) {
+  constructor(private fb: FormBuilder, private peopleService: PeopleService, private modalService: NgbModal,
+    private cacheddataService: CacheddataService, private spinnerService: SpinnerService,) {
     this.mainForm = this.fb.group({
       'RequestingUnitId': ['', Validators.required],
       'OperationType': ['', Validators.required],
@@ -167,6 +178,27 @@ export class MainformComponent implements OnChanges, OnInit {
   ngOnChanges() {}
 
   ngOnInit() {
+  }
+
+  createRequestUnit() {
+    this.spinnerService.show();
+    this.cacheddataService.addRequestUnit(this.newRequestUnit)
+      .then(() => this.cacheddataService.getAll())
+      .then((data) => {
+        this.cachedData = data;
+        this.msr.RequestingUnit = _.find(this.cachedData.requestingUnits, {Name: this.newRequestUnit.name});
+        this.msr.RequestingUnitId = this.msr.RequestingUnit.Id;
+        this.modalRef.close();
+        this.spinnerService.hide();
+      });
+  }
+
+  openModal(modalContent, selectedStatus) {
+    this.modalRef = this.modalService.open(modalContent);
+    this.modalRef.result.then(
+      () => {
+      }, (reason) => {
+      });
   }
 
 }
