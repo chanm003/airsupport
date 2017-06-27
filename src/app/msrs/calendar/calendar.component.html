@@ -1,7 +1,8 @@
 <div class="form-group col-4 pl-0">
 <div class="input-group">
-    <input type="text" class="form-control" [(ngModel)]="filter.text" (keyup)="applyFilter()">
     <span class="input-group-addon"><i class="fa fa-search"></i></span>
+    <input type="text" class="form-control" [(ngModel)]="filter.text" placeholder="Filter MSRs" (keyup)="applyFilter()">
+    <button *ngIf="filter.text" class="btn btn-info" type="button" (click)="clearFilter()">Clear</button>
 </div>
 </div>
 <div class="left" style="float:right;width:150px;overflow:auto;">

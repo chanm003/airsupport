@@ -107,6 +107,11 @@ export class CalendarComponent implements OnInit, AfterViewInit {
       });
   }
 
+  clearFilter() {
+    this.filter.text = '';
+    this.applyFilter();
+  }
+
   refreshEvents(data) {
     data = data.map(item => {
       return {
