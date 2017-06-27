@@ -1,7 +1,7 @@
 <form [formGroup]="mainForm" novalidate>
 <div class="row">
   <div class="form-group col-6 required">
-    <label>Requesting Unit</label> <a href="" onclick="event.preventDefault();" (click)="openModal(statusModal, item)"><u>create unit</u></a>
+    <label>Requesting Unit</label> <a href="" onclick="event.preventDefault();" (click)="openModal(statusModal)"><u>create unit</u></a>
     <select [(ngModel)]="msr.RequestingUnitId" class="form-control" formControlName="RequestingUnitId">
       <option value="" disabled="true" [selected]="!msr.RequestingUnitId">Select a Unit</option>
       <option *ngFor="let item of cachedData.requestingUnits" [ngValue]="item.Id">{{item.Name}}</option>

@@ -193,7 +193,7 @@ export class MainformComponent implements OnChanges, OnInit {
       });
   }
 
-  openModal(modalContent, selectedStatus) {
+  openModal(modalContent) {
     this.modalRef = this.modalService.open(modalContent);
     this.modalRef.result.then(
       () => {
