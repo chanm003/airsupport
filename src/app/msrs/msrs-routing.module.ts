@@ -24,6 +24,7 @@ import { StatusChangeComponent } from './newsfeed/status-change/status-change.co
 import { MainformComponent } from './msr/requester-tabcontent/mainform/mainform.component';
 import { UpdatestatusComponent } from './msr/updatestatus/updatestatus.component';
 import { CalendarComponent } from './calendar/calendar.component';
+import { PrintComponent } from './print/print.component';
 
 const routes: Routes = [
   {
@@ -37,6 +38,10 @@ const routes: Routes = [
       {
         path: 'calendar',
         component: CalendarComponent
+      },
+      {
+        path: 'print/:id',
+        component: PrintComponent
       },
       {
         path: ':id',
@@ -72,7 +77,8 @@ export const routedComponents = [
   StatusTabcontentComponent,
   StatusChangeComponent,
   UpdatestatusComponent,
-  CalendarComponent
+  CalendarComponent,
+  PrintComponent
 ];
 
 @NgModule({

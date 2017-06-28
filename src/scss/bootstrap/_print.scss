@@ -92,9 +92,15 @@
     // Bootstrap specific changes start
 
     // Bootstrap components
-    .navbar {
+    .navbar, .breadcrumb, .app-header.navbar, .app-footer, .sidebar {
       display: none;
     }
+
+    body.app {
+      background-color: #fff;
+      margin:0;
+    }
+
     .badge {
       border: $border-width solid #000;
     }
