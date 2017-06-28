@@ -1,6 +1,18 @@
 // Here you can add other styles
+.main .container-fluid {
+	min-width: 760px;
+}
+
 .scheduler_default_corner > div{
     display: none;
+}
+
+.app-header.navbar .navbar-brand {
+	text-align: center;
+}
+
+header.navbar a.navbar-brand:after{
+	content: 'MSRS';
 }
 
 .radio-inline, .checkbox-inline{
