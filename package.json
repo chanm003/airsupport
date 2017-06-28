@@ -53,6 +53,7 @@
     "@types/node": "7.0.13",
     "codelyzer": "2.1.1",
     "gulp": "^3.9.1",
+    "gulp-clean": "^0.3.2",
     "gulp-rename": "^1.2.2",
     "gulp-string-replace": "^0.4.0",
     "jasmine-core": "2.5.2",

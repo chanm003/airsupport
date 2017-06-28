@@ -1,4 +1,5 @@
 var gulp = require('gulp'),
+    clean = require('gulp-clean'),
     rename = require("gulp-rename"),
     replace = require("gulp-string-replace");
 
@@ -15,11 +16,23 @@ var formDigestTag = `
     <SharePoint:FormDigest ID="FormDigest1" runat="server"></SharePoint:FormDigest>
   </form>`;
 
-gulp.task('aspx', function() {
+gulp.task('aspx', ['deleteIllegalFiles', 'cleanDayPilot'], function() {
     return gulp.src("./dist/index.html")
         .pipe(replace(new RegExp("<!DOCTYPE.*?>", 'i'), aspxHeader))
         .pipe(replace(new RegExp("<base.*?>", 'i'), '<base href="./index.aspx">'))
         .pipe(replace(new RegExp(`<body class="app">`, 'i'), `<body class="app">`+formDigestTag))
         .pipe(rename("index.aspx"))
+        .pipe(gulp.dest("./dist"));
+});
+
+gulp.task('deleteIllegalFiles', function() {
+    return gulp.src('./dist/**/.npmignore', {read: false})
+        .pipe(clean());
+});
+
+gulp.task('cleanDayPilot', function() {
+    /*TODO: Talk to Wes about purchasing license */
+    return gulp.src('./dist/*.js')
+        .pipe(replace(/alert\('You are using a trial version of DayPilot Pro.'\)/g, ''))
         .pipe(gulp.dest("./dist"));
 });
