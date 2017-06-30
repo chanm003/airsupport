@@ -144,7 +144,7 @@
 
           <tr *ngIf="showFields['AIE_related_fields'](msr)">
             <td><strong>AIE Types</strong></td>
-            <td>{{getAIETypes(msr)}}</td>
+            <td>{{msr.aieTypesDelimited}}</td>
           </tr>
 
           <tr *ngIf="showFields['RAPIDS_related_fields'](msr)">
@@ -212,6 +212,26 @@
             <td><strong>Alt Email</strong></td>
             <td>{{msr.AltEmail}}</td>
           </tr>
+
+          <tr>
+            <th class="section-header" colspan="2">
+              Owned By
+            </th>
+          </tr>
+          <tr>
+            <td><strong>Unit</strong></td>
+            <td>{{msr.owningUnitsDelimited}}</td>
+          </tr>
+
+          <tr>
+            <td><strong>POC</strong></td>
+            <td>
+              <a *ngFor="let user of msr.usersFromOwningUnits" [href]="'mailto:'+user.EMail">
+                {{user.Title}}
+              </a>
+            </td>
+          </tr>
+
           </tbody>
       </table>
     
