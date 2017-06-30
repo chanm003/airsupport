@@ -9,7 +9,13 @@
 // ==========================================================================
 
 @if $enable-print-styles {
+
   @media print {
+    html, body, div.app-body{
+      margin: 0;
+      padding: 0;
+    }
+
     *,
     *::before,
     *::after,
@@ -108,8 +114,7 @@
     .table {
       border-collapse: collapse !important;
 
-      td,
-      th {
+      td {
         background-color: #fff !important;
       }
     }
