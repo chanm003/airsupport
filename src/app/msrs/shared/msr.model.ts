@@ -4,6 +4,50 @@ import { NewsfeedItem, StatusChange } from './newsfeed.model';
 import * as _ from 'lodash';
 
 export class Msr {
+    static fieldsLogic = {
+        'AIE_related_fields': function (msr) {
+            return msr.AirMobilityType === 'Infill/Exfill' && msr.InfillExfillType === 'AIEs';
+        },
+        'EstimatedDimensionsWeight': function (msr) {
+            return msr.AirMobilityType === 'Equipment Drop';
+        },
+        'FFEquipment': function (msr) {
+            if (msr.AirMobilityType === 'Infill/Exfill') {
+                return msr.InfillExfillType === 'MFF' || msr.InfillExfillType === 'Static Line';
+            }
+
+            return false;
+        },
+        'InfillExfillType': function (msr) {
+            return msr.AirMobilityType === 'Infill/Exfill';
+        },
+        'NumberOfPersonnel': function (msr) {
+            return msr.AirMobilityType === 'Infill/Exfill';
+        },
+        'NumberOfRefuelPointsRequired': function (msr) {
+            return msr.AirMobilityType === 'FARP';
+        },
+        'ParachuteType': function (msr) {
+            if (msr.AirMobilityType === 'Infill/Exfill') {
+                return msr.InfillExfillType === 'MFF' || msr.InfillExfillType === 'Static Line';
+            }
+
+            return false;
+        },
+        'RAPIDS_related_fields': function (msr) {
+            return msr.AirMobilityType === 'Infill/Exfill' && msr.InfillExfillType === 'RAPIDS';
+        },
+        'TypeRelease': function (msr) {
+            if (msr.AirMobilityType === 'Equipment Drop') { return true; }
+
+            if (msr.AirMobilityType === 'Infill/Exfill') {
+                return msr.InfillExfillType === 'MFF' || msr.InfillExfillType === 'Static Line';
+            }
+
+            return false;
+        }
+    };
+
     AircraftSecurityRequired?: boolean;
     AirfieldLocations?: string;
     AirMobilityType?: string;
@@ -97,14 +141,14 @@ export class Msr {
             'NegativeImpact': (target, source, propName) => target[propName] = source[propName],
             'OperationType': (target, source, propName) => target[propName] = source[propName],
             'Requester': (target, source, propName) => {
-            target['SelectedRequesters'] = [];
+                target['SelectedRequesters'] = [];
                 const requester = source['Requester'];
                 if (requester && requester.Title) {
                     target['SelectedRequesters'].push({
-                    Id: requester.Id,
-                    Title: requester.Title,
-                    value: requester.Id,
-                    display: requester.Title
+                        Id: requester.Id,
+                        Title: requester.Title,
+                        value: requester.Id,
+                        display: requester.Title
                     });
                 }
             },
@@ -118,7 +162,7 @@ export class Msr {
             'RelatedMissionId': (target, source, propName) => target[propName] = source[propName],
             'RelatedMission': (target, source, propName) => {
                 target['SelectedMissions'] = [];
-                if (source[propName]){
+                if (source[propName]) {
                     target['SelectedMissions'].push(JSON.parse(source[propName]));
                 }
             },
@@ -220,7 +264,7 @@ export class Msr {
             'SelectedRequesters': (target, source, propName) => {
                 target['RequesterId'] = null;
                 const selected = source['SelectedRequesters'];
-                if(selected && selected.length) {
+                if (selected && selected.length) {
                     target['RequesterId'] = selected[0].Id;
                 }
             },
@@ -401,7 +445,7 @@ export class AssignedSubunit {
 
 export class MsrTrackedChanges {
 
-    private static hasStatusChanged(prev, current): StatusChange|null {
+    private static hasStatusChanged(prev, current): StatusChange | null {
         const hasAssignedUnitChanged = current.SupportUnitId !== undefined && (current.SupportUnitId !== prev.SupportUnitId);
         const hasStatusChanged = current.Status !== prev.Status;
         const hasOwningUnitsChanged = current.OwningUnitsId !== undefined &&
@@ -474,7 +518,7 @@ export class MsrTrackedChanges {
 
     static compare(prev, current): MsrChangeReport {
         return {
-        StatusChange: MsrTrackedChanges.hasStatusChanged(prev, current)
+            StatusChange: MsrTrackedChanges.hasStatusChanged(prev, current)
         };
     }
 
@@ -488,5 +532,5 @@ export class MsrTrackedChanges {
 }
 
 export class MsrChangeReport {
-  StatusChange: StatusChange | null;
+    StatusChange: StatusChange | null;
 }

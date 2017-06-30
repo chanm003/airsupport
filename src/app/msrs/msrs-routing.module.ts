@@ -41,7 +41,10 @@ const routes: Routes = [
       },
       {
         path: 'print/:id',
-        component: PrintComponent
+        component: PrintComponent,
+        resolve: {
+          data: MsrResolver
+        }
       },
       {
         path: ':id',

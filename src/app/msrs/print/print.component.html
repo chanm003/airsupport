@@ -1,3 +1,239 @@
-<p>
-  print works!
-</p>
+<table class="table">
+  <tbody>
+    <tr *ngFor="let item of items">
+        <td>{{item}}</td>
+        <td>First Name</td>
+        <td>Last Name</td>
+    </tr>  
+  </tbody>
+</table>
+
+<!--
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12">
+      <table style="width:100%">
+        <tr>
+          <td>
+             <span class="display-4"><i class="fa fa-plane"></i> MSRS</span>
+          </td>
+          <td class="text-right">
+            <span>ID #: {{msr.Id}}</span><br>
+            <span>Created: {{msr.Created | date:'shortDate' }}</span><br>
+            <span>Created By: {{msr.Author.Title}}</span><br>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <table style="width:100%">
+        <tbody>
+          <tr>
+            <th class="section-header" colspan="2">
+              Mission Support Request ({{msr.SelectedMissions[0].Title}})
+            </th>
+          </tr>
+          
+          <tr>
+            <td><strong>Status</strong></td>
+            <td>{{msr.Status}}</td>
+          </tr>
+          <tr>
+            <td><strong>Operation Type</strong></td>
+            <td>{{msr.OperationType}}</td>
+          </tr>
+          <tr>
+            <td><strong>Dates</strong></td>
+            <td>
+              {{msr.MissionStart.month}}/{{msr.MissionStart.day}}/{{msr.MissionStart.year}} - {{msr.MissionEnd.month}}/{{msr.MissionEnd.day}}/{{msr.MissionEnd.year}}
+            </td>
+          </tr>
+
+          <tr>
+            <td><strong>CONOP</strong></td>
+            <td>{{msr.Conop}}</td>
+          </tr>
+
+          <tr>
+            <td><strong>Airfields/Locations</strong></td>
+            <td>{{msr?.AirfieldLocations}}</td>
+          </tr>
+
+          <tr>
+            <td><strong>Impact if not supported</strong></td>
+            <td>{{msr?.NegativeImpact}}</td>
+          </tr>
+
+          <tr>
+            <td><strong>Medical Requirements</strong></td>
+            <td>{{(msr.MedicalSupportRequired) ? msr.MedicalSupportReqs : ''}}</td>
+          </tr>
+          <tr>
+            <td><strong>Communications Requirements</strong></td>
+            <td>{{(msr.CommunicationSupportRequired) ? msr.CommunicationSupportReqs : ''}}</td>
+          </tr>
+
+          <tr *ngIf="msr.OperationType === 'Cargo/Personnel Move'">
+            <th class="section-header" colspan="2">
+              Cargo/Personnel Move
+            </th>
+          </tr>
+          <tr *ngIf="msr.OperationType === 'Cargo/Personnel Move'">
+            <td><strong>#PAX</strong></td>
+            <td>{{msr?.NumberOfPAX}}</td>
+          </tr>
+          <tr *ngIf="msr.OperationType === 'Cargo/Personnel Move'">
+            <td><strong>Pax Baggage Weight</strong></td>
+            <td>{{msr?.PaxBaggageWeight}} lbs</td>
+          </tr>
+          <tr *ngIf="msr.OperationType === 'Cargo/Personnel Move'">
+            <td><strong>#Pallets</strong></td>
+            <td>{{msr?.NumberOfPallets}}</td>
+          </tr>
+          <tr *ngIf="msr.OperationType === 'Cargo/Personnel Move'">
+            <td><strong>Pallet Weight</strong></td>
+            <td>{{msr?.PalletWeight}} lbs</td>
+          </tr>
+          <tr *ngIf="msr.OperationType === 'Cargo/Personnel Move'">
+            <td><strong>#ISU/Type</strong></td>
+            <td>{{msr?.IsuType}}</td>
+          </tr>
+          <tr *ngIf="msr.OperationType === 'Cargo/Personnel Move'">
+            <td><strong>ISU Weight</strong></td>
+            <td>{{msr?.IsuWeight}} lbs</td>
+          </tr>
+          <tr *ngIf="msr.OperationType === 'Cargo/Personnel Move'">
+            <td><strong>HAZMAT Required</strong></td>
+            <td>{{(msr.HazmatRequired) ? 'Yes' : 'No'}}</td>
+          </tr>
+          <tr *ngIf="msr.OperationType === 'Cargo/Personnel Move'">
+            <td><strong>Amplifying Detail</strong></td>
+            <td>{{msr?.AmplifyingDetail}}</td>
+          </tr>
+
+          <tr *ngIf="msr.OperationType === 'Special Tactics/Battlefield Airman (ST/BAO)'">
+            <th class="section-header" colspan="2">
+              Special Tactics/Battlefield Airman
+            </th>
+          </tr>
+          <tr *ngIf="msr.OperationType === 'Special Tactics/Battlefield Airman (ST/BAO)'">
+            <td><strong>JTAC/CAS</strong></td>
+            <td>{{msr?.JtacCasType}} {{msr?.JtacFireType}}</td>
+          </tr>
+          <tr *ngIf="msr.OperationType === 'Special Tactics/Battlefield Airman (ST/BAO)'">
+            <td><strong>Pararescue (PJ):</strong></td>
+            <td>{{msr?.Pararescue}}</td>
+          </tr>
+          <tr *ngIf="msr.OperationType === 'Special Tactics/Battlefield Airman (ST/BAO)'">
+            <td><strong>Survey(s)</strong></td>
+            <td>{{msr?.Surveys}}</td>
+          </tr>
+        
+          <tr *ngIf="msr.OperationType === 'AIR Mobility (SAM)'">
+            <th class="section-header" colspan="2">
+              AIR Mobility
+            </th>
+          </tr>
+          <tr *ngIf="msr.OperationType === 'AIR Mobility (SAM)'">
+            <td><strong>Type</strong></td>
+            <td>{{msr?.AirMobilityType}} <span *ngIf="showFields['InfillExfillType'](msr)">({{msr?.InfillExfillType}})</span></td>
+          </tr>
+          <tr *ngIf="showFields['NumberOfPersonnel'](msr)">
+            <td><strong># Personnel</strong></td>
+            <td>{{msr?.NumberOfPersonnel}}</td>
+          </tr>
+          <tr *ngIf="showFields['ParachuteType'](msr)">
+            <td><strong>Parachute Type</strong></td>
+            <td>{{(msr?.ParachuteType) ? msr.ParachuteType : msr.ParachuteTypeOther }}</td>
+          </tr>
+
+          <tr *ngIf="showFields['TypeRelease'](msr)">
+            <td><strong>Type Release</strong></td>
+            <td>{{msr?.TypeRelease }}</td>
+          </tr>
+
+          <tr *ngIf="showFields['FFEquipment'](msr)">
+            <td><strong>FFEquipment</strong></td>
+            <td>{{msr?.FFEquipment }}</td>
+          </tr>
+
+          <tr *ngIf="showFields['AIE_related_fields'](msr)">
+            <td><strong>AIE Types</strong></td>
+            <td>{{getAIETypes(msr)}}</td>
+          </tr>
+
+          <tr *ngIf="showFields['RAPIDS_related_fields'](msr)">
+            <td><strong>Vehicles Required</strong></td>
+            <td>{{(msr.VehiclesRequired) ? 'Yes' : 'No'}}</td>
+          </tr>
+        
+          <tr *ngIf="showFields['RAPIDS_related_fields'](msr)">
+            <td><strong>Surveys Required</strong></td>
+            <td>{{(msr.SurveysRequired) ? 'Yes' : 'No'}}</td>
+          </tr>
+
+          <tr *ngIf="showFields['EstimatedDimensionsWeight'](msr)">
+            <td><strong>Estimated Height</strong></td>
+            <td>{{msr.EstimatedDimensionsHeight}} {{(msr.EstimatedDimensionsHeight) ? 'inches' : ''}}</td>
+          </tr>
+
+          <tr *ngIf="showFields['EstimatedDimensionsWeight'](msr)">
+            <td><strong>Estimated Length</strong></td>
+            <td>{{msr.EstimatedDimensionsLength}} {{(msr.EstimatedDimensionsLength) ? 'inches' : ''}}</td>
+          </tr>
+
+          <tr *ngIf="showFields['EstimatedDimensionsWeight'](msr)">
+            <td><strong>Estimated Weight</strong></td>
+            <td>{{msr.EstimatedWeight}} {{(msr.EstimatedWeight) ? 'lbs' : ''}}</td>
+          </tr>
+
+          <tr *ngIf="showFields['NumberOfRefuelPointsRequired'](msr)">
+            <td><strong># of Refuel Points Required</strong></td>
+            <td>{{msr.NumberOfRefuelPointsRequired}}</td>
+          </tr>
+
+          <tr>
+            <th class="section-header" colspan="2">
+              Requested By
+            </th>
+          </tr>
+
+          <tr>
+            <td><strong>Unit</strong></td>
+            <td>{{msr.RequestingUnit.Name}}</td>
+          </tr>
+          <tr>
+            <td><strong>Requester Name</strong></td>
+            <td>{{msr.SelectedRequesters[0].Title}}</td>
+          </tr>
+          <tr>
+            <td><strong>Requester Phone</strong></td>
+            <td>{{msr.RequesterPhone}}</td>
+          </tr>
+          <tr>
+            <td><strong>Requester Email</strong></td>
+            <td>{{msr.RequesterEmail}}</td>
+          </tr>
+
+          <tr *ngIf="msr.AltPOC">
+            <td><strong>Alt POC</strong></td>
+            <td>{{msr?.AltPOC}}</td>
+          </tr>
+          <tr *ngIf="msr.AltPhone">
+            <td><strong>Alt Phone</strong></td>
+            <td>{{msr.AltPhone}}</td>
+          </tr>
+          <tr *ngIf="msr.AltEmail">
+            <td><strong>Alt Email</strong></td>
+            <td>{{msr.AltEmail}}</td>
+          </tr>
+          </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<pre>{{msr | json}}</pre>
+-->
