@@ -31,7 +31,7 @@ export class PlatformsComponent implements OnInit {
   }
 
   shouldShow() {
-    return this.msr.OperationType === 'Special Tactics/Battlefield Airman (ST/BAO)';
+    return Msr.panelsLogic['Platforms'](this.msr);
   }
 
 }

@@ -22,6 +22,7 @@ export class PrintComponent implements OnInit, OnDestroy {
   private sub: any;
   private msr: any;
   showFields = Msr.fieldsLogic;
+  showPanels = Msr.panelsLogic;
   cachedData: any;
 
   items = Array.from(Array(200), (_,x) => x);
@@ -32,14 +33,19 @@ export class PrintComponent implements OnInit, OnDestroy {
       this.msr = resolved.data.msr;
       this.cachedData = resolved.data.lookups;
       this.msr.aieTypesDelimited = this.getAIETypes(this.msr);
-      const owningUnits = this.getOwningUnits(this.msr);
-      this.msr.owningUnitsDelimited = _.map(owningUnits, 'Name').join('; ');
-      this.msr.usersFromOwningUnits =
-        _.chain(owningUnits)
-          .map((item: any) => item.Users.results)
-          .flatten()
-          .uniqBy('Id')
-          .value();
+      this.msr.RequestingUnit =  _.find(this.cachedData.requestingUnits, {Id: this.msr.RequestingUnitId});
+      this.msr.SupportUnit =  _.find(this.cachedData.supportUnits, {Id: this.msr.SupportUnitId});
+      this.msr.OwningUnits = this.getOwningUnits(this.msr);
+      _.each(this.msr.OwningUnits, (unit) => {
+        const recipients = _.map(unit.Users.results, 'EMail').join(',');
+        const subject = encodeURI(`MSR (${this.msr.SelectedMissions[0].Title})`);
+        unit.mailToHref = `mailto:${recipients}?subject=${subject}`;
+      });
+      const supportUnit: any = _.find(this.cachedData.supportUnits, {Id: this.msr.SupportUnitId});
+      if (supportUnit) {
+        this.msr.usersFromSupportUnit = supportUnit.Users.results;
+        _.each(this.msr.AssignedSubunits, (item) => item.subunit = _.find(supportUnit.Subunits, {Id: item.subunitId}));
+      }
     });
   }
 

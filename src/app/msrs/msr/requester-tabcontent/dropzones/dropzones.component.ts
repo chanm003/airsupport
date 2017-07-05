@@ -31,12 +31,7 @@ export class DropzonesComponent implements OnInit {
   }
 
   shouldShow() {
-    if (this.msr.OperationType === 'AIR Mobility (SAM)') {
-      if (this.msr.AirMobilityType === "Infill/Exfill") {
-        return _.includes(['MFF', 'Static Line'], this.msr.InfillExfillType);
-      }
-    }
-    return false;
+    return Msr.panelsLogic['DropZones'](this.msr);
   }
 
 }

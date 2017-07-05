@@ -48,6 +48,57 @@ export class Msr {
         }
     };
 
+    static panelsLogic = {
+        'DropZones': function (msr) {
+            if (msr.OperationType === 'AIR Mobility (SAM)') {
+                if (msr.AirMobilityType === 'Infill/Exfill') {
+                    return _.includes(['MFF', 'Static Line'], msr.InfillExfillType);
+                }
+            }
+            return false;
+        },
+        'LandingZones': function (msr) {
+            if (msr.AirMobilityType === 'FARP') { return true; }
+            if (msr.OperationType === 'AIR Mobility (SAM)') {
+                if (msr.AirMobilityType === 'Infill/Exfill') {
+                    return msr.InfillExfillType === 'RAPIDS' && msr.SurveysRequired;
+                }
+            }
+            return false;
+        },
+        'Platforms': function (msr) {
+            return msr.OperationType === 'Special Tactics/Battlefield Airman (ST/BAO)';
+        },
+        'PNForces': function (msr) {
+            if (msr.OperationType === 'AIR Mobility (SAM)') {
+                if (msr.AirMobilityType === 'HAAR/TAAR') { return true; }
+                if (msr.AirMobilityType === 'Equipment Drop') { return true; }
+                if (msr.AirMobilityType === 'FARP') { return true; }
+                if (msr.AirMobilityType === 'Infill/Exfill') {
+                    return _.includes(['MFF', 'Static Line'], msr.InfillExfillType);
+                }
+            }
+            return false;
+        },
+        'TargetLocations': function (msr) {
+            if (msr.OperationType === 'Special Tactics/Battlefield Airman (ST/BAO)') { return true; }
+            if (msr.OperationType === 'AIR Mobility (SAM)') {
+                if (msr.AirMobilityType === 'Infill/Exfill') {
+                    return msr.InfillExfillType === 'AIEs';
+                }
+            }
+            return false;
+        },
+        'Vehicles': function (msr) {
+            if (msr.OperationType === 'AIR Mobility (SAM)') {
+                if (msr.AirMobilityType === 'Infill/Exfill') {
+                    return msr.InfillExfillType === 'RAPIDS' && msr.VehiclesRequired;
+                }
+            }
+            return false;
+        }
+    };
+
     AircraftSecurityRequired?: boolean;
     AirfieldLocations?: string;
     AirMobilityType?: string;

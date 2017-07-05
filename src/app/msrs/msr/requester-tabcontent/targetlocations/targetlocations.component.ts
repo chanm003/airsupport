@@ -32,13 +32,7 @@ export class TargetlocationsComponent implements OnInit {
   }
 
   shouldShow() {
-    if (this.msr.OperationType === 'Special Tactics/Battlefield Airman (ST/BAO)') { return true; }
-    if (this.msr.OperationType === 'AIR Mobility (SAM)') {
-      if (this.msr.AirMobilityType === 'Infill/Exfill') {
-        return this.msr.InfillExfillType === 'AIEs';
-      }
-    }
-    return false;
+    return Msr.panelsLogic['TargetLocations'](this.msr);
   }
 
   showAccessPOC() {

@@ -31,14 +31,7 @@ export class LandingzonesComponent implements OnInit {
   }
 
   shouldShow() {
-    if (this.msr.AirMobilityType === 'FARP') { return true; }
-    if (this.msr.OperationType === 'AIR Mobility (SAM)') {
-      if (this.msr.AirMobilityType === 'Infill/Exfill') {
-        return this.msr.InfillExfillType === 'RAPIDS' && this.msr.SurveysRequired;
-      }
-    }
-
-    return false;
+    return Msr.panelsLogic['LandingZones'](this.msr);
   }
 
 }

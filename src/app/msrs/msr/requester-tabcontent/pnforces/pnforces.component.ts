@@ -32,21 +32,13 @@ export class PnforcesComponent implements OnInit {
   }
 
   shouldShow() {
-    if (this.msr.OperationType === 'AIR Mobility (SAM)') {
-      if (this.msr.AirMobilityType === "HAAR/TAAR") { return true; }
-      if (this.msr.AirMobilityType === "Equipment Drop") { return true; }
-      if (this.msr.AirMobilityType === "FARP") { return true; }
-      if (this.msr.AirMobilityType === "Infill/Exfill") {
-        return _.includes(['MFF', 'Static Line'], this.msr.InfillExfillType);
-      }
-    }
-    return false;
+    return Msr.panelsLogic['PNForces'](this.msr);
   }
 
   showParachuteType() {
-    if (this.msr.AirMobilityType === "Equipment Drop") { return true; }
+    if (this.msr.AirMobilityType === 'Equipment Drop') { return true; }
 
-    if (this.msr.AirMobilityType === "Infill/Exfill") {
+    if (this.msr.AirMobilityType === 'Infill/Exfill') {
         return _.includes(['MFF', 'Static Line'], this.msr.InfillExfillType);
     }
 

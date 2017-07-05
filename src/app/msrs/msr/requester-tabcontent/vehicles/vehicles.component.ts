@@ -31,12 +31,7 @@ export class VehiclesComponent implements OnInit {
   }
 
   shouldShow() {
-    if (this.msr.OperationType === 'AIR Mobility (SAM)') {
-      if (this.msr.AirMobilityType === 'Infill/Exfill') {
-        return this.msr.InfillExfillType === 'RAPIDS' && this.msr.VehiclesRequired;
-      }
-    }
-    return false;
+    return Msr.panelsLogic['Vehicles'](this.msr);
   }
 
 }
