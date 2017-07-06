@@ -6,38 +6,40 @@ import * as _ from 'lodash';
 export class Msr {
     static fieldsLogic = {
         'AIE_related_fields': function (msr) {
-            return msr.AirMobilityType === 'Infill/Exfill' && msr.InfillExfillType === 'AIEs';
+            return msr.OperationType === 'AIR Mobility (SAM)' && msr.AirMobilityType === 'Infill/Exfill' && msr.InfillExfillType === 'AIEs';
         },
         'EstimatedDimensionsWeight': function (msr) {
-            return msr.AirMobilityType === 'Equipment Drop';
+            return msr.OperationType === 'AIR Mobility (SAM)' && msr.AirMobilityType === 'Equipment Drop';
         },
         'FFEquipment': function (msr) {
-            if (msr.AirMobilityType === 'Infill/Exfill') {
+            if (msr.OperationType === 'AIR Mobility (SAM)' && msr.AirMobilityType === 'Infill/Exfill') {
                 return msr.InfillExfillType === 'MFF' || msr.InfillExfillType === 'Static Line';
             }
 
             return false;
         },
         'InfillExfillType': function (msr) {
-            return msr.AirMobilityType === 'Infill/Exfill';
+            return msr.OperationType === 'AIR Mobility (SAM)' && msr.AirMobilityType === 'Infill/Exfill';
         },
         'NumberOfPersonnel': function (msr) {
-            return msr.AirMobilityType === 'Infill/Exfill';
+            return msr.OperationType === 'AIR Mobility (SAM)' && msr.AirMobilityType === 'Infill/Exfill';
         },
         'NumberOfRefuelPointsRequired': function (msr) {
-            return msr.AirMobilityType === 'FARP';
+            return msr.OperationType === 'AIR Mobility (SAM)' && msr.AirMobilityType === 'FARP';
         },
         'ParachuteType': function (msr) {
-            if (msr.AirMobilityType === 'Infill/Exfill') {
+            if (msr.OperationType === 'AIR Mobility (SAM)' && msr.AirMobilityType === 'Infill/Exfill') {
                 return msr.InfillExfillType === 'MFF' || msr.InfillExfillType === 'Static Line';
             }
 
             return false;
         },
         'RAPIDS_related_fields': function (msr) {
-            return msr.AirMobilityType === 'Infill/Exfill' && msr.InfillExfillType === 'RAPIDS';
+            return msr.OperationType === 'AIR Mobility (SAM)' && msr.AirMobilityType === 'Infill/Exfill' && 
+                msr.InfillExfillType === 'RAPIDS';
         },
         'TypeRelease': function (msr) {
+            if (msr.OperationType !== 'AIR Mobility (SAM)') { return false; }
             if (msr.AirMobilityType === 'Equipment Drop') { return true; }
 
             if (msr.AirMobilityType === 'Infill/Exfill') {

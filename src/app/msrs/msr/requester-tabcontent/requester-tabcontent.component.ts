@@ -2,6 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter, ViewChild } from '@angu
 import { Msr } from '../../shared/msr.model';
 import { MainformComponent } from './mainform/mainform.component';
 import * as _ from 'lodash';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-requester-tabcontent',
@@ -18,7 +19,7 @@ export class RequesterTabcontentComponent implements OnInit {
     'Personnel/Cargo', 'SAM', 'ST/BA'
   ];
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit() {
     this.setButtonsLogic();
@@ -34,6 +35,10 @@ export class RequesterTabcontentComponent implements OnInit {
     } else {
       return '';
     }
+  }
+
+  onPrintButtonClicked() {
+    this.router.navigate([`/msrs/print/${this.msr.Id}`]);
   }
 
   setButtonsLogic() {

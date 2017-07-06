@@ -19,10 +19,12 @@
       <app-targetlocations [msr]="msr"></app-targetlocations>
       <app-landingzones [msr]="msr"></app-landingzones>
 
+      
       <button *ngIf="buttonsManager['Save'].shouldShow()" (click)="buttonsManager['Save'].onClicked()" class="btn btn-primary" type="button"><i class="fa fa-save"></i>&nbsp; Save</button>
       <button *ngIf="buttonsManager['Submit'].shouldShow()" (click)="buttonsManager['Submit'].onClicked()" class="btn btn-success" type="button"><i class="fa fa-send"></i>&nbsp; Submit</button>
       <button *ngIf="buttonsManager['Reopen'].shouldShow()" (click)="buttonsManager['Reopen'].onClicked()" class="btn btn-success" type="button"><i class="fa fa-refresh"></i>&nbsp; Reopen Request</button>
       <button *ngIf="buttonsManager['Cancel'].shouldShow()" (click)="buttonsManager['Cancel'].onClicked()" class="btn btn-danger" type="button"><i class="fa fa-remove"></i>&nbsp; Cancel Request</button>
+      <button type="button" class="btn btn-info" (click)="onPrintButtonClicked()"><i class="fa fa-print"></i> Print-Friendly View</button>
   </div>
 </fieldset>
     

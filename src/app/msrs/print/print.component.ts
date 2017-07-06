@@ -64,4 +64,8 @@ export class PrintComponent implements OnInit, OnDestroy {
   getOwningUnits(msr) {
     return _.map(msr.OwningUnitsId, (item) => _.find(this.cachedData.owningUnits, {Id: item}));
   }
+
+  onPrintButtonClicked() {
+    window.print();
+  }
 }
