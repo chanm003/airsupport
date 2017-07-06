@@ -5,9 +5,9 @@
     <button *ngIf="filter.text" class="btn btn-info" type="button" (click)="clearFilter()">Clear</button>
 </div>
 </div>
-<div class="left" style="float:right;width:150px;overflow:auto;">
+<div class="hidden-print" style="float:right;width:150px;overflow:auto;">
     <daypilot-navigator [config]="navigatorConfig" (dateChange)="changeDate()" #navigator></daypilot-navigator>
 </div>
-<div class="right" style="margin-right:150px;overflow:auto;">
+<div style="overflow:auto;">
     <daypilot-scheduler [config]="config" [events]="config.events" #scheduler></daypilot-scheduler>
 </div>

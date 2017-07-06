@@ -20,7 +20,7 @@ import * as _ from 'lodash';
 })
 export class PrintComponent implements OnInit, OnDestroy {
   private sub: any;
-  private msr: any;
+  msr: any;
   showFields = Msr.fieldsLogic;
   showPanels = Msr.panelsLogic;
   cachedData: any;
