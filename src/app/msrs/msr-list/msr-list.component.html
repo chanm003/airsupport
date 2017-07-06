@@ -2,48 +2,53 @@
 
  <div class="row">
     <div class="col-lg-12">
-      <div *ngIf="msrList?.length" class="card">
+      <div class="card">
         <div class="card-header">
-        All Mission Support Requests
+          Filter Mission Support Requests
         </div>
         <div class="card-block">
-          <table class="table table-condensed">
-            <thead class="thead-inverse">
-              <tr>
-                <th>MSR ID</th>
-                <th>Operation Type</th>
-                <th>Start Date</th>
-                <th>End Date</th>
-                <th>Requester</th>
-                <th>Status</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let item of msrList">
-                <td>
-                  <a [routerLink]="['/msrs/' + item.Id]">{{item.Id}}</a>
-                </td>
-                <td>
-                  {{item.OperationType}}
-                </td>
-                <td>
-                  {{item.MissionStart | date:'dd MMM yy' | uppercase }}
-                </td>
-                <td>
-                  {{item.MissionEnd | date:'dd MMM yy' | uppercase }}
-                </td>
-                <td>
-                  {{item.Requester.Title}}
-                </td>
-                <td>
-                  {{item.Status}}
-                </td>
-              </tr>   
-            </tbody>
-          </table>
+          <table>
+        <tr>
+          <td class="pl-2">
+            <label>Requesting Unit:</label><br>
+            <p-multiSelect (onChange)="applyFilters()" defaultLabel="Choose Requesting Unit" [options]="filterControls.requestingUnits.selectable" [(ngModel)]="filterControls.requestingUnits.selected"></p-multiSelect>
+          </td>
+          <td class="pl-2">
+            <label>Status:</label><br>
+            <p-multiSelect (onChange)="applyFilters()" defaultLabel="Choose Status" [options]="filterControls.statuses.selectable" [(ngModel)]="filterControls.statuses.selected"></p-multiSelect>
+          </td>
+          <td class="pl-2">
+            <label>Assigned Unit:</label><br>
+            <p-multiSelect (onChange)="applyFilters()" defaultLabel="Choose Assigned Unit" [options]="filterControls.supportUnits.selectable" [(ngModel)]="filterControls.supportUnits.selected"></p-multiSelect>
+          </td>
+        </tr>
+      </table>
         </div>
       </div>
+      
+      
+      
+      <div *ngIf="msrFiltered"> 
+        <p-dataTable [value]="msrFiltered" [rows]="25" [paginator]="true">
+            <p-column field="Id" header="ID" sortable="true" [style]="{'width':'5%', 'text-align': 'center'}">
+              <ng-template let-item="rowData" pTemplate="body">
+                <a href="javascript:;" (click)="goToMsr(item)">{{item.Id}}</a>
+              </ng-template>
+            </p-column>
+            <p-column field="MissionName" header="Mission" sortable="true"></p-column>
+            <p-column field="OperationType" header="OperationType" sortable="true"></p-column>
+            <p-column field="RequestingUnitName" header="Requesting Unit" sortable="true"></p-column>
+            <p-column field="Status" header="Status" sortable="true"></p-column>
+            <p-column field="MissionStart_Military" sortField="MissionStart" header="Start" sortable="true"></p-column>
+            <p-column field="MissionEnd_Military" sortField="MissionEnd" header="End" sortable="true"></p-column>
+            <p-column field="SupportUnitName" sortField="SupportUnitName" header="Assigned Unit" sortable="true"></p-column>
+        </p-dataTable>
+      </div> 
+
+          
+        
     </div>
  </div>
+
 
 </div>

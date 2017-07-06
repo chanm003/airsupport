@@ -3,6 +3,7 @@ import { Msr } from '../../shared/msr.model';
 import { MainformComponent } from './mainform/mainform.component';
 import * as _ from 'lodash';
 import { Router } from '@angular/router';
+import { SpinnerService } from '../../../core/spinner/spinner.service';
 
 @Component({
   selector: 'app-requester-tabcontent',
@@ -19,7 +20,7 @@ export class RequesterTabcontentComponent implements OnInit {
     'Personnel/Cargo', 'SAM', 'ST/BA'
   ];
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private spinnerService: SpinnerService) { }
 
   ngOnInit() {
     this.setButtonsLogic();
@@ -38,7 +39,9 @@ export class RequesterTabcontentComponent implements OnInit {
   }
 
   onPrintButtonClicked() {
-    this.router.navigate([`/msrs/print/${this.msr.Id}`]);
+    this.spinnerService.show();
+    this.router.navigate([`/msrs/print/${this.msr.Id}`])
+      .then(() => this.spinnerService.hide());
   }
 
   setButtonsLogic() {
