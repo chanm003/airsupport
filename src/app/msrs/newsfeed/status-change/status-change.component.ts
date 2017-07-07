@@ -13,14 +13,4 @@ export class StatusChangeComponent implements OnInit {
 
   ngOnInit() {
   }
-
-  setClasses(status) {
-    const classes = {
-      'badge-primary': _.includes(['Submitted', 'Vetting', 'Assigned', 'Planning'], status),
-      'badge-success': status === 'Approved',
-      'badge-warning': status === 'Draft',
-      'badge-danger': _.includes(['Canceled', 'Rejected'], status)
-    };
-    return classes;
-  }
 }

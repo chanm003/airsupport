@@ -12,6 +12,21 @@ export class CacheddataService {
     private pagecontextService: PagecontextService) {
   }
 
+  private getStatuses() {
+    const statuses = [
+      { text: 'Draft', bootstrapBadge: 'badge-warning', color: '#f8cb00' },
+      { text: 'Submitted', bootstrapBadge: 'badge-primary', color: '#1985ac' },
+      { text: 'Vetting', bootstrapBadge: 'badge-primary', color: '#1985ac' },
+      { text: 'Assigned', bootstrapBadge: 'badge-primary', color: '#1985ac' },
+      { text: 'Planning', bootstrapBadge: 'badge-primary', color: '#1985ac' },
+      { text: 'Approved', bootstrapBadge: 'badge-success', color: '#3a9d5d' },
+      { text: 'Rejected', bootstrapBadge: 'badge-danger', color: '#f63c3a' },
+      { text: 'Canceled', bootstrapBadge: 'badge-danger', color: '#f63c3a' }
+    ];
+
+    return Promise.resolve(statuses);
+  }
+
   private getOwningUnits() {
     const listName = 'Owning Units';
     const fieldsToSelect = ['Id', 'Name', 'Users/Id', 'Users/Title', 'Users/EMail'];
@@ -106,15 +121,16 @@ export class CacheddataService {
       this.getSubunits(),
       this.getSupportUnits(),
       this.getInfoForCurrentUser(),
-      this.getEmailTemplates()
+      this.getEmailTemplates(),
+      this.getStatuses()
     ])
     .then(data => {
       const owningUnits = data[0];
       const supportUnits = data[3];
-      const subunits = data[2];
-      const currentUser = data[4];
+      const subunits: Array<any> = data[2];
+      const currentUser: any = data[4];
 
-      _.each(supportUnits, function (item) {
+      _.each(supportUnits, function (item: any) {
         item.Subunits = _.filter(subunits, { ParentUnitId: item.Id });
       });
 
@@ -126,7 +142,8 @@ export class CacheddataService {
           requestingUnits: data[1],
           owningUnits: owningUnits,
           currentUser: currentUser,
-          emailTemplates: data[5]
+          emailTemplates: data[5],
+          statuses: data[6]
       };
 
       this.localStorageService.set('lookups', lookups);

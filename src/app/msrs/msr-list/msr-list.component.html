@@ -38,7 +38,11 @@
             <p-column field="MissionName" header="Mission" sortable="true"></p-column>
             <p-column field="OperationType" header="OperationType" sortable="true"></p-column>
             <p-column field="RequestingUnitName" header="Requesting Unit" sortable="true"></p-column>
-            <p-column field="Status" header="Status" sortable="true"></p-column>
+            <p-column field="Status" header="Status" sortable="true" sortField="StatusSortOrder">
+              <ng-template let-item="rowData" pTemplate="body">
+                <span class="badge" [ngClass]="item.StatusClass" [ngStyle]="{'font-size':'.9em'}">{{item.Status}}</span>
+              </ng-template>
+            </p-column>
             <p-column field="MissionStart_Military" sortField="MissionStart" header="Start" sortable="true"></p-column>
             <p-column field="MissionEnd_Military" sortField="MissionEnd" header="End" sortable="true"></p-column>
             <p-column field="SupportUnitName" sortField="SupportUnitName" header="Assigned Unit" sortable="true"></p-column>

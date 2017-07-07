@@ -18,6 +18,7 @@ import { Router } from '@angular/router';
 export class MsrListComponent implements OnInit {
   msrFiltered: Array<any>;
   msrList: Array<any>;
+  lookups: any;
   filterControls = {
     requestingUnits: {
       selectable: [],
@@ -44,35 +45,35 @@ export class MsrListComponent implements OnInit {
     item.RequestingUnitName = item.RequestingUnit.Name;
     const mission = JSON.parse(item.RelatedMission);
     item.MissionName = mission.Title;
+    item.StatusClass = (<any>_.find(this.lookups.statuses, {text: item.Status})).bootstrapBadge;
+    item.StatusSortOrder = _.findIndex(this.lookups.statuses, {text: item.Status});
   }
 
   initializeFilterControls() {
-    return this.cacheddataService.getAll()
-      .then((data: any) => {
-        this.filterControls.requestingUnits.selectable =
-          _.map(data.requestingUnits, (item: any) => {
-            return {
-              label: item.Name,
-              value: item.Id
-            };
-          });
-
-        this.filterControls.statuses.selectable =
-          _.map(['Draft', 'Submitted', 'Vetting', 'Assigned', 'Planning', 'Approved', 'Rejected', 'Canceled'], (item: any) => {
-            return {
-              label: item,
-              value: item
-            };
-          });
-
-        this.filterControls.supportUnits.selectable =
-          _.map(data.supportUnits, (item: any) => {
-            return {
-              label: item.Name,
-              value: item.Id
-            };
-          });
+    this.filterControls.requestingUnits.selectable =
+      _.map(this.lookups.requestingUnits, (item: any) => {
+        return {
+          label: item.Name,
+          value: item.Id
+        };
       });
+
+    this.filterControls.statuses.selectable =
+      _.map(this.lookups.statuses, (item: any) => {
+        return {
+          label: item.text,
+          value: item.text
+        };
+      });
+
+    this.filterControls.supportUnits.selectable =
+      _.map(this.lookups.supportUnits, (item: any) => {
+        return {
+          label: item.Name,
+          value: item.Id
+        };
+      });
+    return Promise.resolve(null);
   }
 
   goToMsr(msr) {
@@ -83,7 +84,11 @@ export class MsrListComponent implements OnInit {
 
   ngOnInit() {
     this.spinnerService.show();
-    this.initializeFilterControls()
+    this.cacheddataService.getAll()
+      .then(data => {
+        this.lookups = data;
+        this.initializeFilterControls();
+      })
       .then(() => this.fetchData())
       .then(() => this.spinnerService.hide());
   }
@@ -91,7 +96,7 @@ export class MsrListComponent implements OnInit {
   fetchData() {
     return this.msrService.getAll()
       .then(data => {
-        _.each(data, this.decorateWithMetadata);
+        _.each(data, (item) => this.decorateWithMetadata(item));
         this.msrList = data;
         this.applyFilters();
       });
