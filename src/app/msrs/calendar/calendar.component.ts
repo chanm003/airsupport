@@ -23,8 +23,8 @@ export class CalendarComponent implements OnInit, AfterViewInit {
   filter = {
     text: ''
   };
-
-  config: any = {
+  lookups: any;
+  schedulerConfig: any = {
     bubble: new DayPilot.Bubble(),
     eventHeight: 40,
     eventMoveHandling: 'Disabled',
@@ -81,23 +81,27 @@ export class CalendarComponent implements OnInit, AfterViewInit {
   ngAfterViewInit() {
     this.cacheddataService.getAll()
       .then(data => {
-        const supportUnits = data['supportUnits'].map(item =>  {
-          return {id: item.Id, name: item.Name};
-        });
-        supportUnits.push({id: -1, name: 'Unassigned'});
-        this.config.resources = supportUnits;
-      });
+        this.lookups = data;
+        this.setResourcesForScheduler();
+      })
+      .then(() => this.getEvents());
+  }
 
-    this.getEvents();
+  setResourcesForScheduler() {
+    const supportUnits = this.lookups['supportUnits'].map(item =>  {
+      return {id: item.Id, name: item.Name};
+    });
+    supportUnits.push({id: -1, name: 'Unassigned'});
+    this.schedulerConfig.resources = supportUnits;
   }
 
   getEvents(start?) {
     if (!start) {
       start = moment().startOf('month');
     }
-    this.config.startDate = start.format('YYYY-MM-DD');
+    this.schedulerConfig.startDate = start.format('YYYY-MM-DD');
     const end = start.clone().add(3, 'months').startOf('month');
-    this.config.days = end.diff(start, 'days');
+    this.schedulerConfig.days = end.diff(start, 'days');
 
     this.spinnerService.show();
     this.msrService.getByDateRange(start.format('YYYY-MM-DD'), end.format('YYYY-MM-DD'))
@@ -114,13 +118,14 @@ export class CalendarComponent implements OnInit, AfterViewInit {
 
   refreshEvents(data) {
     data = data.map(item => {
+      console.log(this.lookups['statuses']);
       return {
         id: item.Id,
         resource: item.SupportUnitId || -1,
         start: item.MissionStart.split('T')[0],
         end: item.MissionEnd.split('T')[0],
         text: JSON.parse(item.RelatedMission).Title,
-        barColor: this.getColor(item.Status),
+        barColor: (<any>_.find(this.lookups['statuses'], {text: item.Status})).color,
         bubbleHtml: `
           <div style="padding:5px 10px 0px 10px;">
             <address>
@@ -137,7 +142,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
         ]
       };
     });
-    this.config.events = data;
+    this.schedulerConfig.events = data;
   }
 
   changeDate() {
