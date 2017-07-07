@@ -5,7 +5,7 @@ import { PagecontextService} from '../../core/pagecontext.service';
 import { SpinnerService } from '../../core/spinner/spinner.service';
 import {MsrService} from '../shared/msr.service';
 import * as _ from 'lodash';
-import * as moment from 'moment';
+import * as moment from 'moment-timezone';
 
 @Component({
   selector: 'app-calendar',
@@ -121,8 +121,8 @@ export class CalendarComponent implements OnInit, AfterViewInit {
       return {
         id: item.Id,
         resource: item.SupportUnitId || -1,
-        start: moment.utc(item.MissionStart).startOf('day').toISOString(),
-        end: moment.utc(item.MissionEnd).endOf('day').toISOString(),
+        start: moment(item.MissionStart).format('YYYY-MM-DD'),
+        end: moment(item.MissionEnd).add(1, 'days').format('YYYY-MM-DD'),
         text: JSON.parse(item.RelatedMission).Title,
         barColor: (<any>_.find(this.lookups['statuses'], {text: item.Status})).color,
         bubbleHtml: `
