@@ -28,20 +28,20 @@ export class MsrResolver implements Resolve<MsrRouteData> {
       this.cacheddataService.getAll(),
       this.newsfeedService.getByMsr(id)
     ])
-    .then(data => {
+    .then((data: any) => {
       const msr = data[0];
       const lookups = data[1];
       const relatedNewsfeedItems = data[2];
 
       if (msr) {
-        msr.NewsfeedItems = <Array<NewsfeedItem>>relatedNewsfeedItems;
+        msr.NewsfeedItems = relatedNewsfeedItems;
         return new MsrRouteData(msr, lookups);
       }
       // Return a new object, because we're going to create a new one
       return new MsrRouteData(new Msr(), lookups);
     })
     .catch((error: any) => {
-      console.log(`${error.message}. Heading back to MSR list`);
+      console.error(`${error.message}. Heading back to MSR list`);
       this.router.navigate(['/msrs']);
       return null;
     });

@@ -30,13 +30,13 @@ export class MsrService {
   create(msr: Msr, permissions) {
     return this.pagecontextService.getWeb().lists.getByTitle(this.listName).items.add(msr.createDto(permissions))
     .then(resp => resp.data)
-    .catch(reason => console.log(reason));
+    .catch(reason => console.error(reason));
   }
 
   update(msr: Msr, permissions) {
     return this.pagecontextService.getWeb().lists.getByTitle(this.listName).items.getById(msr.Id).update(msr.createDto(permissions))
     .then(resp => resp.data)
-    .catch(reason => console.log(reason));
+    .catch(reason => console.error(reason));
   }
 
   updateStatus(statusUpdate: MsrStatusUpdate) {

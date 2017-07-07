@@ -118,7 +118,6 @@ export class CalendarComponent implements OnInit, AfterViewInit {
 
   refreshEvents(data) {
     data = data.map(item => {
-      console.log(this.lookups['statuses']);
       return {
         id: item.Id,
         resource: item.SupportUnitId || -1,
