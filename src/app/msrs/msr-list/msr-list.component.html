@@ -18,6 +18,10 @@
             <p-multiSelect (onChange)="applyFilters()" defaultLabel="Choose Status" [options]="filterControls.statuses.selectable" [(ngModel)]="filterControls.statuses.selected"></p-multiSelect>
           </td>
           <td class="pl-2">
+            <label>Owning Unit:</label><br>
+            <p-multiSelect (onChange)="applyFilters()" defaultLabel="Choose Owning Unit" [options]="filterControls.owningUnits.selectable" [(ngModel)]="filterControls.owningUnits.selected"></p-multiSelect>
+          </td>
+          <td class="pl-2">
             <label>Assigned Unit:</label><br>
             <p-multiSelect (onChange)="applyFilters()" defaultLabel="Choose Assigned Unit" [options]="filterControls.supportUnits.selectable" [(ngModel)]="filterControls.supportUnits.selected"></p-multiSelect>
           </td>
@@ -45,6 +49,7 @@
             </p-column>
             <p-column field="MissionStart_Military" sortField="MissionStart" header="Start" sortable="true"></p-column>
             <p-column field="MissionEnd_Military" sortField="MissionEnd" header="End" sortable="true"></p-column>
+            <p-column field="OwningUnitName" header="Owning Unit"></p-column>
             <p-column field="SupportUnitName" sortField="SupportUnitName" header="Assigned Unit" sortable="true"></p-column>
         </p-dataTable>
       </div> 

@@ -20,6 +20,10 @@ export class MsrListComponent implements OnInit {
   msrList: Array<any>;
   lookups: any;
   filterControls = {
+    owningUnits: {
+      selectable: [],
+      selected: []
+    },
     requestingUnits: {
       selectable: [],
       selected: []
@@ -43,6 +47,7 @@ export class MsrListComponent implements OnInit {
     item.MissionEnd_Military = moment(item.MissionEnd).format('DD MMM YY').toUpperCase();
     item.SupportUnitName = (item.SupportUnit && item.SupportUnit.Name) ? item.SupportUnit.Name : '';
     item.RequestingUnitName = item.RequestingUnit.Name;
+    item.OwningUnitName = (item.OwningUnits.results.length) ? _.map(item.OwningUnits.results, 'Name').join('; ') : '';
     const mission = JSON.parse(item.RelatedMission);
     item.MissionName = mission.Title;
     item.StatusClass = (<any>_.find(this.lookups.statuses, {text: item.Status})).bootstrapBadge;
@@ -52,6 +57,14 @@ export class MsrListComponent implements OnInit {
   initializeFilterControls() {
     this.filterControls.requestingUnits.selectable =
       _.map(this.lookups.requestingUnits, (item: any) => {
+        return {
+          label: item.Name,
+          value: item.Id
+        };
+      });
+
+    this.filterControls.owningUnits.selectable =
+      _.map(this.lookups.owningUnits, (item: any) => {
         return {
           label: item.Name,
           value: item.Id
@@ -107,7 +120,13 @@ export class MsrListComponent implements OnInit {
         .filter((item) => this.filterBySelectedRequestingUnits(item))
         .filter((item) => this.filterBySelectedStatuses(item))
         .filter((item) => this.filterBySelectedSupportUnits(item))
+        .filter((item) => this.filterBySelectedOwningUnits(item))
         .value();
+  }
+
+  filterBySelectedOwningUnits(item) {
+    if (this.filterControls.owningUnits.selected.length === 0) { return true; }
+    return _.intersection(this.filterControls.owningUnits.selected, item.OwningUnitsId.results).length;
   }
 
   filterBySelectedRequestingUnits(item) {
