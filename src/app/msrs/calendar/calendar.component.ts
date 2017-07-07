@@ -121,8 +121,8 @@ export class CalendarComponent implements OnInit, AfterViewInit {
       return {
         id: item.Id,
         resource: item.SupportUnitId || -1,
-        start: item.MissionStart.split('T')[0],
-        end: item.MissionEnd.split('T')[0],
+        start: moment.utc(item.MissionStart).startOf('day').toISOString(),
+        end: moment.utc(item.MissionEnd).endOf('day').toISOString(),
         text: JSON.parse(item.RelatedMission).Title,
         barColor: (<any>_.find(this.lookups['statuses'], {text: item.Status})).color,
         bubbleHtml: `
