@@ -5,6 +5,8 @@ import { MsrRouteData } from '../shared/msr-resolver.service';
 import { Msr } from '../shared/msr.model';
 import * as _ from 'lodash';
 
+declare var jsPDF: any;
+
 @Component({
   selector: 'app-print',
   templateUrl: './print.component.html',
@@ -65,7 +67,35 @@ export class PrintComponent implements OnInit, OnDestroy {
     return _.map(msr.OwningUnitsId, (item) => _.find(this.cachedData.owningUnits, {Id: item}));
   }
 
-  onPrintButtonClicked() {
-    window.print();
+  onPrintButtonClicked(msr) {
+    const columns = [
+      {title: 'name', dataKey: 'name'},
+      {title: 'value', dataKey: 'value'}
+    ];
+
+    const rows = [];
+    const missionStart = `${msr.MissionStart.month}/${msr.MissionStart.day}/${msr.MissionStart.year}`;
+    const missionEnd = `${msr.MissionEnd.month}/${msr.MissionEnd.day}/${msr.MissionEnd.year}`;
+    rows.push({name: 'Status', value: msr.Status});
+    rows.push({name: 'Operation Type', value: msr.OperationType});
+    rows.push({name: 'Dates', value: `${missionStart} - ${missionEnd}`});
+    rows.push({name: 'CONOP', value: msr.Conop || ''});
+    rows.push({name: 'Airfields/Locations', value: msr.AirfieldLocations || ''});
+    rows.push({name: 'Impact if not supported', value: msr.NegativeImpact || ''});
+    rows.push({name: 'Medical Requirements', value: (msr.MedicalSupportRequired) ? msr.MedicalSupportReqs : ''});
+    rows.push({name: 'Communications Requirements', value: (msr.CommunicationSupportRequired) ? msr.CommunicationSupportReqs : ''});
+
+    const doc = new jsPDF();
+    doc.text(msr.SelectedMissions[0].Title, 14, 16);
+    doc.autoTable(columns, rows,
+      {
+        startY: 20,
+        bodyStyles: {valign: 'top'},
+        styles: {overflow: 'linebreak', columnWidth: 'wrap'},
+        showHeader: 'never',
+        theme: 'grid',
+        columnStyles: {name: {fontStyle: 'bold'}, value: {columnWidth: 'auto'}}
+      });
+    window.open(doc.output('datauristring'));
   }
 }

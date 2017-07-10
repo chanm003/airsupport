@@ -38,6 +38,8 @@
     "daypilot-pro-angular": "https://npm.daypilot.org/daypilot-pro-angular/trial/8.3.2805.tar.gz",
     "es6-promise": "^4.1.0",
     "jquery": "3.2.1",
+    "jspdf": "^1.3.3",
+    "jspdf-autotable": "^2.3.2",
     "moment": "2.18.1",
     "moment-timezone": "^0.5.13",
     "ng2-charts": "1.5.0",
