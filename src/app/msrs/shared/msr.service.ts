@@ -3,6 +3,7 @@ import { Msr } from '../../msrs/shared/msr.model';
 import { ExceptionService } from '../../core/exception.service';
 import { PagecontextService } from '../../core/pagecontext.service';
 import { CacheddataService } from '../../core/cacheddata.service';
+import * as _ from 'lodash';
 
 @Injectable()
 export class MsrService {
@@ -50,14 +51,30 @@ export class MsrService {
       .get();
   }
 
-  getByDateRange(start: string, end: string) {
+  getByDateRange(start: string, end: string, lookups: any) {
+    const subunits = _.chain(lookups.supportUnits)
+      .map('Subunits')
+      .flatten()
+      .value();
+
     const fieldsToSelect = `Id,Conop,MissionStart,MissionEnd,OperationType,Status,SupportUnitId,RelatedMission,Requester/Title,
-      RequesterEmail,RequesterPhone,RequestingUnit/Name`;
+      RequesterEmail,RequesterPhone,RequestingUnit/Name,AssignedSubunits,AssignedOutsideUnits`;
     return this.pagecontextService.getWeb().lists.getByTitle(this.listName).items
       .select(fieldsToSelect)
       .expand('Requester,RequestingUnit')
       .filter(`MissionStart le '${end}' and MissionEnd ge '${start}'`)
-      .get();
+      .get()
+      .then(res => {
+        return _.map(res, (item: any) => {
+          item.AssignedSubunits = _.map(JSON.parse(item.AssignedSubunits), (subunit: any) => {
+            const match: any = _.find(subunits, {Id: subunit.subunitId});
+            subunit.name = (!!match) ? match.Name : subunit.subunitId;
+            return subunit;
+          });
+          item.AssignedOutsideUnits = JSON.parse(item.AssignedOutsideUnits);
+          return item;
+        });
+      });
   }
 
   get(id: number): Promise<Msr> {

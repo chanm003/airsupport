@@ -104,7 +104,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
     this.schedulerConfig.days = end.diff(start, 'days');
 
     this.spinnerService.show();
-    this.msrService.getByDateRange(start.format('YYYY-MM-DD'), end.format('YYYY-MM-DD'))
+    this.msrService.getByDateRange(start.format('YYYY-MM-DD'), end.format('YYYY-MM-DD'), this.lookups)
       .then(data => {
         this.refreshEvents(data);
         this.spinnerService.hide();
@@ -118,6 +118,8 @@ export class CalendarComponent implements OnInit, AfterViewInit {
 
   refreshEvents(data) {
     data = data.map(item => {
+      const subunits = _.map(item.AssignedSubunits, 'name').concat(_.map(item.AssignedOutsideUnits, 'name'));
+      const listItems = _.map(subunits, (i: string) => `<li>${i}</li>`).join('');
       return {
         id: item.Id,
         resource: item.SupportUnitId || -1,
@@ -126,12 +128,13 @@ export class CalendarComponent implements OnInit, AfterViewInit {
         text: JSON.parse(item.RelatedMission).Title,
         barColor: (<any>_.find(this.lookups['statuses'], {text: item.Status})).color,
         bubbleHtml: `
-          <div style="padding:5px 10px 0px 10px;">
+          <div style="padding:5px 10px 0px 10px;width:400px;">
             <address>
               <strong>${item.Requester.Title}</strong><br>
               ${item.RequestingUnit.Name}<br>
               <i class="fa fa-envelope"></i> ${item.RequesterEmail}<br>
               <i class="fa fa-phone-square"></i> ${item.RequesterPhone}<br>
+              <ul style="padding-left: 20px;margin: 10px 0;">${listItems}</ul>
               ${item.Conop}
             </address>
           </div>
