@@ -40,4 +40,18 @@ export class MissionService {
         autocompletePlaceholderText: `Search existing OAAs`
       };
     }
+
+    extractSelectedMissionFromQueryString(params) {
+      if (!params['oaaID'] || !params['oaaTitle'] || !params['eventID']) {
+        return null;
+      }
+
+      return {
+        Id: params['oaaID'],
+        EventID: params['eventID'],
+        Title: params['oaaTitle'],
+        display: params['oaaTitle'],
+        value: params['oaaID']
+      };
+    }
 }

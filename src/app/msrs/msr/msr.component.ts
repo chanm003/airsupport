@@ -62,6 +62,19 @@ export class MsrComponent implements OnInit {
       this.cachedData = resolved.data.lookups;
       this.capturePristineMsr(resolved.data.msr);
     });
+
+    this.route
+      .queryParams
+      .subscribe(params => {
+        if (!this.msrBeingEdited.Id) {
+          const msn = this.missionService.extractSelectedMissionFromQueryString(params);
+          if (msn) {
+            this.msrBeingEdited.SelectedMissions = [msn];
+            this.msrBeingEdited.RelatedMissionId = String(msn.Id);
+            this.isLinkedWithMission = true;
+          }
+        }
+      });
   }
 
   onMissionAdded(msn) {
