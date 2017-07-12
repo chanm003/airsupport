@@ -12,6 +12,7 @@ import { LocalStorageModule } from 'angular-2-local-storage';
 import { HttpModule } from '@angular/http';
 import { SpinnerComponent } from './spinner/spinner.component';
 import { SpinnerService } from './spinner/spinner.service';
+import { PrintformService } from './printform.service';
 
 @NgModule({
   imports: [
@@ -35,6 +36,7 @@ import { SpinnerService } from './spinner/spinner.service';
     EntityService,
     ExceptionService,
     PagecontextService,
+    PrintformService,
     PeopleService,
     MissionService,
     SpinnerService

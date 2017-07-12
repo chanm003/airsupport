@@ -4,6 +4,7 @@ import { MainformComponent } from './mainform/mainform.component';
 import * as _ from 'lodash';
 import { Router } from '@angular/router';
 import { SpinnerService } from '../../../core/spinner/spinner.service';
+import { PrintformService } from '../../../core/printform.service';
 
 @Component({
   selector: 'app-requester-tabcontent',
@@ -20,7 +21,7 @@ export class RequesterTabcontentComponent implements OnInit {
     'Personnel/Cargo', 'SAM', 'ST/BA'
   ];
 
-  constructor(private router: Router, private spinnerService: SpinnerService) { }
+  constructor(private router: Router, private spinnerService: SpinnerService, private printformService: PrintformService) { }
 
   ngOnInit() {
     this.setButtonsLogic();
@@ -39,9 +40,7 @@ export class RequesterTabcontentComponent implements OnInit {
   }
 
   onPrintButtonClicked() {
-    this.spinnerService.show();
-    this.router.navigate([`/msrs/print/${this.msr.Id}`])
-      .then(() => this.spinnerService.hide());
+    this.printformService.printMsr(this.msrOnLoad, this.cachedData, Msr.fieldsLogic, Msr.panelsLogic);
   }
 
   setButtonsLogic() {
