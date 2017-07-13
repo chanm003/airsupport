@@ -16,7 +16,7 @@ import { SpinnerService } from '../../../core/spinner/spinner.service';
   templateUrl: './updatestatus.component.html',
   styles: []
 })
-export class UpdatestatusComponent implements OnInit, OnChanges {
+export class UpdatestatusComponent implements OnInit {
   modalRef: NgbModalRef;
   statuses = ['Vetting', 'Assigned', 'Planning', 'Approved', 'Rejected'];
   formData = {
@@ -29,7 +29,6 @@ export class UpdatestatusComponent implements OnInit, OnChanges {
   @Input() msr: Msr;
   @Input() msrOnLoad: Msr;
   @Input() cachedData: any;
-  checkboxDataSource: Array<any>;
 
   constructor(private modalService: NgbModal, private msrService: MsrService,
     private newsfeedService: NewsfeedService, private notificationService: NotificationsService,
@@ -41,7 +40,7 @@ export class UpdatestatusComponent implements OnInit, OnChanges {
   openModal(modalContent, selectedStatus) {
     this.formData.status = selectedStatus;
     this.formData.SupportUnitId = this.msr.SupportUnitId;
-    this.formData.OwningUnitsId = this.msr.OwningUnitsId;
+    this.formData.OwningUnitsId = _.map(this.msr.OwningUnitsId, id => String(id));
     this.modalRef = this.modalService.open(modalContent);
 
     this.modalRef.result.then(
@@ -74,7 +73,7 @@ export class UpdatestatusComponent implements OnInit, OnChanges {
     update.Id = this.msr.Id;
     update.Status = this.formData.status;
     if (this.formData.status === 'Vetting') {
-      update.OwningUnitsId = this.formData.OwningUnitsId;
+      update.OwningUnitsId = _.map(this.formData.OwningUnitsId, id => { return +id; });
       update.OwningUnits = _.map(update.OwningUnitsId, (unitId) =>  _.find(this.cachedData.owningUnits, { Id: unitId }));
     }
     if (this.formData.status === 'Assigned') {
@@ -101,25 +100,5 @@ export class UpdatestatusComponent implements OnInit, OnChanges {
 
   createNewsfeedItems(changeReport: MsrChangeReport, msr: Msr) {
     return this.newsfeedService.createFromChangeReport(changeReport, msr);
-  }
-
-  ngOnChanges() {
-    /*Fires when user goes from /msrs/8 to /msrs/9 */
-    this.buildCheckboxDataSource();
-  }
-
-
-  buildCheckboxDataSource() {
-    this.checkboxDataSource = _.map(this.cachedData['owningUnits'], (opt: any) => {
-      return {
-        value: opt.Id,
-        display: opt.Name,
-        isChecked: _.includes(this.msr.OwningUnitsId, opt.Id)
-      };
-    });
-  }
-
-  onCheckboxClicked() {
-    this.formData.OwningUnitsId = _.map(_.filter(this.checkboxDataSource, { isChecked: true }), 'value');
   }
 }

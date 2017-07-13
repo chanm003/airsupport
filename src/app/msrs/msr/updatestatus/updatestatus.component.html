@@ -53,9 +53,7 @@
         <div class="form-group" *ngIf="formData.status === 'Vetting'">
           <label>Owner</label>
           <div>
-            <label *ngFor="let item of checkboxDataSource" class="checkbox-inline">
-            <input type="checkbox" [(ngModel)]="item['isChecked']" (change)="onCheckboxClicked()"> {{item.display}}
-          </label>
+            <p-checkbox *ngFor="let opt of cachedData['owningUnits']" name="groupname" value="{{opt.Id}}" label="{{opt.Name}}" [(ngModel)]="formData.OwningUnitsId"></p-checkbox>
           </div>
         </div>
 

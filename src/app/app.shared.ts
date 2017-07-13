@@ -9,7 +9,7 @@ import {NgPipesModule} from 'ngx-pipes';
 import {OnlyNumberDirective} from './shared/onlynumber.directive';
 import { ErrorMessageComponent } from './shared/error-message.component';
 import {DayPilotModule} from 'daypilot-pro-angular';
-import {DataTableModule, MultiSelectModule } from 'primeng/primeng';
+import {DataTableModule, MultiSelectModule, CheckboxModule } from 'primeng/primeng';
 
 // imports: imports the module's exports. which are usually
 // declarables(components / directives / pipes) and providers.
@@ -21,11 +21,11 @@ import {DataTableModule, MultiSelectModule } from 'primeng/primeng';
 @NgModule({
   imports: [
     CommonModule, FormsModule, NgbModule, TagInputModule, NgPipesModule, ReactiveFormsModule, DayPilotModule, DataTableModule,
-    MultiSelectModule
+    MultiSelectModule, CheckboxModule
   ],
   exports: [
     CommonModule, FormsModule, NgbModule, TagInputModule, NgPipesModule, ReactiveFormsModule, OnlyNumberDirective,
-    ErrorMessageComponent, DayPilotModule, DataTableModule, MultiSelectModule
+    ErrorMessageComponent, DayPilotModule, DataTableModule, MultiSelectModule, CheckboxModule
   ],
   declarations: [OnlyNumberDirective, ErrorMessageComponent],
   providers: [
