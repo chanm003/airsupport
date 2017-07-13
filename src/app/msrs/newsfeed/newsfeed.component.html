@@ -1,17 +1,19 @@
-<section *ngIf="newsfeeditems?.length" class="timeline">
-  <div class="container">
-    <div *ngFor="let item of newsfeeditems" class="timeline-item">
-      <div class="timeline-img"></div>
-      <div class="timeline-content js--fadeInLeft">
-        <div class="date">{{item.Created | date:'dd MMM yyyy HHmm' | uppercase }}</div>
-        <p>
-          <app-status-change *ngIf="item.Type === 'StatusChange'" [newsfeeditem]="item"></app-status-change>
-        </p>
-      </div>
-    </div> 
+<div class="discussion-timeline">
+  <div>
+    <div *ngFor="let item of newsfeeditems" class="discussion-item">
+      <h3 class="discussion-item-header f5 text-normal">
+        <span class="discussion-item-icon">
+                  <svg aria-hidden="true" class="octicon octicon-person" height="16" version="1.1" viewBox="0 0 12 16" width="12"><path fill-rule="evenodd" d="M12 14.002a.998.998 0 0 1-.998.998H1.001A1 1 0 0 1 0 13.999V13c0-2.633 4-4 4-4s.229-.409 0-1c-.841-.62-.944-1.59-1-4 .173-2.413 1.867-3 3-3s2.827.586 3 3c-.056 2.41-.159 3.38-1 4-.229.59 0 1 0 1s4 1.367 4 4v1.002z"></path></svg>
+                </span>
+
+       
+        <app-status-change *ngIf="item.Type === 'StatusChange'" [newsfeeditem]="item"></app-status-change>
+        <a class="timestamp">
+          <div class="timestamp" datetime="2017-07-12T13:09:53Z" title="Jul 12, 2017, 3:09 PM GMT+2">a day ago</div>
+        </a>
+      </h3>
+    </div>
   </div>
-</section>
-
-
+</div>
 
 
