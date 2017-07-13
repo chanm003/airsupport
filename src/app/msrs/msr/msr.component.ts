@@ -69,6 +69,7 @@ export class MsrComponent implements OnInit {
         if (!this.msrBeingEdited.Id) {
           const msn = this.missionService.extractSelectedMissionFromQueryString(params);
           if (msn) {
+            this.missionService.parseMissionTitle(msn);
             this.msrBeingEdited.SelectedMissions = [msn];
             this.msrBeingEdited.RelatedMissionId = String(msn.Id);
             this.isLinkedWithMission = true;
@@ -78,6 +79,7 @@ export class MsrComponent implements OnInit {
   }
 
   onMissionAdded(msn) {
+    this.missionService.parseMissionTitle(msn);
     this.msrBeingEdited.RelatedMissionId = String(msn.Id);
   }
 

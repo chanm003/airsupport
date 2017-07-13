@@ -54,4 +54,8 @@ export class MissionService {
         value: params['oaaID']
       };
     }
+
+    parseMissionTitle(msn) {
+      msn.display = msn.Title = msn.Title.replace(/\d{1,2}\/\d{1,2}\/\d{4} - \d{1,2}\/\d{1,2}\/\d{4}\s{1}/g, '');
+    }
 }
