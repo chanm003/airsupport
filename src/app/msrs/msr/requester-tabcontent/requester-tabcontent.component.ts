@@ -5,6 +5,7 @@ import * as _ from 'lodash';
 import { Router } from '@angular/router';
 import { SpinnerService } from '../../../core/spinner/spinner.service';
 import { PrintformService } from '../../../core/printform.service';
+import { MissionService } from '../../../core/mission.service';
 
 @Component({
   selector: 'app-requester-tabcontent',
@@ -20,11 +21,14 @@ export class RequesterTabcontentComponent implements OnInit {
   sectionNames: Array<string> = [
     'Personnel/Cargo', 'SAM', 'ST/BA'
   ];
+  navigateButtonProps = {};
 
-  constructor(private router: Router, private spinnerService: SpinnerService, private printformService: PrintformService) { }
+  constructor(private router: Router, private spinnerService: SpinnerService, private printformService: PrintformService,
+    private missionService: MissionService) { }
 
   ngOnInit() {
     this.setButtonsLogic();
+    this.navigateButtonProps = this.missionService.getNavigateToMissionButtonProperties(this.msr.SelectedMissions[0]);
   }
 
   getAdditionalFormSection() {

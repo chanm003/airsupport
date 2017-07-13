@@ -58,4 +58,11 @@ export class MissionService {
     parseMissionTitle(msn) {
       msn.display = msn.Title = msn.Title.replace(/\d{1,2}\/\d{1,2}\/\d{4} - \d{1,2}\/\d{1,2}\/\d{4}\s{1}/g, '');
     }
+
+    getNavigateToMissionButtonProperties(msn) {
+      return {
+        url: `/oaa/app/Index.html#/eventDetails/${msn.Id}/${msn.EventID}`,
+        text: 'View Related OAA'
+      };
+    }
 }
