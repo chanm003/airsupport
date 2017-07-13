@@ -69,18 +69,17 @@
 
       <div class="form-group" *ngIf="showFields['AIE_related_fields'](msr)">
         <label>AIE Types</label>
+
         <div>
+          
           <label class="checkbox-inline">
-            <input [(ngModel)]="msr.HoistRequired" type="checkbox" name="HoistRequired">
-            Hoist
+            <p-checkbox [(ngModel)]="msr.HoistRequired" binary="true" label="Hoist"></p-checkbox>
           </label>
           <label class="checkbox-inline">
-            <input [(ngModel)]="msr.FastRopeRequired" type="checkbox" name="FastRopeRequired">
-            Fast Rope/FRIES
+            <p-checkbox [(ngModel)]="msr.FastRopeRequired" binary="true" label="Fast Rope/FRIES"></p-checkbox>
           </label>
           <label class="checkbox-inline">
-            <input [(ngModel)]="msr.RappelRequired" type="checkbox" name="RappelRequired">
-            Rappel
+            <p-checkbox [(ngModel)]="msr.RappelRequired" binary="true" label="Rappel"></p-checkbox>
           </label>
         </div>
         <input [(ngModel)]="msr.OtherAIE" type="text" class="form-control" name="OtherAIE" placeholder="Other AIE Type">

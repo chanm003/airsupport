@@ -1,6 +1,10 @@
 // Here you can add other styles
 input[type=text]::-ms-clear { display: none; }
 
+label.ui-chkbox-label {
+	margin-bottom: 0px;
+}
+
 .main .container-fluid {
 	min-width: 760px;
 }
