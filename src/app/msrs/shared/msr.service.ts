@@ -96,6 +96,7 @@ export class MsrService {
 export class MsrStatusUpdate {
   Id: number;
   Status: string;
+  SelectedMissions: Array<any>;
   OwningUnits?: Array<any>;
   OwningUnitsId: Array<number>;
   SupportUnitId?: number;

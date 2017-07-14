@@ -72,6 +72,7 @@ export class UpdatestatusComponent implements OnInit {
     const update = new MsrStatusUpdate();
     update.Id = this.msr.Id;
     update.Status = this.formData.status;
+    update.SelectedMissions = this.msr.SelectedMissions;
     if (this.formData.status === 'Vetting') {
       update.OwningUnitsId = _.map(this.formData.OwningUnitsId, id => { return +id; });
       update.OwningUnits = _.map(update.OwningUnitsId, (unitId) =>  _.find(this.cachedData.owningUnits, { Id: unitId }));

@@ -507,7 +507,7 @@ export class MsrTrackedChanges {
             return null;
         }
 
-        const associatedMission = prev.SelectedMissions[0];
+        const associatedMission = current.SelectedMissions[0];
         const notification = new StatusChange();
         notification.Type = 'StatusChange';
         notification.JSON = {
