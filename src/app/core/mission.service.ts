@@ -19,10 +19,12 @@ export class MissionService {
       return this.http.get(url).map((resp: Response) => {
         const results = resp.json().d.results;
         const mappedData = results.map(item => {
+            const relatedEvent = item.Event; /*ONE-to-MANY lookup OAA system */
+            const relatedEventId = (relatedEvent.results && relatedEvent.results.length > 0) ? relatedEvent.results[0].Id : '-1';
             return {
               Id: item.Id,
               Title: item.Title,
-              EventID: item.Event.Id,
+              EventID: relatedEventId,
               display: item.Title,
               value: item.Id
             };
@@ -61,7 +63,7 @@ export class MissionService {
 
     getNavigateToMissionButtonProperties(msn) {
       return {
-        url: `/oaa/app/Index.html#/eventDetails/${msn.Id}/${msn.EventID}`,
+        url: `/oaa/app/Index.html#/eventDetails/${msn.EventID}/${msn.Id}`,
         text: 'View Related OAA'
       };
     }
