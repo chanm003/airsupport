@@ -1,7 +1,7 @@
 // Here you can add other styles
 input[type=text]::-ms-clear { display: none; }
 
-label.ui-chkbox-label {
+label.ui-chkbox-label, label.ui-multiselect-label {
 	margin-bottom: 0px;
 }
 

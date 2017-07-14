@@ -15,9 +15,12 @@ export class StatusChange implements NewsfeedItem {
     JSON: {
         prevStatus: string;
         newStatus: string;
+        missionId: any,
+        missionTitle: any,
         comments?: string;
         emailTemplate?: string;
-        systemNotes?: string;
+        owningUnits?: Array<string>;
+        assignedUnit?: string;
     };
     Author?: { Title: string };
     Created?: string;

@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { NewsfeedItem } from '../shared/newsfeed.model';
 import * as _ from 'lodash';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-newsfeed',
@@ -12,7 +13,10 @@ export class NewsfeedComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit() {
+  ngOnInit() {}
+
+  getTimestamp(dt) {
+    return moment(dt).fromNow();
   }
 
 }

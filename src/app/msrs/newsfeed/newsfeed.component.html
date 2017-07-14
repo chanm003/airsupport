@@ -9,7 +9,7 @@
        
         <app-status-change *ngIf="item.Type === 'StatusChange'" [newsfeeditem]="item"></app-status-change>
         <a class="timestamp">
-          <div class="timestamp" datetime="2017-07-12T13:09:53Z" title="Jul 12, 2017, 3:09 PM GMT+2">a day ago</div>
+          <div class="timestamp" [title]="item.Created">{{getTimestamp(item.Created)}}</div>
         </a>
       </h3>
     </div>

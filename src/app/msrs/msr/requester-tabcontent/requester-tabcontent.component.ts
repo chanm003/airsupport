@@ -21,7 +21,10 @@ export class RequesterTabcontentComponent implements OnInit {
   sectionNames: Array<string> = [
     'Personnel/Cargo', 'SAM', 'ST/BA'
   ];
-  navigateButtonProps = {};
+  navigateButtonProps = {
+    url: '',
+    text: ''
+  };
 
   constructor(private router: Router, private spinnerService: SpinnerService, private printformService: PrintformService,
     private missionService: MissionService) { }

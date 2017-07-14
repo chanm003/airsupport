@@ -507,62 +507,42 @@ export class MsrTrackedChanges {
             return null;
         }
 
+        const associatedMission = prev.SelectedMissions[0];
         const notification = new StatusChange();
         notification.Type = 'StatusChange';
         notification.JSON = {
             prevStatus: prev.Status,
-            newStatus: current.Status
+            newStatus: current.Status,
+            missionId: associatedMission.Id,
+            missionTitle: associatedMission.Title
         };
-
-        if (prev.Status === '' && current.Status === 'Draft') {
-            notification.JSON.systemNotes =
-                `created this MSR. The system set the status of this MSR to 'Draft'.`;
-        }
-
-        if (prev.Status !== '' && current.Status === 'Draft') {
-            notification.JSON.systemNotes =
-                `reopened this MSR.  The system set the status of this MSR to 'Draft'.`;
-        }
 
         if (current.Status === 'Submitted') {
             /*No unit has taken ownership yet*/
             if (current.OwningUnitsId.length === 0) {
-                notification.JSON.systemNotes = 'submitted this MSR.';
                 notification.JSON.emailTemplate = 'Submitted';
             }
         }
 
-        if (current.Status === 'Canceled') {
-            notification.JSON.systemNotes = 'canceled this MSR.';
-        }
-
         if (current.Status === 'Rejected') {
-            notification.JSON.systemNotes = 'rejected this MSR.';
             notification.JSON.emailTemplate = 'Rejected';
         }
 
         if (current.Status === 'Approved') {
-            notification.JSON.systemNotes = 'approved this MSR.';
             notification.JSON.emailTemplate = 'Approved';
         }
 
         if (current.Status === 'Vetting') {
-            const selectedUnits = _.map(current.OwningUnits, 'Name');
-            const owner = selectedUnits.length === 1 ? 'owner' : 'owners';
-            notification.JSON.systemNotes =
-                `tagged ${selectedUnits.join(', ')} as the ${owner} of this MSR and set the status to 'Vetting'.`;
+            notification.JSON.owningUnits = <Array<string>>_.map(current.OwningUnits, 'Name');
             notification.JSON.emailTemplate = 'Vetting';
         }
 
         if (current.Status === 'Planning') {
-            notification.JSON.systemNotes =
-                `set the status of this MSR to 'Planning'.`;
             notification.JSON.emailTemplate = 'Planning';
         }
 
         if (current.Status === 'Assigned') {
-            notification.JSON.systemNotes =
-                `assigned ${current.SupportUnit.Name} to support this MSR and set the status of this MSR to 'Assigned'.`;
+            notification.JSON.assignedUnit = current.SupportUnit.Name;
             notification.JSON.emailTemplate = 'AssignedToSupportUnit';
         }
         return notification;
