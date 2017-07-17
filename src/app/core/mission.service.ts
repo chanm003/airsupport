@@ -58,7 +58,7 @@ export class MissionService {
     }
 
     parseMissionTitle(msn) {
-      msn.display = msn.Title = msn.Title.replace(/\d{1,2}\/\d{1,2}\/\d{4} - \d{1,2}\/\d{1,2}\/\d{4}\s{1}/g, '');
+      msn.display = msn.Title = msn.Title.replace(/\d{1,2}\/\d{1,2}\/\d{4}\s*-\s*\d{1,2}\/\d{1,2}\/\d{4}\s{1}/g, '');
     }
 
     getNavigateToMissionButtonProperties(msn) {
