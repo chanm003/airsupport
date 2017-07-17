@@ -273,8 +273,15 @@ msrSchema.lists['Mission Support Request'] = {
         },
         {
             //EXAMPLE: SINGLE LINE OF TEXT
-            Name: "ParachuteType",
-            DisplayName: "ParachuteType",
+            Name: "ParachuteStaticLine",
+            DisplayName: "ParachuteStaticLine",
+            Type: "Text",
+            Required: "FALSE"
+        },
+         {
+            //EXAMPLE: SINGLE LINE OF TEXT
+            Name: "ParachuteMFF",
+            DisplayName: "ParachuteMFF",
             Type: "Text",
             Required: "FALSE"
         },

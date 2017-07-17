@@ -17,11 +17,15 @@
         <input [(ngModel)]="msr.NumberOfPersonnel" type="number" OnlyNumber="true" min="1" class="form-control" name="NumberOfPersonnel">
       </div>
 
-      <div class="form-group" *ngIf="showFields['ParachuteType'](msr)">
+      <div class="form-group" *ngIf="showPanels['ParachuteFields'](msr)">
         <label>Parachute Type</label>
-        <select [(ngModel)]="msr.ParachuteType" (change)="parachuteTypeSpecified($event)" class="form-control mb-1" name="ParachuteType">
-          <option value="P8">P8</option>
-          <option value="P9">P9</option>
+        <select *ngIf="showFields['ParachuteMFF'](msr)" [(ngModel)]="msr.ParachuteMFF" (change)="parachuteTypeSpecified($event)" class="form-control mb-1" name="ParachuteMFF">
+          <option value="MFF8">MFF8</option>
+          <option value="MFF9">MFF9</option>
+        </select>
+        <select *ngIf="showFields['ParachuteStaticLine'](msr)" [(ngModel)]="msr.ParachuteStaticLine" (change)="parachuteTypeSpecified($event)" class="form-control mb-1" name="ParachuteStaticLine">
+          <option value="SL8">SL8</option>
+          <option value="SL9">SL9</option>
         </select>
         <input [(ngModel)]="msr.ParachuteTypeOther" (blur)="parachuteTypeSpecified($event)" type="text" class="form-control" name="ParachuteTypeOther" placeholder="Other Parachute Type">
       </div>

@@ -27,9 +27,16 @@ export class Msr {
         'NumberOfRefuelPointsRequired': function (msr) {
             return msr.OperationType === 'AIR Mobility (SAM)' && msr.AirMobilityType === 'FARP';
         },
-        'ParachuteType': function (msr) {
+        'ParachuteMFF': function (msr) {
             if (msr.OperationType === 'AIR Mobility (SAM)' && msr.AirMobilityType === 'Infill/Exfill') {
-                return msr.InfillExfillType === 'MFF' || msr.InfillExfillType === 'Static Line';
+                return msr.InfillExfillType === 'MFF';
+            }
+
+            return false;
+        },
+        'ParachuteStaticLine': function (msr) {
+            if (msr.OperationType === 'AIR Mobility (SAM)' && msr.AirMobilityType === 'Infill/Exfill') {
+                return msr.InfillExfillType === 'Static Line';
             }
 
             return false;
@@ -66,6 +73,13 @@ export class Msr {
                     return msr.InfillExfillType === 'RAPIDS' && msr.SurveysRequired;
                 }
             }
+            return false;
+        },
+        'ParachuteFields': function (msr) {
+            if (msr.OperationType === 'AIR Mobility (SAM)' && msr.AirMobilityType === 'Infill/Exfill') {
+                return msr.InfillExfillType === 'MFF' || msr.InfillExfillType === 'Static Line';
+            }
+
             return false;
         },
         'Platforms': function (msr) {
@@ -147,7 +161,8 @@ export class Msr {
     OwningUnitsId?: Array<number>;
     OwningUnits?: any;
     PalletWeight?: number;
-    ParachuteType?: string;
+    ParachuteMFF?: string;
+    ParachuteStaticLine?: string;
     ParachuteTypeOther?: string;
     Pararescue?: string;
     PaxBaggageWeight?: number;
@@ -231,7 +246,8 @@ export class Msr {
             'NumberOfPersonnel': (target, source, propName) => target[propName] = source[propName],
             'NumberOfRefuelPointsRequired': (target, source, propName) => target[propName] = source[propName],
             'OtherAIE': (target, source, propName) => target[propName] = source[propName],
-            'ParachuteType': (target, source, propName) => target[propName] = source[propName],
+            'ParachuteMFF': (target, source, propName) => target[propName] = source[propName],
+            'ParachuteStaticLine': (target, source, propName) => target[propName] = source[propName],
             'ParachuteTypeOther': (target, source, propName) => target[propName] = source[propName],
             'RappelRequired': (target, source, propName) => target[propName] = source[propName],
             'SurveysRequired': (target, source, propName) => target[propName] = source[propName],
@@ -340,7 +356,8 @@ export class Msr {
             'NumberOfPersonnel': (target, source, propName) => target[propName] = source[propName],
             'NumberOfRefuelPointsRequired': (target, source, propName) => target[propName] = source[propName],
             'OtherAIE': (target, source, propName) => target[propName] = source[propName],
-            'ParachuteType': (target, source, propName) => target[propName] = source[propName],
+            'ParachuteMFF': (target, source, propName) => target[propName] = source[propName],
+            'ParachuteStaticLine': (target, source, propName) => target[propName] = source[propName],
             'ParachuteTypeOther': (target, source, propName) => target[propName] = source[propName],
             'RappelRequired': (target, source, propName) => target[propName] = source[propName],
             'SurveysRequired': (target, source, propName) => target[propName] = source[propName],

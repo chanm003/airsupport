@@ -85,8 +85,13 @@ export class PrintformService {
         opTypeSpecificRows.push({name: '# Personnel', value: msr.NumberOfPersonnel || ''});
       }
 
-      if (showFieldsLogic['ParachuteType'](msr)) {
-        opTypeSpecificRows.push({name: 'Parachute Type', value: (msr.ParachuteType) ? msr.ParachuteType : (msr.ParachuteTypeOther || '') });
+      if (showPanelsLogic['ParachuteFields'](msr)) {
+        if (showFieldsLogic['ParachuteMFF'](msr)) {
+          opTypeSpecificRows.push({name: 'Parachute Type', value: msr.ParachuteMFF || msr.ParachuteTypeOther || '' });
+        }
+        if (showFieldsLogic['ParachuteStaticLine'](msr)) {
+          opTypeSpecificRows.push({name: 'Parachute Type', value: msr.ParachuteStaticLine || msr.ParachuteTypeOther || '' });
+        }
       }
 
       if (showFieldsLogic['TypeRelease'](msr)) {
