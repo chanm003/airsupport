@@ -20,12 +20,12 @@
       <div class="form-group" *ngIf="showPanels['ParachuteFields'](msr)">
         <label>Parachute Type</label>
         <select *ngIf="showFields['ParachuteMFF'](msr)" [(ngModel)]="msr.ParachuteMFF" (change)="parachuteTypeSpecified($event)" class="form-control mb-1" name="ParachuteMFF">
-          <option value="MFF8">MFF8</option>
-          <option value="MFF9">MFF9</option>
+           <option value="" disabled="true" [selected]="!msr.ParachuteMFF">Select a MFF Parachute</option>
+          <option *ngFor="let item of cachedData.mffParachutes" [value]="item">{{item}}</option>
         </select>
         <select *ngIf="showFields['ParachuteStaticLine'](msr)" [(ngModel)]="msr.ParachuteStaticLine" (change)="parachuteTypeSpecified($event)" class="form-control mb-1" name="ParachuteStaticLine">
-          <option value="SL8">SL8</option>
-          <option value="SL9">SL9</option>
+          <option value="" disabled="true" [selected]="!msr.ParachuteStaticLine">Select a Static Line Parachute</option>
+          <option *ngFor="let item of cachedData.staticLineParachutes" [value]="item">{{item}}</option>
         </select>
         <input [(ngModel)]="msr.ParachuteTypeOther" (blur)="parachuteTypeSpecified($event)" type="text" class="form-control" name="ParachuteTypeOther" placeholder="Other Parachute Type">
       </div>

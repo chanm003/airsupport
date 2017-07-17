@@ -9,7 +9,7 @@
   <legend class="pl-2 pb-2" *ngIf="!!getAdditionalFormSection()">{{getAdditionalFormSection()}}</legend>
   <div class="pl-5 pr-3">
       <app-cargoform [msr]="msr"></app-cargoform>
-      <app-airmobilityform [msr]="msr"></app-airmobilityform>
+      <app-airmobilityform [msr]="msr" [cachedData]="cachedData"></app-airmobilityform>
       <app-specialtacticsform [msr]="msr"></app-specialtacticsform>
 
       <app-pnforces [msr]="msr"></app-pnforces>

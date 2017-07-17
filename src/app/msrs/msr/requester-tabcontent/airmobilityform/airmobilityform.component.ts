@@ -8,6 +8,7 @@ import { Msr } from '../../../shared/msr.model';
 })
 export class AirmobilityformComponent implements OnInit {
   @Input() msr: Msr;
+  @Input() cachedData: any;
 
   showFields = Msr.fieldsLogic;
   showPanels = Msr.panelsLogic;

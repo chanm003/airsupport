@@ -12,6 +12,42 @@ export class CacheddataService {
     private pagecontextService: PagecontextService) {
   }
 
+  private getParachuteMff() {
+    const types = [
+      'MT1-S',
+      'MC-4',
+      'MC-5',
+      'MT1-X',
+      'MT-2XX',
+      'RA-1',
+      'MS-360',
+      'MP-360',
+      'HG-380',
+      'TP-400',
+      'TP-425',
+      'TP-460'
+    ];
+    return Promise.resolve(_.sortBy(types));
+  }
+
+  private getParachuteStaticLine() {
+    const types = [
+      'T-10C/D',
+      'MC1-1 C/D/E',
+      'T-11',
+      'MC-6',
+      'MC-7',
+      'SF-10A',
+      'MT1-S',
+      'MC-5',
+      'MT1-X',
+      'RA-1',
+      'MS-360',
+      'MP-360'
+    ];
+    return Promise.resolve(_.sortBy(types));
+  }
+
   private getStatuses() {
     const statuses = [
       { text: 'Draft', bootstrapBadge: 'badge-warning', color: '#f8cb00' },
@@ -122,7 +158,9 @@ export class CacheddataService {
       this.getSupportUnits(),
       this.getInfoForCurrentUser(),
       this.getEmailTemplates(),
-      this.getStatuses()
+      this.getStatuses(),
+      this.getParachuteMff(),
+      this.getParachuteStaticLine()
     ])
     .then(data => {
       const owningUnits = data[0];
@@ -143,7 +181,9 @@ export class CacheddataService {
           owningUnits: owningUnits,
           currentUser: currentUser,
           emailTemplates: data[5],
-          statuses: data[6]
+          statuses: data[6],
+          mffParachutes: data[7],
+          staticLineParachutes: data[8]
       };
 
       this.localStorageService.set('lookups', lookups);
