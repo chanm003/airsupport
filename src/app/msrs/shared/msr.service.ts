@@ -48,15 +48,11 @@ export class MsrService {
     return this.pagecontextService.getWeb().lists.getByTitle(this.listName).items
       .select(...this.fieldsToSelect)
       .expand(...this.fieldsToExpand)
-      .get();
+      .get()
+      .then(this.mapItems);
   }
 
-  getByDateRange(start: string, end: string, lookups: any) {
-    const subunits = _.chain(lookups.supportUnits)
-      .map('Subunits')
-      .flatten()
-      .value();
-
+  getByDateRange(start: string, end: string) {
     const fieldsToSelect = `Id,Conop,MissionStart,MissionEnd,OperationType,Status,SupportUnitId,RelatedMission,Requester/Title,
       RequesterEmail,RequesterPhone,RequestingUnit/Name,AssignedSubunits,AssignedOutsideUnits`;
     return this.pagecontextService.getWeb().lists.getByTitle(this.listName).items
@@ -64,17 +60,7 @@ export class MsrService {
       .expand('Requester,RequestingUnit')
       .filter(`MissionStart le '${end}' and MissionEnd ge '${start}'`)
       .get()
-      .then(res => {
-        return _.map(res, (item: any) => {
-          item.AssignedSubunits = _.map(JSON.parse(item.AssignedSubunits), (subunit: any) => {
-            const match: any = _.find(subunits, {Id: subunit.subunitId});
-            subunit.name = (!!match) ? match.Name : subunit.subunitId;
-            return subunit;
-          });
-          item.AssignedOutsideUnits = JSON.parse(item.AssignedOutsideUnits);
-          return item;
-        });
-      });
+      .then(this.mapItems);
   }
 
   get(id: number): Promise<Msr> {
@@ -90,6 +76,16 @@ export class MsrService {
       .then(function(res){
         return new Msr(res);
       });
+  }
+
+  mapItems(items) {
+    const isoToday = (new Date()).toISOString();
+    return _.map(items, (item: any) => {
+      if (item.Status === 'Approved' && item.MissionEnd <= isoToday) {
+        item.Status = 'Completed';
+      }
+      return item;
+    });
   }
 }
 

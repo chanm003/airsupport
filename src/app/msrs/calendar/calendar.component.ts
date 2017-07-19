@@ -104,7 +104,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
     this.schedulerConfig.days = end.diff(start, 'days');
 
     this.spinnerService.show();
-    this.msrService.getByDateRange(start.format('YYYY-MM-DD'), end.format('YYYY-MM-DD'), this.lookups)
+    this.msrService.getByDateRange(start.format('YYYY-MM-DD'), end.format('YYYY-MM-DD'))
       .then(data => {
         this.refreshEvents(data);
         this.spinnerService.hide();
@@ -118,8 +118,23 @@ export class CalendarComponent implements OnInit, AfterViewInit {
 
   refreshEvents(data) {
     data = data.map(item => {
-      const subunits = _.map(item.AssignedSubunits, 'name').concat(_.map(item.AssignedOutsideUnits, 'name'));
-      const listItems = _.map(subunits, (i: string) => `<li>${i}</li>`).join('');
+      const subunits = _.chain(this.lookups.supportUnits)
+        .map('Subunits')
+        .flatten()
+        .value();
+
+      item.AssignedSubunits = _.map(JSON.parse(item.AssignedSubunits), (subunit: any) => {
+        const match: any = _.find(subunits, {Id: subunit.subunitId});
+        subunit.name = (!!match) ? match.Name : subunit.subunitId;
+        return subunit;
+      });
+      item.AssignedOutsideUnits = JSON.parse(item.AssignedOutsideUnits);
+
+      const listItems = _.chain(_.map(item.AssignedSubunits, 'name').concat(_.map(item.AssignedOutsideUnits, 'name')))
+        .map((i: string) => `<li>${i}</li>`)
+        .value()
+        .join('');
+
       return {
         id: item.Id,
         resource: item.SupportUnitId || -1,

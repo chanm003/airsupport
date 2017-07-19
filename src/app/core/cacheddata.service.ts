@@ -56,6 +56,7 @@ export class CacheddataService {
       { text: 'Assigned', bootstrapBadge: 'badge-primary', color: '#1985ac' },
       { text: 'Planning', bootstrapBadge: 'badge-primary', color: '#1985ac' },
       { text: 'Approved', bootstrapBadge: 'badge-success', color: '#3a9d5d' },
+      { text: 'Completed', bootstrapBadge: 'badge-success', color: '#3a9d5d' },
       { text: 'Rejected', bootstrapBadge: 'badge-danger', color: '#f63c3a' },
       { text: 'Canceled', bootstrapBadge: 'badge-danger', color: '#f63c3a' }
     ];
