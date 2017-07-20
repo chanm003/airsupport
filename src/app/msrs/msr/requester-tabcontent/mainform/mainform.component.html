@@ -97,7 +97,7 @@
 </div>
 <div class="row">
   <div class="form-group col-12">
-    <label>CONOP (5W's)</label>
+    <label>CONOP (5W's) <span class="text-muted">only required when submitting</span></label>
     <textarea [(ngModel)]="msr.Conop" formControlName="Conop" rows="4" class="form-control" placeholder="Concept of Operation"></textarea>
     <app-errormessage [parentFormGroup]="mainForm" [fieldName]="'Conop'" [validationMessages]="validationMessages"></app-errormessage>
   </div>
