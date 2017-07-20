@@ -15,7 +15,15 @@ export class MissionService {
       } else {
         webUrl = 'http://localhost:80/oaa';
       }
-      const url = `${webUrl}/_vti_bin/ListData.svc/OAA?$select=Id,Title,Event/Id&$expand=Event&$filter=substringof('${text}',Title)`;
+      const nowIsoFormat = (new Date()).toISOString();
+      const select = 'Id,Title,Event/Id,EndDate,StatusValue';
+      const statusFilter = `StatusValue ne 'Canceled' and StatusValue ne 'Completed' and StatusValue ne 'Disapproved'`;
+      const stringFilter = `substringof('${text}',Title)`;
+      const dateFilter = `EndDate ge datetime'${nowIsoFormat}'`;
+      const filter = `${statusFilter} and ${dateFilter} and ${stringFilter}`;
+      const expand = `Event`;
+      const orderby = `StartDate,EndDate`;
+      const url = `${webUrl}/_vti_bin/ListData.svc/OAA?$select=${select}&$expand=${expand}&$filter=${filter}&$orderby=${orderby}`;
       return this.http.get(url).map((resp: Response) => {
         const results = resp.json().d.results;
         const mappedData = results.map(item => {
