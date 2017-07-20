@@ -97,7 +97,7 @@
 </div>
 <div class="row">
   <div class="form-group col-12">
-    <label>CONOP</label>
+    <label>CONOP (5W's)</label>
     <textarea [(ngModel)]="msr.Conop" formControlName="Conop" rows="4" class="form-control" placeholder="Concept of Operation"></textarea>
     <app-errormessage [parentFormGroup]="mainForm" [fieldName]="'Conop'" [validationMessages]="validationMessages"></app-errormessage>
   </div>
@@ -119,7 +119,7 @@
     <div class="checkbox">
       <label>
               <input [(ngModel)]="msr.MedicalSupportRequired" type="checkbox" formControlName="MedicalSupportRequired">
-              Medical Support Required
+              Air Medical Support Required
             </label>
     </div>
     <textarea *ngIf="msr.MedicalSupportRequired" [(ngModel)]="msr.MedicalSupportReqs" formControlName="MedicalSupportReqs" rows="2" class="form-control"
@@ -130,7 +130,7 @@
     <div class="checkbox">
       <label>
               <input [(ngModel)]="msr.CommunicationSupportRequired" type="checkbox" formControlName="CommunicationSupportRequired">
-              Communications Support Required
+              Air Communications Support Required
             </label>
     </div>
     <textarea *ngIf="msr.CommunicationSupportRequired" [(ngModel)]="msr.CommunicationSupportReqs" formControlName="CommunicationSupportReqs"
