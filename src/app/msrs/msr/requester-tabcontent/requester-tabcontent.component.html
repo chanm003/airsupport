@@ -25,7 +25,7 @@
       <button *ngIf="buttonsManager['Reopen'].shouldShow()" (click)="buttonsManager['Reopen'].onClicked()" class="btn btn-success" type="button"><i class="fa fa-refresh"></i>&nbsp; Reopen Request</button>
       <button *ngIf="buttonsManager['Cancel'].shouldShow()" (click)="buttonsManager['Cancel'].onClicked()" class="btn btn-danger" type="button"><i class="fa fa-remove"></i>&nbsp; Cancel Request</button>
       <button *ngIf="msr.Id" type="button" class="btn btn-info" (click)="onPrintButtonClicked()"><i class="fa fa-print"></i> Generate Print-Friendly PDF</button>
-      <a class="btn btn-info" [href]="navigateButtonProps.url"><i class="fa fa-share"> {{navigateButtonProps.text}}</i></a>
+      <a target="_blank" class="btn btn-info" [href]="navigateButtonProps.url"><i class="fa fa-share"> {{navigateButtonProps.text}}</i></a>
   </div>
 </fieldset>
     
