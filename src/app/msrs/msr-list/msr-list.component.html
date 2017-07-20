@@ -33,7 +33,7 @@
       
       
       <div *ngIf="msrFiltered"> 
-        <p-dataTable [value]="msrFiltered" [rows]="25" [paginator]="true">
+        <p-dataTable [value]="msrFiltered" [rows]="25" [paginator]="true" sortField="MissionStart" [sortOrder]="1">>
             <p-column field="Id" header="ID" sortable="true" [style]="{'width':'5%', 'text-align': 'center'}">
               <ng-template let-item="rowData" pTemplate="body">
                 <a href="javascript:;" (click)="goToMsr(item)">{{item.Id}}</a>

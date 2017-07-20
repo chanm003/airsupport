@@ -30,7 +30,7 @@ export class MsrListComponent implements OnInit {
     },
     statuses: {
       selectable: [],
-      selected: []
+      selected: ['Submitted', 'Vetting', 'Assigned', 'Planning', 'Approved']
     },
     supportUnits: {
       selectable: [],
