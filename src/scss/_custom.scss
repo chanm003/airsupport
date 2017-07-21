@@ -5,6 +5,15 @@ label.ui-chkbox-label, label.ui-multiselect-label {
 	margin-bottom: 0px;
 }
 
+.ui-widget-content a {
+    color: $brand-primary;
+    text-decoration: underline;
+}
+
+.ui-datatable table {
+	table-layout: auto;
+}
+
 .main .container-fluid {
 	min-width: 760px;
 }
