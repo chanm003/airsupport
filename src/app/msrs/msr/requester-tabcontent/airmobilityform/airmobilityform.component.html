@@ -58,8 +58,11 @@
       <div class="form-group" *ngIf="showFields['TypeRelease'](msr)">
         <label>Type Release</label>
         <select [(ngModel)]="msr.TypeRelease" class="form-control" name="TypeRelease">
-          <option value="Release T1">Release T1</option>
-          <option value="Release T2">Release T2</option>
+          <option value="CDS">CDS</option>
+          <option value="Door Bundle">Door Bundle</option>
+          <option value="Ramp Bundle">Ramp Bundle</option>
+          <option value="JPADS">JPADS</option>
+          <option value="Heavy Equipment Platform">Heavy Equipment Platform</option>
         </select>
       </div>
 

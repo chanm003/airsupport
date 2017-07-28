@@ -12,10 +12,6 @@ export class Msr {
             return msr.OperationType === 'AIR Mobility (SAM)' && msr.AirMobilityType === 'Equipment Drop';
         },
         'FFEquipment': function (msr) {
-            if (msr.OperationType === 'AIR Mobility (SAM)' && msr.AirMobilityType === 'Infill/Exfill') {
-                return msr.InfillExfillType === 'MFF' || msr.InfillExfillType === 'Static Line';
-            }
-
             return false;
         },
         'InfillExfillType': function (msr) {
@@ -48,11 +44,6 @@ export class Msr {
         'TypeRelease': function (msr) {
             if (msr.OperationType !== 'AIR Mobility (SAM)') { return false; }
             if (msr.AirMobilityType === 'Equipment Drop') { return true; }
-
-            if (msr.AirMobilityType === 'Infill/Exfill') {
-                return msr.InfillExfillType === 'MFF' || msr.InfillExfillType === 'Static Line';
-            }
-
             return false;
         }
     };
