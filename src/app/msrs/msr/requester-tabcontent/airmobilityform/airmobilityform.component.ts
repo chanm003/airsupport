@@ -21,7 +21,7 @@ export class AirmobilityformComponent implements OnInit {
   parachuteTypeSpecified($event){
     if ($event.target.name === 'ParachuteMFF' || $event.target.name === 'ParachuteStaticLine') {
       this.msr.ParachuteTypeOther = '';
-    } else if ($event.target.name === 'ParachuteTypeOther') {
+    } else if ($event.target.name === 'ParachuteTypeOther'  && this.msr.ParachuteTypeOther) {
       this.msr.ParachuteMFF = '';
       this.msr.ParachuteStaticLine = '';
     }
