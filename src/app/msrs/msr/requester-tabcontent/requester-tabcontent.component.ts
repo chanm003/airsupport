@@ -75,7 +75,9 @@ export class RequesterTabcontentComponent implements OnInit {
         }
       },
       'Cancel': {
-        shouldShow: () => !!this.msr.Id && _.includes(['Submitted', 'Vetting', 'Assigned', 'Planning', 'Approved'], this.msrOnLoad.Status),
+        shouldShow: () => {
+          return  !!this.msr.Id && _.includes(['Draft', 'Submitted', 'Vetting', 'Assigned', 'Planning', 'Approved'], this.msrOnLoad.Status);
+        },
         onClicked: () => {
           this.msr.Status = 'Canceled';
           this.saveButtonClicked.emit();
