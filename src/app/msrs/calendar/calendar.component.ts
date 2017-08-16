@@ -100,7 +100,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
       start = moment().startOf('month');
     }
     this.schedulerConfig.startDate = start.format('YYYY-MM-DD');
-    const end = start.clone().add(3, 'months').startOf('month');
+    const end = start.clone().add(6, 'months').startOf('month');
     this.schedulerConfig.days = end.diff(start, 'days');
 
     this.spinnerService.show();
