@@ -72,6 +72,7 @@ export class CacheddataService {
     return this.pagecontextService.getWeb().lists.getByTitle(listName).items
       .select(...fieldsToSelect)
       .expand(...fieldsToExpand)
+      .top(10000)
       .get();
   }
 
@@ -81,6 +82,7 @@ export class CacheddataService {
 
     return this.pagecontextService.getWeb().lists.getByTitle(listName).items
       .select(...fieldsToSelect)
+      .top(10000)
       .get();
   }
 
@@ -90,6 +92,7 @@ export class CacheddataService {
 
     return this.pagecontextService.getWeb().lists.getByTitle(listName).items
       .select(...fieldsToSelect)
+      .top(10000)
       .get();
   }
 
@@ -101,6 +104,7 @@ export class CacheddataService {
     return this.pagecontextService.getWeb().lists.getByTitle(listName).items
       .select(...fieldsToSelect)
       .expand(...fieldsToExpand)
+      .top(10000)
       .get();
   }
 
@@ -110,6 +114,7 @@ export class CacheddataService {
 
     return this.pagecontextService.getWeb().lists.getByTitle(listName).items
       .select(...fieldsToSelect)
+      .top(10000)
       .get()
       .then((data) => {
         const templates = {};

@@ -48,6 +48,7 @@ export class MsrService {
     return this.pagecontextService.getWeb().lists.getByTitle(this.listName).items
       .select(...this.fieldsToSelect)
       .expand(...this.fieldsToExpand)
+      .top(10000)
       .get()
       .then(this.mapItems);
   }
@@ -59,6 +60,7 @@ export class MsrService {
       .select(fieldsToSelect)
       .expand('Requester,RequestingUnit')
       .filter(`MissionStart le '${end}' and MissionEnd ge '${start}'`)
+      .top(10000)
       .get()
       .then(this.mapItems);
   }

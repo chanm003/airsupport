@@ -39,6 +39,7 @@ export class NewsfeedService {
       .orderBy('Id', false)
       .select(...this.fieldsToSelect)
       .expand(...this.fieldsToExpand)
+      .top(10000)
       .get()
       .then((items) => {
         return _.map(items, (item: any) => {
