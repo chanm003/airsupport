@@ -10,6 +10,7 @@ import {OnlyNumberDirective} from './shared/onlynumber.directive';
 import { ErrorMessageComponent } from './shared/error-message.component';
 import {DayPilotModule} from 'daypilot-pro-angular';
 import {DataTableModule, MultiSelectModule, CheckboxModule } from 'primeng/primeng';
+import {Nl2BrPipe} from 'nl2br-pipe';
 
 // imports: imports the module's exports. which are usually
 // declarables(components / directives / pipes) and providers.
@@ -25,9 +26,9 @@ import {DataTableModule, MultiSelectModule, CheckboxModule } from 'primeng/prime
   ],
   exports: [
     CommonModule, FormsModule, NgbModule, TagInputModule, NgPipesModule, ReactiveFormsModule, OnlyNumberDirective,
-    ErrorMessageComponent, DayPilotModule, DataTableModule, MultiSelectModule, CheckboxModule
+    ErrorMessageComponent, DayPilotModule, DataTableModule, MultiSelectModule, CheckboxModule, Nl2BrPipe
   ],
-  declarations: [OnlyNumberDirective, ErrorMessageComponent],
+  declarations: [OnlyNumberDirective, ErrorMessageComponent, Nl2BrPipe],
   providers: [
     {
       provide: NgbDateParserFormatter,
