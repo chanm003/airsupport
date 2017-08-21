@@ -37,10 +37,10 @@ export class RequesterTabcontentComponent implements OnInit {
   getAdditionalFormSection() {
     if (this.msr.OperationType === 'Cargo/Personnel Move') {
       return 'Cargo/Personnel Move';
-    } else if (this.msr.OperationType === 'AIR Mobility (SAM)') {
-      return 'AIR Mobility';
-    } else if (this.msr.OperationType === 'Special Tactics/Battlefield Airman (ST/BAO)') {
-      return 'Special Tactics/Battlefield Airman';
+    } else if (this.msr.OperationType === 'SOF Aviation Support') {
+      return 'SOF Aviation Support';
+    } else if (this.msr.OperationType === 'Special Tactics/JTAC') {
+      return 'Special Tactics/JTAC';
     } else {
       return '';
     }

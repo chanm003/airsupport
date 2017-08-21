@@ -69,15 +69,15 @@ export class PrintformService {
       opTypeSpecificRows.push({name: 'Amplifying Detail', value: msr.AmplifyingDetail || ''});
     }
 
-    if (msr.OperationType === 'Special Tactics/Battlefield Airman (ST/BAO)') {
-      doc.text('Special Tactics/Battlefield Airman', 14, doc.autoTable.previous.finalY + 10);
+    if (msr.OperationType === 'Special Tactics/JTAC') {
+      doc.text('Special Tactics/JTAC', 14, doc.autoTable.previous.finalY + 10);
       opTypeSpecificRows.push({name: 'JTAC/CAS', value: (`${msr.JtacCasType} ` || '') + (msr.JtacFireType || '')});
       opTypeSpecificRows.push({name: 'Pararescue', value: msr.Pararescue || ''});
       opTypeSpecificRows.push({name: 'Surveys', value: msr.Surveys || ''});
     }
 
-    if (msr.OperationType === 'AIR Mobility (SAM)') {
-      doc.text('AIR Mobility', 14, doc.autoTable.previous.finalY + 10);
+    if (msr.OperationType === 'SOF Aviation Support') {
+      doc.text('SOF Aviation Support', 14, doc.autoTable.previous.finalY + 10);
       const infillExfillType = (showFieldsLogic['InfillExfillType'](msr) && msr.InfillExfillType) ? `(${msr.InfillExfillType})` : '';
       opTypeSpecificRows.push({name: 'Type', value: `${msr.AirMobilityType} ${infillExfillType}`});
 

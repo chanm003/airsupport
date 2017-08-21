@@ -20,15 +20,15 @@ export class MainformComponent implements OnChanges, OnInit {
   validationMessages: any;
   getMatchingPeople = this.peopleService.search;
   operationTypes: Array<string> = [
-    'Combat Support (ACS)',
-    'Aviation Foreign Internal Defense (AvFID)',
-    'Command and Control (C2)',
-    'Information Operations (IO)',
+    'SOF Aviation Support',
+    'Cargo/Personnel Move',
+    'Special Tactics/JTAC',
     'Intelligence, Surveillance, Reconnaissance (ISR)',
     'Strike/Fires',
-    'AIR Mobility (SAM)',
-    'Special Tactics/Battlefield Airman (ST/BAO)',
-    'Cargo/Personnel Move'
+    'Aviation Defense Institution Building (DIB)',
+    'Command and Control (C2)',
+    'Information Operations (IO)',
+    'Other Support'
   ];
 
   newRequestUnit = {

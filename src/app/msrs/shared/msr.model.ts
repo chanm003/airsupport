@@ -6,43 +6,43 @@ import * as _ from 'lodash';
 export class Msr {
     static fieldsLogic = {
         'AIE_related_fields': function (msr) {
-            return msr.OperationType === 'AIR Mobility (SAM)' && msr.AirMobilityType === 'Infill/Exfill' && msr.InfillExfillType === 'AIEs';
+            return msr.OperationType === 'SOF Aviation Support' && msr.AirMobilityType === 'Infill/Exfill' && msr.InfillExfillType === 'AIEs';
         },
         'EstimatedDimensionsWeight': function (msr) {
-            return msr.OperationType === 'AIR Mobility (SAM)' && msr.AirMobilityType === 'Equipment Drop';
+            return msr.OperationType === 'SOF Aviation Support' && msr.AirMobilityType === 'Equipment Drop';
         },
         'FFEquipment': function (msr) {
             return false;
         },
         'InfillExfillType': function (msr) {
-            return msr.OperationType === 'AIR Mobility (SAM)' && msr.AirMobilityType === 'Infill/Exfill';
+            return msr.OperationType === 'SOF Aviation Support' && msr.AirMobilityType === 'Infill/Exfill';
         },
         'NumberOfPersonnel': function (msr) {
-            return msr.OperationType === 'AIR Mobility (SAM)' && msr.AirMobilityType === 'Infill/Exfill';
+            return msr.OperationType === 'SOF Aviation Support' && msr.AirMobilityType === 'Infill/Exfill';
         },
         'NumberOfRefuelPointsRequired': function (msr) {
-            return msr.OperationType === 'AIR Mobility (SAM)' && msr.AirMobilityType === 'FARP';
+            return msr.OperationType === 'SOF Aviation Support' && msr.AirMobilityType === 'FARP';
         },
         'ParachuteMFF': function (msr) {
-            if (msr.OperationType === 'AIR Mobility (SAM)' && msr.AirMobilityType === 'Infill/Exfill') {
+            if (msr.OperationType === 'SOF Aviation Support' && msr.AirMobilityType === 'Infill/Exfill') {
                 return msr.InfillExfillType === 'MFF';
             }
 
             return false;
         },
         'ParachuteStaticLine': function (msr) {
-            if (msr.OperationType === 'AIR Mobility (SAM)' && msr.AirMobilityType === 'Infill/Exfill') {
+            if (msr.OperationType === 'SOF Aviation Support' && msr.AirMobilityType === 'Infill/Exfill') {
                 return msr.InfillExfillType === 'Static Line';
             }
 
             return false;
         },
         'RAPIDS_related_fields': function (msr) {
-            return msr.OperationType === 'AIR Mobility (SAM)' && msr.AirMobilityType === 'Infill/Exfill' && 
+            return msr.OperationType === 'SOF Aviation Support' && msr.AirMobilityType === 'Infill/Exfill' && 
                 msr.InfillExfillType === 'RAPIDS';
         },
         'TypeRelease': function (msr) {
-            if (msr.OperationType !== 'AIR Mobility (SAM)') { return false; }
+            if (msr.OperationType !== 'SOF Aviation Support') { return false; }
             if (msr.AirMobilityType === 'Equipment Drop') { return true; }
             return false;
         }
@@ -50,7 +50,7 @@ export class Msr {
 
     static panelsLogic = {
         'DropZones': function (msr) {
-            if (msr.OperationType === 'AIR Mobility (SAM)') {
+            if (msr.OperationType === 'SOF Aviation Support') {
                 if (msr.AirMobilityType === 'Infill/Exfill') {
                     return _.includes(['MFF', 'Static Line'], msr.InfillExfillType);
                 }
@@ -59,7 +59,7 @@ export class Msr {
         },
         'LandingZones': function (msr) {
             if (msr.AirMobilityType === 'FARP') { return true; }
-            if (msr.OperationType === 'AIR Mobility (SAM)') {
+            if (msr.OperationType === 'SOF Aviation Support') {
                 if (msr.AirMobilityType === 'Infill/Exfill') {
                     return msr.InfillExfillType === 'RAPIDS' && msr.SurveysRequired;
                 }
@@ -67,17 +67,17 @@ export class Msr {
             return false;
         },
         'ParachuteFields': function (msr) {
-            if (msr.OperationType === 'AIR Mobility (SAM)' && msr.AirMobilityType === 'Infill/Exfill') {
+            if (msr.OperationType === 'SOF Aviation Support' && msr.AirMobilityType === 'Infill/Exfill') {
                 return msr.InfillExfillType === 'MFF' || msr.InfillExfillType === 'Static Line';
             }
 
             return false;
         },
         'Platforms': function (msr) {
-            return msr.OperationType === 'Special Tactics/Battlefield Airman (ST/BAO)';
+            return msr.OperationType === 'Special Tactics/JTAC';
         },
         'PNForces': function (msr) {
-            if (msr.OperationType === 'AIR Mobility (SAM)') {
+            if (msr.OperationType === 'SOF Aviation Support') {
                 if (msr.AirMobilityType === 'HAAR/TAAR') { return true; }
                 if (msr.AirMobilityType === 'Equipment Drop') { return true; }
                 if (msr.AirMobilityType === 'FARP') { return true; }
@@ -88,8 +88,8 @@ export class Msr {
             return false;
         },
         'TargetLocations': function (msr) {
-            if (msr.OperationType === 'Special Tactics/Battlefield Airman (ST/BAO)') { return true; }
-            if (msr.OperationType === 'AIR Mobility (SAM)') {
+            if (msr.OperationType === 'Special Tactics/JTAC') { return true; }
+            if (msr.OperationType === 'SOF Aviation Support') {
                 if (msr.AirMobilityType === 'Infill/Exfill') {
                     return msr.InfillExfillType === 'AIEs';
                 }
@@ -97,7 +97,7 @@ export class Msr {
             return false;
         },
         'Vehicles': function (msr) {
-            if (msr.OperationType === 'AIR Mobility (SAM)') {
+            if (msr.OperationType === 'SOF Aviation Support') {
                 if (msr.AirMobilityType === 'Infill/Exfill') {
                     return msr.InfillExfillType === 'RAPIDS' && msr.VehiclesRequired;
                 }
@@ -225,7 +225,7 @@ export class Msr {
                     target['SelectedMissions'].push(JSON.parse(source[propName]));
                 }
             },
-            /*AIR MOBILITY FORM FIELDS*/
+            /*SOF Aviation Support FORM FIELDS*/
             'AirMobilityType': (target, source, propName) => target[propName] = source[propName],
             'EstimatedDimensionsHeight': (target, source, propName) => target[propName] = source[propName],
             'EstimatedDimensionsLength': (target, source, propName) => target[propName] = source[propName],
@@ -335,7 +335,7 @@ export class Msr {
             'RelatedMissionId': (target, source, propName) => target[propName] = source[propName],
             'SelectedMissions': (target, source, propName) => target['RelatedMission'] = (source[propName].length) ?
                 JSON.stringify(source[propName][0]) : null,
-            /*AIR MOBILITY FORM FIELDS*/
+            /*SOF Aviation Support FORM FIELDS*/
             'AirMobilityType': (target, source, propName) => target[propName] = source[propName],
             'EstimatedDimensionsHeight': (target, source, propName) => target[propName] = source[propName],
             'EstimatedDimensionsLength': (target, source, propName) => target[propName] = source[propName],

@@ -36,7 +36,7 @@ export class TargetlocationsComponent implements OnInit {
   }
 
   showAccessPOC() {
-    return this.msr.OperationType === 'Special Tactics/Battlefield Airman (ST/BAO)';
+    return this.msr.OperationType === 'Special Tactics/JTAC';
   }
 }
 
