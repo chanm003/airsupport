@@ -1,6 +1,10 @@
 // Here you can add other styles
 input[type=text]::-ms-clear { display: none; }
 
+.ng2-dropdown-menu[_ngcontent-c6] {
+	width: auto !important;
+}
+
 label.ui-chkbox-label, label.ui-multiselect-label {
 	margin-bottom: 0px;
 }
