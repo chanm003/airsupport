@@ -16,9 +16,9 @@ export class MissionService {
         webUrl = 'http://localhost:80/oaa';
       }
       const nowIsoFormat = (new Date()).toISOString();
-      const select = 'Id,Title,Event/Id,EndDate,StatusValue';
+      const select = 'Id,Title,Event/Id,EndDate,StatusValue,EventID';
       const statusFilter = `StatusValue ne 'Canceled' and StatusValue ne 'Completed' and StatusValue ne 'Disapproved'`;
-      const stringFilter = `substringof('${text}',Title)`;
+      const stringFilter = `substringof('${text}',EventID)`;
       const dateFilter = `EndDate ge datetime'${nowIsoFormat}'`;
       const filter = `${statusFilter} and ${dateFilter} and ${stringFilter}`;
       const expand = `Event`;
@@ -31,9 +31,9 @@ export class MissionService {
             const relatedEventId = (relatedEvent.results && relatedEvent.results.length > 0) ? relatedEvent.results[0].Id : '-1';
             return {
               Id: item.Id,
-              Title: item.Title,
+              Title: item.EventID,
               EventID: relatedEventId,
-              display: item.Title,
+              display: item.EventID,
               value: item.Id
             };
           });
