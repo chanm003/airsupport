@@ -42,6 +42,10 @@ export class MainformComponent implements OnChanges, OnInit {
     phone: ''
   };
 
+  newReleasability = {
+    name: ''
+  };
+
   ngbDateRangeValid(startFieldName: string, endFieldName: string) {
     return  (fg: AbstractControl): {[key: string]: boolean} | null => {
       const startFieldVal = fg.get(startFieldName).value;
@@ -202,6 +206,18 @@ export class MainformComponent implements OnChanges, OnInit {
         this.cachedData = data;
         this.msr.RequestingUnit = _.find(this.cachedData.requestingUnits, {Name: this.newRequestUnit.name});
         this.msr.RequestingUnitId = this.msr.RequestingUnit.Id;
+        this.modalRef.close();
+        this.spinnerService.hide();
+      });
+  }
+
+  createReleasability() {
+    this.spinnerService.show();
+    this.cacheddataService.addReleasability(this.newReleasability)
+      .then(() => this.cacheddataService.getAll())
+      .then((data) => {
+        this.cachedData = data;
+        this.msr.Releasability = this.newReleasability.name;
         this.modalRef.close();
         this.spinnerService.hide();
       });

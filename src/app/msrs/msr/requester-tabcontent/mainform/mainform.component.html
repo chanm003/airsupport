@@ -148,10 +148,10 @@
     <app-errormessage [parentFormGroup]="mainForm" [fieldName]="'Classification'" [validationMessages]="validationMessages"></app-errormessage>
   </div>
   <div class="form-group col-6 required">
-    <label>Releasability</label>
+    <label>Releasability</label> <a href="" onclick="event.preventDefault();" (click)="openModal(releasabilityModal)"><u>create releasability</u></a>
     <select [(ngModel)]="msr.Releasability" class="form-control" formControlName="Releasability">
       <option value="" disabled="true" [selected]="!msr.Releasability">Select a Releasability</option>
-      <option *ngFor="let item of cachedData.releasabilityTypes" [ngValue]="item">{{item}}</option>
+      <option *ngFor="let item of cachedData.releasabilityTypes" [ngValue]="item.Title">{{item.Title}}</option>
     </select>
     <app-errormessage [parentFormGroup]="mainForm" [fieldName]="'Releasability'" [validationMessages]="validationMessages"></app-errormessage>
   </div>
@@ -197,5 +197,26 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" aria-label="Close" (click)="d('Cross click')">Close</button>
         <button type="button" class="btn btn-primary" (click)="createRequestUnit()">Save</button>
+      </div>
+    </ng-template>
+
+    <ng-template #releasabilityModal let-c="close" let-d="dismiss">
+      <div class="modal-header">
+        <h4 class="modal-title">Create Releasability</h4>
+        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+        <div class="form-group">
+          <label>Name</label>
+          <input [(ngModel)]="newReleasability.name" type="text" class="form-control">
+        </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" aria-label="Close" (click)="d('Cross click')">Close</button>
+        <button type="button" class="btn btn-primary" (click)="createReleasability()">Save</button>
       </div>
     </ng-template>

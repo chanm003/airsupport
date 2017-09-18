@@ -201,7 +201,7 @@ export class CacheddataService {
           statuses: data[6],
           mffParachutes: data[7],
           staticLineParachutes: data[8],
-          releasabilityTypes: _.map(data[9], 'Title')
+          releasabilityTypes: data[9]
       };
 
       this.localStorageService.set('lookups', lookups);
@@ -214,6 +214,13 @@ export class CacheddataService {
       Name: unit.name,
       Email: unit.email,
       PhoneNumber: unit.phone
+    })
+    .then(() => this.localStorageService.remove('lookups'));
+  }
+
+  addReleasability(item) {
+    return this.pagecontextService.getWeb().lists.getByTitle('Releasability').items.add({
+      Title: item.name
     })
     .then(() => this.localStorageService.remove('lookups'));
   }
