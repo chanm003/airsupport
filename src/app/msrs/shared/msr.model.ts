@@ -6,7 +6,9 @@ import * as _ from 'lodash';
 export class Msr {
     static fieldsLogic = {
         'AIE_related_fields': function (msr) {
-            return msr.OperationType === 'SOF Aviation Support' && msr.AirMobilityType === 'Infill/Exfill' && msr.InfillExfillType === 'AIEs';
+            return msr.OperationType === 'SOF Aviation Support' &&
+                msr.AirMobilityType === 'Infill/Exfill' &&
+                msr.InfillExfillType === 'AIEs';
         },
         'EstimatedDimensionsWeight': function (msr) {
             return msr.OperationType === 'SOF Aviation Support' && msr.AirMobilityType === 'Equipment Drop';
@@ -116,6 +118,8 @@ export class Msr {
     AssignedOutsideUnits?: Array<AssignedOutsideUnit>;
     AssignedSubunits?: Array<AssignedSubunit>;
     Author?: any;
+    Classification?: string;
+    ClassificationNotes?: string;
     CommunicationSupportReqs?: string;
     CommunicationSupportRequired?: boolean;
     Conop?: string;
@@ -161,6 +165,7 @@ export class Msr {
     PNForces?: Array<PNForce>;
     RappelRequired?: boolean;
     RelatedMissionId?: string;
+    Releasability?: string;
     RequesterEmail?: string;
     RequesterPhone?: string;
     RequestingUnit?: any;
@@ -186,6 +191,8 @@ export class Msr {
             'AltEmail': (target, source, propName) => target[propName] = source[propName],
             'AltPhone': (target, source, propName) => target[propName] = source[propName],
             'AltPOC': (target, source, propName) => target[propName] = source[propName],
+            'Classification': (target, source, propName) => target[propName] = source[propName],
+            'ClassificationNotes': (target, source, propName) => target[propName] = source[propName],
             'CommunicationSupportReqs': (target, source, propName) => target[propName] = source[propName],
             'CommunicationSupportRequired': (target, source, propName) => target[propName] = source[propName],
             'Conop': (target, source, propName) => target[propName] = source[propName],
@@ -199,6 +206,7 @@ export class Msr {
             },
             'NegativeImpact': (target, source, propName) => target[propName] = source[propName],
             'OperationType': (target, source, propName) => target[propName] = source[propName],
+            'Releasability': (target, source, propName) => target[propName] = source[propName],
             'Requester': (target, source, propName) => {
                 target['SelectedRequesters'] = [];
                 const requester = source['Requester'];
@@ -308,6 +316,8 @@ export class Msr {
             'AltEmail': (target, source, propName) => target[propName] = source[propName],
             'AltPhone': (target, source, propName) => target[propName] = source[propName],
             'AltPOC': (target, source, propName) => target[propName] = source[propName],
+            'Classification': (target, source, propName) => target[propName] = source[propName],
+            'ClassificationNotes': (target, source, propName) => target[propName] = source[propName],
             'CommunicationSupportReqs': (target, source, propName) => target[propName] = source[propName],
             'CommunicationSupportRequired': (target, source, propName) => target[propName] = source[propName],
             'Conop': (target, source, propName) => target[propName] = source[propName],
@@ -328,6 +338,7 @@ export class Msr {
                     target['RequesterId'] = selected[0].Id;
                 }
             },
+            'Releasability': (target, source, propName) => target[propName] = source[propName],
             'RequesterEmail': (target, source, propName) => target[propName] = source[propName],
             'RequesterPhone': (target, source, propName) => target[propName] = source[propName],
             'RequestingUnitId': (target, source, propName) => target[propName] = source[propName],

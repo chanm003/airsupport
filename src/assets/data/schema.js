@@ -517,6 +517,30 @@ msrSchema.lists['Mission Support Request'] = {
             Required: "FALSE"
         },
         {
+            //EXAMPLE: SINGLE LINE OF TEXT
+            Name: "Classification",
+            DisplayName: "Classification",
+            Type: "Text",
+            Required: "FALSE"
+        },
+        {
+            //EXAMPLE: SINGLE LINE OF TEXT
+            Name: "Releasability",
+            DisplayName: "Releasability",
+            Type: "Text",
+            Required: "FALSE"
+        },
+        {
+            //EXAMPLE: SINGLE LINE OF TEXT
+            Name: "ClassificationNotes",
+            DisplayName: "ClassificationNotes",
+            Type: "Note",
+            Required: "FALSE",
+            NumLines: 6,
+            RichText: "FALSE",						//RECOMMENDED
+            AppendOnly: "FALSE"						//VERSIONING MUST BE TURNED ON, otherwise specifie "FALSE"
+        },
+        {
             //EXAMPLE: Lookup field
             Name: "OwningUnits",
             DisplayName: "Owning Units",
@@ -780,4 +804,10 @@ msrSchema.lists['EmailTemplates'] = {
             AppendOnly: "FALSE"					//VERSIONING MUST BE TURNED ON, otherwise specifie "FALSE"
         }
     ]
+};
+
+msrSchema.lists['Releasability'] = {
+    BaseTemplate: 'genericList',
+    shouldHideTitleField: false,
+    fieldsToCreate: []
 };

@@ -3,10 +3,11 @@ window.generateFakeData = function () {
         seedOwningUnits(),
         seedRequestingUnits(),
         seedSupportUnits(), /*seeds items in two lists*/
-        seedEmailTemplates()
+        seedEmailTemplates(),
+        seedReleasability()
     )
         .then(function () {
-            console.log("Five lists have been seeded...");
+            console.log("Six lists have been seeded...");
         });
 
     function seedOwningUnits() {
@@ -98,6 +99,19 @@ window.generateFakeData = function () {
                 { Title: 'Planning', Body: '${currentUser} has set the status of ${title} to Planning.\n\n${supportUnit} will assign subunits and platforms (as needed) to fulfill your request:\n<a href="${url}">Link to MSR</a>\n\n'},
                 { Title: 'Approved', Body: '${currentUser} has approved ${title}:\n<a href="${url}">Link to MSR</a>\n\n'},
                 { Title: 'Rejected', Body: '${currentUser} has rejected ${title}:\n<a href="${url}">Link to MSR</a>\n\n'}
+            ]
+        });
+    }
+
+    function seedReleasability() {
+        return spSchemaProvisioner.insertListItems({
+            listTitle: 'Releasability',
+            itemsToCreate: [
+                { Title: 'None'},
+                { Title: 'REL TO USA'}, 
+                { Title: 'REL TO USA, AUS'},
+                { Title: 'REL TO USA, CAN'}, 
+                { Title: 'REL TO USA, GBR'} 
             ]
         });
     }
