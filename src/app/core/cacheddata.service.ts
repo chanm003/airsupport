@@ -76,6 +76,16 @@ export class CacheddataService {
       .get();
   }
 
+  private getReleasabilityTypes() {
+    const listName = 'Releasability';
+    const fieldsToSelect = ['Title'];
+
+    return this.pagecontextService.getWeb().lists.getByTitle(listName).items
+      .select(...fieldsToSelect)
+      .top(10000)
+      .get();
+  }
+
   private getRequestingUnits() {
     const listName = 'Requesting Units';
     const fieldsToSelect = ['Id', 'Name', 'Email', 'VerificationDate', 'PhoneNumber'];
@@ -166,7 +176,8 @@ export class CacheddataService {
       this.getEmailTemplates(),
       this.getStatuses(),
       this.getParachuteMff(),
-      this.getParachuteStaticLine()
+      this.getParachuteStaticLine(),
+      this.getReleasabilityTypes()
     ])
     .then(data => {
       const owningUnits = data[0];
@@ -189,7 +200,8 @@ export class CacheddataService {
           emailTemplates: data[5],
           statuses: data[6],
           mffParachutes: data[7],
-          staticLineParachutes: data[8]
+          staticLineParachutes: data[8],
+          releasabilityTypes: _.map(data[9], 'Title')
       };
 
       this.localStorageService.set('lookups', lookups);

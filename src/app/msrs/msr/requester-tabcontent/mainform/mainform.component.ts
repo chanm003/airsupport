@@ -30,6 +30,11 @@ export class MainformComponent implements OnChanges, OnInit {
     'Information Operations (IO)',
     'Other Support'
   ];
+  classifications: Array<string> = [
+    'UNCLASSIFIED',
+    'CONFIDENTIAL',
+    'SECRET'
+  ];
 
   newRequestUnit = {
     name: '',
@@ -80,7 +85,10 @@ export class MainformComponent implements OnChanges, OnInit {
       'MedicalSupportRequired': '',
       'MedicalSupportReqs': '',
       'CommunicationSupportRequired': '',
-      'CommunicationSupportReqs': ''
+      'CommunicationSupportReqs': '',
+      'Classification': ['', Validators.required],
+      'Releasability': ['', Validators.required],
+      'ClassificationNotes': ''
     });
 
     this.validationMessages = {
@@ -122,6 +130,12 @@ export class MainformComponent implements OnChanges, OnInit {
       },
       'MedicalSupportReqs': {
         required: 'Requirements for medical support is required'
+      },
+      'Classification': {
+        required: 'Classification is required'
+      },
+      'Releasability': {
+        required: 'Releasability is required'
       }
      };
 

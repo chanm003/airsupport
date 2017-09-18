@@ -138,6 +138,30 @@
       <app-errormessage [parentFormGroup]="mainForm" [fieldName]="'CommunicationSupportReqs'" [validationMessages]="validationMessages"></app-errormessage>
   </div>
 </div>
+<div class="row">
+  <div class="form-group col-6 required">
+    <label>Classification</label>
+    <select [(ngModel)]="msr.Classification" class="form-control" formControlName="Classification">
+      <option value="" disabled="true" [selected]="!msr.Classification">Select a Classification</option>
+      <option *ngFor="let item of classifications" [value]="item">{{item}}</option>
+    </select>
+    <app-errormessage [parentFormGroup]="mainForm" [fieldName]="'Classification'" [validationMessages]="validationMessages"></app-errormessage>
+  </div>
+  <div class="form-group col-6 required">
+    <label>Releasability</label>
+    <select [(ngModel)]="msr.Releasability" class="form-control" formControlName="Releasability">
+      <option value="" disabled="true" [selected]="!msr.Releasability">Select a Releasability</option>
+      <option *ngFor="let item of cachedData.releasabilityTypes" [ngValue]="item">{{item}}</option>
+    </select>
+    <app-errormessage [parentFormGroup]="mainForm" [fieldName]="'Releasability'" [validationMessages]="validationMessages"></app-errormessage>
+  </div>
+</div>
+<div class="row">
+  <div class="form-group col-12">
+    <label>Classification Notes</label>
+    <textarea [(ngModel)]="msr.ClassificationNotes" rows="2" class="form-control" formControlName="ClassificationNotes"></textarea>
+  </div>
+</div>
 </form>
 
 <ng-template #statusModal let-c="close" let-d="dismiss">
